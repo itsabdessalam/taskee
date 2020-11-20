@@ -8,4 +8,4 @@ const AppContextProvider = ({ children }) => {
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;
 };
 
-export { AppContext, AppContextProvider };
+export { AppContextProvider, AppContext as default };

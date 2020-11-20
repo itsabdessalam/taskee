@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 import { ProtectedRoute } from "../components";
 import { Header, Footer, Container } from "../layouts";
-import { AppContext } from "../context/App";
 import { LocaleProvider } from "../context/Locale";
 
 import Home from "../pages/home";
