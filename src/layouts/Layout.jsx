@@ -11,8 +11,8 @@ const Layout = ({ children, ...props }) => {
   const location = useLocation();
   const fullPages = ["/login", "/register", "/getting-started"];
 
-  const isFullPage = (page) => {
-    return fullPages.find((p) => {
+  const isFullPage = page => {
+    return fullPages.find(p => {
       return p === page;
     });
   };

@@ -8,7 +8,7 @@ import until from "../utils/until";
 import AuthService from "../services/AuthService";
 import { handleLogin, isLoggedIn } from "../utils/auth";
 import { Redirect } from "react-router-dom";
-import getLanguage from "../utils/langage";
+import getLanguage from "../utils/language";
 
 const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
