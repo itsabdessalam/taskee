@@ -7,10 +7,11 @@ import {Header, Footer, Container} from "../layouts";
 import Home from "../pages/home";
 import Login from "../pages/login";
 import Register from "../pages/register";
+import Lock from "../pages/lock";
 
 const Layout = ({children, ...props}) => {
   const location = useLocation();
-  const fullPages = ["/login", "/register"];
+  const fullPages = ["/login", "/register", "/lock"];
 
   const isFullPage = (page) => {
     return fullPages.find((p) => {
@@ -33,6 +34,9 @@ const Layout = ({children, ...props}) => {
          </Route>
          <Route exact path="/register">
            <Register/>
+         </Route>
+         <Route exact path="/lock">
+           <Lock/>
          </Route>
        </Switch>
      </Container>
