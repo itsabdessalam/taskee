@@ -1,9 +1,9 @@
-import {useState} from "react";
-import {Redirect} from "react-router-dom";
-import {useForm} from "../hooks";
+import { useState } from "react";
+import { Redirect } from "react-router-dom";
+import { useForm } from "../hooks";
 import until from "../utils/until";
 
-import {handleLogin, isLoggedIn} from "../utils/auth";
+import { handleLogin, isLoggedIn } from "../utils/auth";
 import AuthService from "../services/AuthService";
 
 import Form from "./Form";

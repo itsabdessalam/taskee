@@ -11,7 +11,6 @@ import Input from "./Input";
 import LoginForm from "./LoginForm";
 import ProtectedRoute from "./ProtectedRoute";
 import RegisterForm from "./RegisterForm";
-import LoginRegisterBtn from "./LoginRegisterBtn";
 
 export {
   Button,
@@ -25,6 +24,5 @@ export {
   ProtectedRoute,
   LoginForm,
   RegisterForm,
-  LoginRegisterBtn,
   Title
 };

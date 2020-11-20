@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const placeHolder =
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPsnrMmAQAFwgI1DAyiDgAAAABJRU5ErkJggg==";
+ "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPsnrMmAQAFwgI1DAyiDgAAAABJRU5ErkJggg==";
 
 const Image = styled.img`
   display: block;
@@ -25,7 +25,7 @@ const Image = styled.img`
   }
 `;
 
-const Img = ({ src, alt, ...props }) => {
+const Img = ({src, alt, ...props}) => {
   const [imageSrc, setImageSrc] = useState(placeHolder);
   const [imageRef, setImageRef] = useState();
 
@@ -44,21 +44,21 @@ const Img = ({ src, alt, ...props }) => {
     if (imageRef && imageSrc !== src) {
       if (IntersectionObserver) {
         observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (
-                isMounted &&
-                (entry.intersectionRatio > 0 || entry.isIntersecting)
-              ) {
-                setImageSrc(src);
-                observer.unobserve(imageRef);
-              }
-            });
-          },
-          {
-            threshold: 0.01,
-            rootMargin: "75%"
-          }
+         (entries) => {
+           entries.forEach((entry) => {
+             if (
+              isMounted &&
+              (entry.intersectionRatio > 0 || entry.isIntersecting)
+             ) {
+               setImageSrc(src);
+               observer.unobserve(imageRef);
+             }
+           });
+         },
+         {
+           threshold: 0.01,
+           rootMargin: "75%"
+         }
         );
         observer.observe(imageRef);
       } else {
@@ -73,14 +73,14 @@ const Img = ({ src, alt, ...props }) => {
     };
   }, [src, imageSrc, imageRef]);
   return (
-    <Image
-      ref={setImageRef}
-      src={imageSrc}
-      alt={alt}
-      onLoad={onLoad}
-      onError={onError}
-      {...props}
-    />
+   <Image
+    ref={setImageRef}
+    src={imageSrc}
+    alt={alt}
+    onLoad={onLoad}
+    onError={onError}
+    {...props}
+   />
   );
 };
 

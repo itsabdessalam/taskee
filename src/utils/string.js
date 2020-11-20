@@ -5,9 +5,9 @@
  * @param {number} length
  */
 export const truncate = (value, length) =>
-  value.length > length
-    ? value.slice(0, length > 3 ? length - 3 : length) + "..."
-    : value;
+ value.length > length
+  ? value.slice(0, length > 3 ? length - 3 : length) + "..."
+  : value;
 
 /**
  * Checks if a string starts with a given substring.

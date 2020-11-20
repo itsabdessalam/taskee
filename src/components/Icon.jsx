@@ -27,26 +27,26 @@ const icons = [
   }
 ];
 
-const Icon = ({ children, name, ...props }) => {
+const Icon = ({children, name, ...props}) => {
   return (
-    <>
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeminecap="round"
-        strokeLinejoin="round"
-        xmlns="http://www.w3.org/2000/svg"
-        className={name}
-        {...props}
-        dangerouslySetInnerHTML={{
-          __html: icons.find((icon) => icon.name === name)
-            ? icons.find((icon) => icon.name === name).content
-            : "",
-        }}
-      ></svg>
-    </>
+   <>
+     <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeminecap="round"
+      strokeLinejoin="round"
+      xmlns="http://www.w3.org/2000/svg"
+      className={name}
+      {...props}
+      dangerouslySetInnerHTML={{
+        __html: icons.find((icon) => icon.name === name)
+         ? icons.find((icon) => icon.name === name).content
+         : "",
+      }}
+     ></svg>
+   </>
   );
 };
 

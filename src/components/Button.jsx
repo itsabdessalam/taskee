@@ -15,7 +15,7 @@ const StyledButton = styled.button`
   border: none;
   border-radius: 8px;
   color: #ffffff;
-  background-color: ${({ theme }) => theme.colors.primary.base};
+  background-color: ${({theme}) => theme.colors.primary.base};
   text-align: center;
   text-decoration: none;
 
@@ -33,7 +33,7 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = ({ children, ...props }) => {
+const Button = ({children, ...props}) => {
   return <StyledButton {...props}>{children}</StyledButton>;
 };
 

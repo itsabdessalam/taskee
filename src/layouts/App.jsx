@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider, createGlobalStyle } from "styled-components";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
 import Layout from "./Layout";
 import theme from "../config/theme";
 
@@ -33,14 +33,14 @@ const GlobalStyle = createGlobalStyle`
 
 const App = () => {
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <BrowserRouter>
-          <Layout />
-        </BrowserRouter>
-      </ThemeProvider>
-    </>
+   <>
+     <ThemeProvider theme={theme}>
+       <GlobalStyle/>
+       <BrowserRouter>
+         <Layout/>
+       </BrowserRouter>
+     </ThemeProvider>
+   </>
   );
 };
 

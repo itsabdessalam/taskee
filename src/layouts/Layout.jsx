@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
-import {Switch, Route, Redirect, useLocation} from "react-router-dom";
-import {ProtectedRoute} from "../components";
+import { Route, Switch, useLocation } from "react-router-dom";
 
-import {Header, Footer, Container} from "../layouts";
+import { Container, Footer, Header } from "../layouts";
 
 import Home from "../pages/home";
 import Login from "../pages/login";

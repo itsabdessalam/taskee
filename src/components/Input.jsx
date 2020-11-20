@@ -12,7 +12,7 @@ const StyledInput = styled.input`
   border: none;
   box-shadow: 0px 10px 50px rgb(220 226 229 / 0.2);
   border-radius: 8px;
-  color: ${({ theme }) => theme.colors.gray.dark};
+  color: ${({theme}) => theme.colors.gray.dark};
   background-color: #ffffff;
   font-family: inherit;
   outline: 0;
@@ -22,11 +22,11 @@ const StyledInput = styled.input`
   }
 
   ::placeholder {
-    color: ${({ theme }) => theme.colors.gray.light};
+    color: ${({theme}) => theme.colors.gray.light};
   }
 `;
 
-const Input = ({ children, ...props }) => {
+const Input = ({children, ...props}) => {
   return <StyledInput {...props}>{children}</StyledInput>;
 };
 

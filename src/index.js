@@ -6,12 +6,12 @@ import reportWebVitals from "./reportWebVitals";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <AppContextProvider>
-      <App />
-    </AppContextProvider>
-  </React.StrictMode>,
-  document.getElementById("app")
+ <React.StrictMode>
+   <AppContextProvider>
+     <App/>
+   </AppContextProvider>
+ </React.StrictMode>,
+ document.getElementById("app")
 );
 
 // If you want your app to work offline and load faster, you can change

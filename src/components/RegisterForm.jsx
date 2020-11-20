@@ -2,12 +2,13 @@ import Title from "./Title";
 import Form from "./Form";
 import Input from "./Input";
 import Button from "./Button";
-import {useForm} from "../hooks";
-import {useState} from "react";
+import { useForm } from "../hooks";
+import { useState } from "react";
 import until from "../utils/until";
 import AuthService from "../services/AuthService";
-import {handleLogin, isLoggedIn} from "../utils/auth";
-import {Redirect} from "react-router-dom";
+import { handleLogin, isLoggedIn } from "../utils/auth";
+import { Redirect } from "react-router-dom";
+import getLanguage from "../utils/langage";
 
 const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +23,7 @@ const RegisterForm = () => {
       lastName: values.lastName,
       email: values.email,
       password: values.password,
-      language: navigator.language.slice(0, 2)
+      language: getLanguage()
     };
 
     const [err, result] = await until(AuthService.register(user));
@@ -52,7 +53,7 @@ const RegisterForm = () => {
     lastName: "",
     email: "",
     password: "",
-    language: navigator.language.slice(0, 2)
+    language: ""
   });
 
   if (isLoggedIn()) return <Redirect to="/"/>;

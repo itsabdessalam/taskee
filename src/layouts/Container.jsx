@@ -15,8 +15,8 @@ const StyledContainer = styled.main`
   }
 `;
 
-const Container = ({ children, ...props }) => (
-  <StyledContainer {...props}>{children}</StyledContainer>
+const Container = ({children, ...props}) => (
+ <StyledContainer {...props}>{children}</StyledContainer>
 );
 
 export default Container;
