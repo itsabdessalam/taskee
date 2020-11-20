@@ -16,7 +16,7 @@ const getUser = () =>
  * @param {*} user
  * @returns
  */
-const setUser = user => {
+const setUser = (user) => {
   return (window.localStorage[AUTH_VAR] = JSON.stringify(user));
 };
 
@@ -60,7 +60,7 @@ export const isLoggedIn = () => {
  * @param {*} callback
  * @returns
  */
-export const logout = callback => {
+export const logout = (callback) => {
   setUser({});
   callback();
 };

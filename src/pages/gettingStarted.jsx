@@ -6,7 +6,7 @@ import ButtonGroup from "../components/ButtonGroup";
 
 const GettingStarted = () => {
   const history = useHistory();
-  const redirectTo = page => {
+  const redirectTo = (page) => {
     return history.push(page);
   };
   if (isLoggedIn()) return <Redirect to={"/"} />;

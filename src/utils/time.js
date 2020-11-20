@@ -4,11 +4,8 @@
  * @param {number} ms
  * @returns {string}
  */
-export const getReadableDuration = ms => {
-  const [time] = new Date(ms)
-    .toISOString()
-    .slice(11, -1)
-    .split(".");
+export const getReadableDuration = (ms) => {
+  const [time] = new Date(ms).toISOString().slice(11, -1).split(".");
 
   return time
     .split(":")
