@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <>
       <Title level={2}>Home</Title>
-      <FormattedMessage id="greeting" values={{ name: "John Doe" }} />
+      <FormattedMessage id="greeting" values={{ name: "John Doe" }} /> {/* only for test purposes */}
     </>
   );
 };
