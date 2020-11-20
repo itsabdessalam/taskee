@@ -2,8 +2,8 @@ const AUTH_VAR = `${process.env.REACT_APP_BASE_NAME}_auth`;
 
 /**
  * Returns user from localStorage
- * 
- * @returns 
+ *
+ * @returns
  */
 const getUser = () =>
   !!window.localStorage[AUTH_VAR]

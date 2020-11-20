@@ -43,7 +43,7 @@ const Icon = ({ children, name, ...props }) => {
         dangerouslySetInnerHTML={{
           __html: icons.find((icon) => icon.name === name)
             ? icons.find((icon) => icon.name === name).content
-            : "",
+            : ""
         }}
       ></svg>
     </>
@@ -51,7 +51,7 @@ const Icon = ({ children, name, ...props }) => {
 };
 
 Icon.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
 };
 
 export default Icon;
