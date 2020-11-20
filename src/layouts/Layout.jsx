@@ -10,7 +10,7 @@ import Register from "../pages/register";
 
 const Layout = ({children, ...props}) => {
   const location = useLocation();
-  const fullPages = ["/login"];
+  const fullPages = ["/login", "/register"];
 
   const isFullPage = (page) => {
     return fullPages.find((p) => {
