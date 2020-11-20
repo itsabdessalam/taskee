@@ -2,7 +2,7 @@ import Button from "./Button";
 import Loader from "./Loader";
 import Link from "./Link";
 import ButtonGroup from "./ButtonGroup";
-
+import LocaleSelector from "./LocaleSelector";
 import Tabs from "./Tabs";
 import TabItem from "./TabItem";
 import Title from "./Title";
@@ -24,5 +24,6 @@ export {
   ProtectedRoute,
   LoginForm,
   RegisterForm,
-  Title
+  Title,
+  LocaleSelector
 };
