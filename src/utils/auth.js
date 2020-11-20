@@ -16,19 +16,29 @@ const getUser = () =>
  * @param {*} user
  * @returns
  */
-const setUser = (user) => {
+const setUser = user => {
   return (window.localStorage[AUTH_VAR] = JSON.stringify(user));
 };
 
 /**
  * Sets user with provided credentials
  *
- * @param {*} { username, password, token }
+ * @param {*} { lastName, firstName, email, password, language, token }
  * @returns
  */
-export const handleLogin = ({ email, password, token }) => {
+export const handleLogin = ({
+  lastName,
+  firstName,
+  email,
+  password,
+  language,
+  token
+}) => {
   return setUser({
+    lastName,
+    firstName,
     email,
+    language,
     token
   });
 };
@@ -50,7 +60,7 @@ export const isLoggedIn = () => {
  * @param {*} callback
  * @returns
  */
-export const logout = (callback) => {
+export const logout = callback => {
   setUser({});
   callback();
 };

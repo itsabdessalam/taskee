@@ -1,4 +1,4 @@
-import { Tabs, TabItem } from "../components";
+import { TabItem, Tabs } from "../components";
 
 const Footer = () => {
   return (

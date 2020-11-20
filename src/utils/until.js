@@ -7,10 +7,10 @@
  */
 const until = (promise, errorExt) => {
   return promise
-    .then((data) => {
+    .then(data => {
       return [null, data];
     })
-    .catch((error) => {
+    .catch(error => {
       if (errorExt) {
         Object.assign(error, errorExt);
       }

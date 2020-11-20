@@ -1,18 +1,18 @@
-/* eslint-disable no-unused-vars */
-import { Switch, Route, Redirect, useLocation } from "react-router-dom";
-import { ProtectedRoute } from "../components";
+import { Route, Switch, useLocation } from "react-router-dom";
 
-import { Header, Footer, Container } from "../layouts";
+import { Container, Footer, Header } from "../layouts";
 
 import Home from "../pages/home";
 import Login from "../pages/login";
+import Register from "../pages/register";
+import GettingStarted from "../pages/gettingStarted";
 
 const Layout = ({ children, ...props }) => {
   const location = useLocation();
-  const fullPages = ["/login"];
+  const fullPages = ["/login", "/register", "/getting-started"];
 
-  const isFullPage = (page) => {
-    return fullPages.find((p) => {
+  const isFullPage = page => {
+    return fullPages.find(p => {
       return p === page;
     });
   };
@@ -29,6 +29,12 @@ const Layout = ({ children, ...props }) => {
           </Route>
           <Route exact path="/login">
             <Login />
+          </Route>
+          <Route exact path="/register">
+            <Register />
+          </Route>
+          <Route exact path="/getting-started">
+            <GettingStarted />
           </Route>
         </Switch>
       </Container>
