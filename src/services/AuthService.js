@@ -6,6 +6,12 @@ const AuthService = {
     return axios.post(`${AUTH_API_URL}/login`, user, {
       "Content-Type": "application/json"
     });
+  },
+
+  register(user) {
+    return axios.post(`${AUTH_API_URL}/register`, user, {
+      "Content-Type": "application/json"
+    });
   }
 };
 

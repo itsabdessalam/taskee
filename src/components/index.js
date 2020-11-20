@@ -9,6 +9,7 @@ import Img from "./Img";
 import Input from "./Input";
 import LoginForm from "./LoginForm";
 import ProtectedRoute from "./ProtectedRoute";
+import RegisterForm from "./RegisterForm";
 
 export {
   Button,
@@ -20,5 +21,6 @@ export {
   Input,
   ProtectedRoute,
   LoginForm,
+  RegisterForm,
   Title
 };

@@ -2,13 +2,13 @@ const AUTH_VAR = `${process.env.REACT_APP_BASE_NAME}_auth`;
 
 /**
  * Returns user from localStorage
- * 
- * @returns 
+ *
+ * @returns
  */
 const getUser = () =>
-  !!window.localStorage[AUTH_VAR]
-    ? JSON.parse(window.localStorage[AUTH_VAR])
-    : {};
+ !!window.localStorage[AUTH_VAR]
+  ? JSON.parse(window.localStorage[AUTH_VAR])
+  : {};
 
 /**
  * Sets user in localStorage
@@ -26,7 +26,7 @@ const setUser = (user) => {
  * @param {*} { username, password, token }
  * @returns
  */
-export const handleLogin = ({ email, password, token }) => {
+export const handleLogin = ({email, password, token}) => {
   return setUser({
     email,
     token
