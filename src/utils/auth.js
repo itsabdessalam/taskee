@@ -23,12 +23,15 @@ const setUser = (user) => {
 /**
  * Sets user with provided credentials
  *
- * @param {*} { username, password, token }
+ * @param {*} { lastName, firstName, email, password, language, token }
  * @returns
  */
-export const handleLogin = ({email, password, token}) => {
+export const handleLogin = ({lastName, firstName, email, password, language, token}) => {
   return setUser({
+    lastName,
+    firstName,
     email,
+    language,
     token
   });
 };

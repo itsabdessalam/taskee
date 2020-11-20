@@ -40,7 +40,7 @@ const RegisterForm = () => {
 
     if (data && data.user && data.token) {
       handleLogin({
-        ...user,
+        ...data.user,
         token: data.token
       });
       setIsLoading(false);
