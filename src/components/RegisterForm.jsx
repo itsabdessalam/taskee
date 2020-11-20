@@ -29,15 +29,15 @@ const RegisterForm = () => {
     const [err, result] = await until(AuthService.register(user));
 
     if (err) {
-      setError({message: err.message});
+      setError({ message: err.message });
       setIsLoading(false);
     }
     if (result && result.data.errors) {
-      setError({message: "Invalid credentials provided"});
+      setError({ message: "Invalid credentials provided" });
       setIsLoading(false);
     }
 
-    const {data = {}} = result.data || {};
+    const { data = {} } = result.data || {};
 
     if (data && data.user && data.token) {
       handleLogin({
@@ -48,7 +48,7 @@ const RegisterForm = () => {
     }
   };
 
-  const {values, handleChange, handleSubmit} = useForm(register, {
+  const { values, handleChange, handleSubmit } = useForm(register, {
     firstName: "",
     lastName: "",
     email: "",
@@ -56,54 +56,54 @@ const RegisterForm = () => {
     language: ""
   });
 
-  if (isLoggedIn()) return <Redirect to="/"/>;
+  if (isLoggedIn()) return <Redirect to="/" />;
 
   return (
-   <>
-     <Title level={2}>Register</Title>
-     <Form className="inner-form" onSubmit={handleSubmit}>
-       <Input
-        name="firstName"
-        type="text"
-        placeholder={"john"}
-        label={"First Name"}
-        onChange={handleChange}
-        value={values.firstName}
-        required
-       />
-       <Input
-        name="lastName"
-        type="text"
-        placeholder={"doe"}
-        label={"Last Name"}
-        onChange={handleChange}
-        value={values.lastName}
-        required
-       />
-       <Input
-        name="email"
-        type="text"
-        placeholder={"john.doe@email.com"}
-        label={"Email"}
-        onChange={handleChange}
-        value={values.email}
-        required
-       />
-       <Input
-        name="password"
-        type="password"
-        placeholder={"••••••••••"}
-        label={"Password"}
-        onChange={handleChange}
-        value={values.password}
-        required
-       />
-       {error ? <p className="error">{error.message}</p> : null}
-       <Button type="submit" disabled={isLoading}>
-         {isLoading ? "Loading" : "Register"}
-       </Button>
-     </Form>
-   </>
+    <>
+      <Title level={2}>Register</Title>
+      <Form className="inner-form" onSubmit={handleSubmit}>
+        <Input
+          name="firstName"
+          type="text"
+          placeholder={"john"}
+          label={"First Name"}
+          onChange={handleChange}
+          value={values.firstName}
+          required
+        />
+        <Input
+          name="lastName"
+          type="text"
+          placeholder={"doe"}
+          label={"Last Name"}
+          onChange={handleChange}
+          value={values.lastName}
+          required
+        />
+        <Input
+          name="email"
+          type="text"
+          placeholder={"john.doe@email.com"}
+          label={"Email"}
+          onChange={handleChange}
+          value={values.email}
+          required
+        />
+        <Input
+          name="password"
+          type="password"
+          placeholder={"••••••••••"}
+          label={"Password"}
+          onChange={handleChange}
+          value={values.password}
+          required
+        />
+        {error ? <p className="error">{error.message}</p> : null}
+        <Button type="submit" disabled={isLoading}>
+          {isLoading ? "Loading" : "Register"}
+        </Button>
+      </Form>
+    </>
   );
 };
 

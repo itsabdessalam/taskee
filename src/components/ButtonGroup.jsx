@@ -6,7 +6,7 @@ const StyledButtonGroup = styled.div`
   flex-direction: column;
 `;
 
-const ButtonGroup = ({children, ...props}) => {
+const ButtonGroup = ({ children, ...props }) => {
   return <StyledButtonGroup {...props}>{children}</StyledButtonGroup>;
 };
 

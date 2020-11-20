@@ -8,7 +8,7 @@ const StyledLoader = styled.div`
 
   .loader {
     border: 2px solid rgb(139 156 172 / 40%);
-    border-top: 2px solid ${({theme}) => theme.colors.primary.base};
+    border-top: 2px solid ${({ theme }) => theme.colors.primary.base};
     border-radius: 50%;
     width: 28px;
     height: 28px;
@@ -25,15 +25,15 @@ const StyledLoader = styled.div`
   }
 `;
 
-const Loader = ({size}) => {
+const Loader = ({ size }) => {
   return (
-   <StyledLoader>
-     <div className="loader" width={size} height={size}>
-       {/* <div></div>
+    <StyledLoader>
+      <div className="loader" width={size} height={size}>
+        {/* <div></div>
         <div></div>
         <div></div> */}
-     </div>
-   </StyledLoader>
+      </div>
+    </StyledLoader>
   );
 };
 

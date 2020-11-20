@@ -33,14 +33,14 @@ const GlobalStyle = createGlobalStyle`
 
 const App = () => {
   return (
-   <>
-     <ThemeProvider theme={theme}>
-       <GlobalStyle/>
-       <BrowserRouter>
-         <Layout/>
-       </BrowserRouter>
-     </ThemeProvider>
-   </>
+    <>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <BrowserRouter>
+          <Layout />
+        </BrowserRouter>
+      </ThemeProvider>
+    </>
   );
 };
 
