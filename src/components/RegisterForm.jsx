@@ -21,7 +21,8 @@ const RegisterForm = () => {
       firstName: values.firstName,
       lastName: values.lastName,
       email: values.email,
-      password: values.password
+      password: values.password,
+      language: navigator.language.slice(0, 2)
     };
 
     const [err, result] = await until(AuthService.register(user));
@@ -30,15 +31,14 @@ const RegisterForm = () => {
       setError({message: err.message});
       setIsLoading(false);
     }
-
     if (result && result.data.errors) {
       setError({message: "Invalid credentials provided"});
       setIsLoading(false);
     }
 
-    const {data = {}} = result || {};
+    const {data = {}} = result.data || {};
 
-    if (data && data.auth && data.token) {
+    if (data && data.user && data.token) {
       handleLogin({
         ...user,
         token: data.token
@@ -48,10 +48,11 @@ const RegisterForm = () => {
   };
 
   const {values, handleChange, handleSubmit} = useForm(register, {
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
     email: "",
-    password: ""
+    password: "",
+    language: navigator.language.slice(0, 2)
   });
 
   if (isLoggedIn()) return <Redirect to="/"/>;
@@ -61,21 +62,21 @@ const RegisterForm = () => {
      <Title level={2}>Register</Title>
      <Form className="inner-form" onSubmit={handleSubmit}>
        <Input
-        name="firstname"
+        name="firstName"
         type="text"
         placeholder={"john"}
         label={"First Name"}
         onChange={handleChange}
-        value={values.firstname}
+        value={values.firstName}
         required
        />
        <Input
-        name="lastname"
+        name="lastName"
         type="text"
         placeholder={"doe"}
         label={"Last Name"}
         onChange={handleChange}
-        value={values.lastname}
+        value={values.lastName}
         required
        />
        <Input

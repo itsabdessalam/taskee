@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Redirect } from "react-router-dom";
-import { useForm } from "../hooks";
+import {useState} from "react";
+import {Redirect} from "react-router-dom";
+import {useForm} from "../hooks";
 import until from "../utils/until";
 
-import { handleLogin, isLoggedIn } from "../utils/auth";
+import {handleLogin, isLoggedIn} from "../utils/auth";
 import AuthService from "../services/AuthService";
 
 import Form from "./Form";
@@ -27,18 +27,18 @@ const LoginForm = () => {
     const [err, result] = await until(AuthService.login(user));
 
     if (err) {
-      setError({ message: err.message });
+      setError({message: err.message});
       setIsLoading(false);
     }
 
     if (result && result.data.errors) {
-      setError({ message: "Invalid credentials provided" });
+      setError({message: "Invalid credentials provided"});
       setIsLoading(false);
     }
 
-    const { data = {} } = result || {};
+    const {data = {}} = result.data || {};
 
-    if (data && data.auth && data.token) {
+    if (data && data.user && data.token) {
       handleLogin({
         ...user,
         token: data.token
@@ -47,43 +47,43 @@ const LoginForm = () => {
     }
   };
 
-  const { values, handleChange, handleSubmit } = useForm(auth, {
+  const {values, handleChange, handleSubmit} = useForm(auth, {
     email: "",
     password: ""
   });
 
   if (isLoggedIn()) {
-    return <Redirect to="/" />;
+    return <Redirect to="/"/>;
   }
 
   return (
-    <>
-      <Title level={2}>Login</Title>
-      <Form className="inner-form" onSubmit={handleSubmit}>
-        <Input
-          name="email"
-          type="text"
-          placeholder={"john.doe@email.com"}
-          label={"Email"}
-          onChange={handleChange}
-          value={values.email}
-          required
-        />
-        <Input
-          name="password"
-          type="password"
-          placeholder={"••••••••••"}
-          label={"Password"}
-          onChange={handleChange}
-          value={values.password}
-          required
-        />
-        {error ? <p className="error">{error.message}</p> : null}
-        <Button type="submit" disabled={isLoading}>
-          {isLoading ? "Loading" : "Login"}
-        </Button>
-      </Form>
-    </>
+   <>
+     <Title level={2}>Login</Title>
+     <Form className="inner-form" onSubmit={handleSubmit}>
+       <Input
+        name="email"
+        type="text"
+        placeholder={"john.doe@email.com"}
+        label={"Email"}
+        onChange={handleChange}
+        value={values.email}
+        required
+       />
+       <Input
+        name="password"
+        type="password"
+        placeholder={"••••••••••"}
+        label={"Password"}
+        onChange={handleChange}
+        value={values.password}
+        required
+       />
+       {error ? <p className="error">{error.message}</p> : null}
+       <Button type="submit" disabled={isLoading}>
+         {isLoading ? "Loading" : "Login"}
+       </Button>
+     </Form>
+   </>
   );
 };
 
