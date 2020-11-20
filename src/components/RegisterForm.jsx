@@ -63,7 +63,7 @@ const RegisterForm = () => {
        <Input
         name="firstname"
         type="text"
-        placeholder={"doe"}
+        placeholder={"john"}
         label={"First Name"}
         onChange={handleChange}
         value={values.firstname}
@@ -72,7 +72,7 @@ const RegisterForm = () => {
        <Input
         name="lastname"
         type="text"
-        placeholder={"john"}
+        placeholder={"doe"}
         label={"Last Name"}
         onChange={handleChange}
         value={values.lastname}
