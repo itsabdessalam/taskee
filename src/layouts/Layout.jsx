@@ -42,6 +42,9 @@ const Layout = ({ children, ...props }) => {
             <Route exact path="/register">
               <Register />
             </Route>
+            <Route exact path="/dashboard">
+              <Home />
+            </Route>
             <Route exact path="/getting-started">
               <GettingStarted />
             </Route>
