@@ -6,8 +6,9 @@ import Home from "../pages/home";
 import Login from "../pages/login";
 import Register from "../pages/register";
 import GettingStarted from "../pages/gettingStarted";
+import CreateNote from "../pages/createNote";
 
-const Layout = ({ children, ...props }) => {
+const Layout = ({children, ...props}) => {
   const location = useLocation();
   const fullPages = ["/login", "/register", "/getting-started"];
 
@@ -20,26 +21,29 @@ const Layout = ({ children, ...props }) => {
   const cssClasses = isFullPage(currentPage) ? "full" : null;
 
   return (
-    <>
-      {!isFullPage(currentPage) ? <Header /> : null}
-      <Container className={cssClasses}>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/register">
-            <Register />
-          </Route>
-          <Route exact path="/getting-started">
-            <GettingStarted />
-          </Route>
-        </Switch>
-      </Container>
-      {!isFullPage(currentPage) ? <Footer /> : null}
-    </>
+   <>
+     {!isFullPage(currentPage) ? <Header/> : null}
+     <Container className={cssClasses}>
+       <Switch>
+         <Route exact path="/">
+           <Home/>
+         </Route>
+         <Route exact path="/login">
+           <Login/>
+         </Route>
+         <Route exact path="/register">
+           <Register/>
+         </Route>
+         <Route exact path="/getting-started">
+           <GettingStarted/>
+         </Route>
+         <Route exact path="/notes">
+           <CreateNote/>
+         </Route>
+       </Switch>
+     </Container>
+     {!isFullPage(currentPage) ? <Footer/> : null}
+   </>
   );
 };
 
