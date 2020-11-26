@@ -9,6 +9,7 @@ import Register from "../pages/register";
 import GettingStarted from "../pages/gettingStarted";
 import CreateNote from "../pages/createNote";
 import Note from "../pages/notes";
+import EditorTest from "../pages/editorTest";
 
 const Layout = ({ children, ...props }) => {
   const { pathname } = useLocation();
@@ -45,6 +46,9 @@ const Layout = ({ children, ...props }) => {
             </Route>
             <Route exact path="/notes/:id">
               <Note />
+            </Route>
+            <Route exact path="/editor-test">
+              <EditorTest />
             </Route>
           </Switch>
         </Container>
