@@ -13,7 +13,7 @@ const StyledContainer = styled.main`
     height: 100vh;
     padding-bottom: 15px;
   }
-  @media (min-width: ${({ theme }) => theme.screens.md}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     margin-left: 20%;
   }
 `;

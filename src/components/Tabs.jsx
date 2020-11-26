@@ -18,7 +18,7 @@ const StyledTabs = styled.footer`
   -moz-transition: width 0.5s ease;
   -webkit-transition: width 0.5s ease;
   -o-transition: width 0.5s ease;
-  @media (min-width: ${({ theme }) => theme.screens.md}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     height: 100%;
     flex-direction: column;
     justify-content: flex-start;

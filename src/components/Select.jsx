@@ -10,9 +10,9 @@ const StyledSelect = styled.select`
   margin: 0;
   padding: 10px 16px;
   border: none;
-  border: solid 2 ${({ theme }) => theme.colors.primary.base};
+  border: solid 2 ${({ theme }) => theme.colors.primary};
   border-radius: 8px;
-  color: ${({ theme }) => theme.colors.primary.base};
+  color: ${({ theme }) => theme.colors.primary};
   text-align: center;
   text-decoration: none;
 
@@ -21,7 +21,7 @@ const StyledSelect = styled.select`
   }
 
   ::placeholder {
-    color: ${({ theme }) => theme.colors.gray.light};
+    color: ${({ theme }) => theme.colors.muted};
   }
 `;
 

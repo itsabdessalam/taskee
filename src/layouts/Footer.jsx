@@ -12,7 +12,7 @@ const StyledAppLogo = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  @media (max-width: ${({ theme }) => theme.screens.md}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     display: none;
   }
 `;
@@ -20,7 +20,7 @@ const StyledAppLogo = styled.div`
 const StyledNoteButton = styled.div`
   height: 100%;
   box-shadow: 0 0 50px rgba(0 0 0 / 8%);
-  @media (min-width: ${({ theme }) => theme.screens.md}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     display: none;
   }
   .button__container {
@@ -31,7 +31,7 @@ const StyledNoteButton = styled.div`
     border-radius: 50%;
     width: 43px;
     height: 88%;
-    background: ${({ theme }) => theme.colors.primary.base};
+    background: ${({ theme }) => theme.colors.primary};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,17 +49,17 @@ const StyledCollapseBlock = styled.div`
   cursor: pointer;
   width: 100%;
   padding: 10px;
-  color: ${({ theme }) => theme.colors.gray.light};
+  color: ${({ theme }) => theme.colors.muted};
   margin-top: auto;
   display: flex;
   justify-content: center;
   align-items: center;
 
   :hover {
-    color: ${({ theme }) => theme.colors.gray.dark};
+    color: ${({ theme }) => theme.colors.text};
   }
 
-  @media (max-width: ${({ theme }) => theme.screens.md}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     display: none;
   }
 `;
