@@ -32,7 +32,7 @@ const StyledTabItem = styled.div`
     margin-top: 2px;
   }
 
-  @media (min-width: ${({ theme }) => theme.screens.md}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     height: 40px;
     .tab__link {
       padding: 8px 16px;
