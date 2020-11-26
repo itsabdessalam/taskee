@@ -1,13 +1,9 @@
-import { useParams } from 'react-router-dom';
-import { NotesEditor } from '../components';
+import { useParams } from "react-router-dom";
 
 const Note = () => {
-  const {id} = useParams();
-  return (
-   <>
-     <NotesEditor id={id}/>
-   </>
-  );
+  // eslint-disable-next-line no-unused-vars
+  const { id } = useParams();
+  return <></>;
 };
 
 export default Note;
