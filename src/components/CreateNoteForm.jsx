@@ -5,12 +5,14 @@ import Button from "./Button";
 import { useState } from "react";
 import { Option, Select } from "./index";
 import until from "../utils/until";
-import AuthService from "../services/AuthService";
-import { handleLogin, isLoggedIn } from "../utils/auth";
+
+import { getUserLogged, isLoggedIn } from "../utils/auth";
 import { useForm } from "../hooks";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory  } from "react-router-dom";
+import NoteService from "../services/NoteService";
 
 const CreateNoteForm = () => {
+  const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const createNote = async () => {
@@ -19,54 +21,53 @@ const CreateNoteForm = () => {
 
     const note = {
       title: values.title,
-      user: ,
-      template: values.template
+      user: getUserLogged()._id,
     };
 
+    if (values.template !== "") note.template = values.template;
+
     const [err, result] = await until(NoteService.create(note));
-
     if (err) {
-      setError({ message: err.message });
+      setError({message: err.message});
       setIsLoading(false);
     }
 
-    if (result && result.data.errors) {
-      setError({ message: "Invalid credentials provided" });
+    if (result && result.errors) {
+      setError({message: "Invalid credentials provided"});
       setIsLoading(false);
     }
+    const {data = {}} = result.data || {};
+    history.push(`notes/${data._id}`)
 
-    const { data = {} } = result.data || {};
-
-    if (data && data.user && data.token) {
-      handleLogin({
-        ...data.user,
-        token: data.token
-      });
-      setIsLoading(false);
-    }
   };
 
-  const { values, handleChange, handleSubmit } = useForm(auth, {
-    email: "",
-    password: ""
+  const {values, handleChange, handleSubmit} = useForm(createNote, {
+    title: "",
+    user: "",
+    template: ""
   });
 
   if (!isLoggedIn()) {
-    return <Redirect to="/login" />;
+    return <Redirect to="/login"/>;
   }
   return (
    <>
      <Title level={2}>New note</Title>
-     <Form className="inner-form">
+     <Form className="inner-form" onSubmit={handleSubmit}>
        <Input
         name="title"
         type="text"
+        onChange={handleChange}
         placeholder={"New note"}
         label={"New note title"}
         required
        />
-       <Select>
-         <Option value="blank">Blank</Option>
+       <Select
+        onChange={handleChange}
+        name="template"
+        type="select"
+       >
+         <Option value="">Blank</Option>
        </Select>
        {error ? <p className="error">{error.message}</p> : null}
        <Button type="submit" disabled={isLoading}>

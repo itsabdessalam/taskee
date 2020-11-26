@@ -4,7 +4,7 @@ import Link from "./Link";
 import ButtonGroup from "./ButtonGroup";
 import Select from "./Select";
 import Option from "./Option";
-
+import LocaleSelector from "./LocaleSelector";
 import Tabs from "./Tabs";
 import TabItem from "./TabItem";
 import Title from "./Title";
@@ -14,6 +14,7 @@ import LoginForm from "./LoginForm";
 import ProtectedRoute from "./ProtectedRoute";
 import RegisterForm from "./RegisterForm";
 import CreateNoteForm from "./CreateNoteForm";
+import NotesEditor from "./NotesEditor";
 
 export {
   Button,
@@ -30,5 +31,7 @@ export {
   RegisterForm,
   CreateNoteForm,
   Select,
-  Title
+  Title,
+  NotesEditor,
+  LocaleSelector
 };
