@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import NoteService from "../services/NoteService";
 import Checklist from "../components/Checklist";
 import { useDebounce } from "../hooks";
 import { Button } from "../components";
+import styled from "styled-components";
+import EditableText from "./EditableText";
 
 const Note = ({ id }) => {
   const history = useHistory();
@@ -12,8 +14,18 @@ const Note = ({ id }) => {
     title: "Checklist",
     tasks: []
   });
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
+
+  const ref = useRef(null);
+  const inputElement = useRef(null);
 
   const debouncedNote = useDebounce(note, 5000);
+
+  const toggleEditingTitle = () => {
+    if (!isEditingTitle) {
+      setIsEditingTitle(true);
+    }
+  };
 
   const redirectToList = () => {
     return history.push(`/notes`);
@@ -26,6 +38,11 @@ const Note = ({ id }) => {
       console.error("Error while updating user note", error);
       return null;
     });
+  };
+
+  const onTitleChange = event => {
+    event.target.value = event.target.value.replace("\n", "");
+    setNote({ ...note, title: event.target.value });
   };
 
   const onTasksChange = tasks => {
@@ -58,16 +75,33 @@ const Note = ({ id }) => {
     }
   }, [debouncedNote]);
   return (
-    <>
+    <Container>
       <Button onClick={redirectToList} width="8vw">
         Back
       </Button>
-      <h2>{note.title}</h2>
+      <h2 ref={ref} onClick={toggleEditingTitle}>
+        <EditableText
+          ref={inputElement}
+          value={note.title}
+          onChange={onTitleChange}
+          disabled={!isEditingTitle}
+          className="note__title"
+          cols="40"
+          maxLength="140"
+        />
+      </h2>
       <div></div>
       <Checklist checklist={checklist} onTasksChange={onTasksChange} />
       <div></div>
-    </>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  .note__title {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+`;
 
 export default Note;

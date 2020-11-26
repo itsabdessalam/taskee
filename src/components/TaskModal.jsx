@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
 import styled from "styled-components";
-import TextareaAutosize from "react-textarea-autosize";
+import EditableText from "./EditableText";
 
 const TaskModal = ({ data, isVisible, setIsVisible, onChange }) => {
   const [mutableTask, setMutableTask] = useState({});
@@ -22,19 +22,17 @@ const TaskModal = ({ data, isVisible, setIsVisible, onChange }) => {
     <Modal isVisible={isVisible}>
       <Container>
         <label>Title</label>
-        <TextareaAutosize
+        <EditableText
           value={mutableTask.title}
           onChange={event => updateTask(event.target.value, "title")}
           cols="40"
           maxLength="140"
-          wrap="soft"
         />
         <label>Description</label>
-        <TextareaAutosize
+        <EditableText
           value={mutableTask.description}
           onChange={event => updateTask(event.target.value, "description")}
           cols="40"
-          wrap="soft"
           minRows={7}
         />
         <button onClick={() => setIsVisible(false)}>Close</button>
@@ -50,7 +48,7 @@ const Container = styled.div`
     margin: 5px;
   }
   textarea {
-    resize: none;
+    background: ${({ theme }) => theme.colors.background.light};
   }
 `;
 export default TaskModal;
