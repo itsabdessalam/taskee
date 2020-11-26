@@ -1,30 +1,32 @@
-import { useState } from "react";
-import { Redirect } from "react-router-dom";
-import { useForm } from "../hooks";
-import until from "../utils/until";
-
-import { handleLogin, isLoggedIn } from "../utils/auth";
-import AuthService from "../services/AuthService";
-
+import Title from "./Title";
 import Form from "./Form";
 import Input from "./Input";
 import Button from "./Button";
-import Title from "./Title";
+import { useForm } from "../hooks";
+import { useState } from "react";
+import until from "../utils/until";
+import AuthService from "../services/AuthService";
+import { handleLogin, isLoggedIn } from "../utils/auth";
+import { Redirect } from "react-router-dom";
+import getLanguage from "../utils/language";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const auth = async () => {
+  const register = async () => {
     setIsLoading(true);
     setError(null);
 
     const user = {
+      firstName: values.firstName,
+      lastName: values.lastName,
       email: values.email,
-      password: values.password
+      password: values.password,
+      language: getLanguage()
     };
 
-    const [err, result] = await until(AuthService.login(user));
+    const [err, result] = await until(AuthService.register(user));
 
     if (err) {
       setError({
@@ -32,7 +34,6 @@ const LoginForm = () => {
       });
       setIsLoading(false);
     }
-
     if (result && result.data.errors) {
       setError({
         message: "Invalid credentials provided"
@@ -51,19 +52,38 @@ const LoginForm = () => {
     }
   };
 
-  const { values, handleChange, handleSubmit } = useForm(auth, {
+  const { values, handleChange, handleSubmit } = useForm(register, {
+    firstName: "",
+    lastName: "",
     email: "",
-    password: ""
+    password: "",
+    language: ""
   });
 
-  if (isLoggedIn()) {
-    return <Redirect to="/" />;
-  }
+  if (isLoggedIn()) return <Redirect to="/" />;
 
   return (
     <>
-      <Title level={2}>Login</Title>
+      <Title level={2}>Register</Title>
       <Form className="inner-form" onSubmit={handleSubmit}>
+        <Input
+          name="firstName"
+          type="text"
+          placeholder={"john"}
+          label={"First Name"}
+          onChange={handleChange}
+          value={values.firstName}
+          required
+        />
+        <Input
+          name="lastName"
+          type="text"
+          placeholder={"doe"}
+          label={"Last Name"}
+          onChange={handleChange}
+          value={values.lastName}
+          required
+        />
         <Input
           name="email"
           type="text"
@@ -84,11 +104,11 @@ const LoginForm = () => {
         />
         {error ? <p className="error">{error.message}</p> : null}
         <Button type="submit" disabled={isLoading}>
-          {isLoading ? "Loading" : "Login"}
+          {isLoading ? "Loading" : "Register"}
         </Button>
       </Form>
     </>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

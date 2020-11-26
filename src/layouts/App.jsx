@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider, createGlobalStyle } from "styled-components";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
 import Layout from "./Layout";
 import theme from "../config/theme";
 

@@ -13,6 +13,9 @@ const StyledContainer = styled.main`
     height: 100vh;
     padding-bottom: 15px;
   }
+  @media (min-width: ${({ theme }) => theme.screens.md}) {
+    margin-left: 20%;
+  }
 `;
 
 const Container = ({ children, ...props }) => (

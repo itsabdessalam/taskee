@@ -6,6 +6,7 @@ const AUTH_VAR = `${process.env.REACT_APP_BASE_NAME}_auth`;
  * @returns
  */
 const getUser = () =>
+  // eslint-disable-next-line no-extra-boolean-cast
   !!window.localStorage[AUTH_VAR]
     ? JSON.parse(window.localStorage[AUTH_VAR])
     : {};
@@ -16,19 +17,31 @@ const getUser = () =>
  * @param {*} user
  * @returns
  */
-const setUser = (user) => {
+const setUser = user => {
   return (window.localStorage[AUTH_VAR] = JSON.stringify(user));
 };
 
 /**
  * Sets user with provided credentials
  *
- * @param {*} { username, password, token }
+ * @param {*} { lastName, firstName, email, password, language, token }
  * @returns
  */
-export const handleLogin = ({ email, password, token }) => {
+export const handleLogin = ({
+  _id,
+  lastName,
+  firstName,
+  email,
+  password,
+  language,
+  token
+}) => {
   return setUser({
+    _id,
+    lastName,
+    firstName,
     email,
+    language,
     token
   });
 };
@@ -44,13 +57,18 @@ export const isLoggedIn = () => {
   return !!user.token;
 };
 
+export const getUserLogged = () => {
+  const user = getUser();
+  return user;
+};
+
 /**
  * Logs the user out
  *
  * @param {*} callback
  * @returns
  */
-export const logout = (callback) => {
+export const logout = callback => {
   setUser({});
   callback();
 };

@@ -1,9 +1,9 @@
-import { Title } from "../components";
+import { RegisterForm } from "../components";
 
 const Register = () => {
   return (
     <>
-      <Title level={2}>Register</Title>
+      <RegisterForm />
     </>
   );
 };
