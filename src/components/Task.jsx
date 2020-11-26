@@ -29,7 +29,6 @@ const Task = ({ data, taskIndex, onChange, remove }) => {
 
   useEffect(() => {
     if (inputElement.current && isEditingTitle) {
-      console.log("add focus");
       inputElement.current.focus();
     }
   }, [inputElement, isEditingTitle]);
@@ -85,7 +84,7 @@ const Task = ({ data, taskIndex, onChange, remove }) => {
               onChange={onTitleChange}
               disabled={!isEditingTitle}
               cols="40"
-              maxlength="140"
+              maxLength="140"
               wrap="soft"
             />
           </div>
