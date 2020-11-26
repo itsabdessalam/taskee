@@ -10,7 +10,6 @@ import Embed from "@editorjs/embed";
 import Quote from "@editorjs/quote";
 import RawTool from "@editorjs/raw";
 import Marker from "@editorjs/marker";
-import Paragraph from "@editorjs/paragraph";
 
 const StyledEditor = styled.div`
   display: block;
@@ -35,8 +34,7 @@ const Editor = () => {
         list: List,
         table: Table,
         raw: RawTool,
-        marker: Marker,
-        paragraph: Paragraph
+        marker: Marker
       },
       data: {},
       onReady: () => {
