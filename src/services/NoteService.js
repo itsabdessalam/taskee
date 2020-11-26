@@ -7,7 +7,7 @@ const NoteService = {
     return axios.post(`${AUTH_API_URL}/notes`, note, {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `${getUserLogged().token}`
+        Authorization: `${getUserLogged().token}`
       }
     });
   },
@@ -15,10 +15,10 @@ const NoteService = {
     return axios.get(`${AUTH_API_URL}/notes/${noteId}`, {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `${getUserLogged().token}`
+        Authorization: `${getUserLogged().token}`
       }
     });
-  },
+  }
 };
 
 export default NoteService;

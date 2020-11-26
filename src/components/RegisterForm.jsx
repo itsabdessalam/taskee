@@ -29,11 +29,15 @@ const RegisterForm = () => {
     const [err, result] = await until(AuthService.register(user));
 
     if (err) {
-      setError({ message: err.message });
+      setError({
+        message: err.message
+      });
       setIsLoading(false);
     }
     if (result && result.data.errors) {
-      setError({ message: "Invalid credentials provided" });
+      setError({
+        message: "Invalid credentials provided"
+      });
       setIsLoading(false);
     }
 
