@@ -65,8 +65,8 @@ const Icon = ({ children, name, ...props }) => {
         className={name}
         {...props}
         dangerouslySetInnerHTML={{
-          __html: icons.find((icon) => icon.name === name)
-            ? icons.find((icon) => icon.name === name).content
+          __html: icons.find(icon => icon.name === name)
+            ? icons.find(icon => icon.name === name).content
             : ""
         }}
       ></svg>

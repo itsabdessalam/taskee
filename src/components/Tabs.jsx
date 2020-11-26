@@ -28,7 +28,7 @@ const StyledTabs = styled.footer`
     overflow-x: hidden;
     bottom: unset;
     right: unset;
-    ${(props) => {
+    ${props => {
       if (props.toggle) {
         return `
           width: 50px;

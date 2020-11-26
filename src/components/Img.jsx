@@ -29,11 +29,11 @@ const Img = ({ src, alt, ...props }) => {
   const [imageSrc, setImageSrc] = useState(placeHolder);
   const [imageRef, setImageRef] = useState();
 
-  const onLoad = (event) => {
+  const onLoad = event => {
     event.target.classList.add("loaded");
   };
 
-  const onError = (event) => {
+  const onError = event => {
     event.target.classList.add("has-error");
   };
 
@@ -44,8 +44,8 @@ const Img = ({ src, alt, ...props }) => {
     if (imageRef && imageSrc !== src) {
       if (IntersectionObserver) {
         observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
+          entries => {
+            entries.forEach(entry => {
               if (
                 isMounted &&
                 (entry.intersectionRatio > 0 || entry.isIntersecting)

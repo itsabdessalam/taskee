@@ -10,13 +10,12 @@ import GettingStarted from "../pages/gettingStarted";
 import CreateNote from "../pages/createNote";
 import Note from "../pages/notes";
 
-const Layout = ({children, ...props}) => {
-  const location = useLocation();
-  const {pathname} = useLocation();
+const Layout = ({ children, ...props }) => {
+  const { pathname } = useLocation();
   const fullPages = ["/login", "/register", "/getting-started"];
 
-  const isFullPage = (page) => {
-    return fullPages.find((p) => {
+  const isFullPage = page => {
+    return fullPages.find(p => {
       return p === page;
     });
   };
@@ -24,34 +23,34 @@ const Layout = ({children, ...props}) => {
   const cssClasses = isFullPage(pathname) ? "full" : null;
 
   return (
-   <>
-     <LocaleProvider>
-       {!isFullPage(pathname) ? <Header/> : null}
-       <Container className={cssClasses}>
-         <Switch>
-           <Route exact path="/">
-             <Home/>
-           </Route>
-           <Route exact path="/login">
-             <Login/>
-           </Route>
-           <Route exact path="/register">
-             <Register/>
-           </Route>
-           <Route exact path="/getting-started">
-             <GettingStarted/>
-           </Route>
-           <Route exact path="/notes">
-             <CreateNote/>
-           </Route>
-           <Route exact path="/notes/:id">
-             <Note/>
-           </Route>
-         </Switch>
-       </Container>
-       {!isFullPage(pathname) ? <Footer/> : null}
-     </LocaleProvider>
-   </>
+    <>
+      <LocaleProvider>
+        {!isFullPage(pathname) ? <Header /> : null}
+        <Container className={cssClasses}>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/register">
+              <Register />
+            </Route>
+            <Route exact path="/getting-started">
+              <GettingStarted />
+            </Route>
+            <Route exact path="/notes">
+              <CreateNote />
+            </Route>
+            <Route exact path="/notes/:id">
+              <Note />
+            </Route>
+          </Switch>
+        </Container>
+        {!isFullPage(pathname) ? <Footer /> : null}
+      </LocaleProvider>
+    </>
   );
 };
 
