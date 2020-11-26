@@ -1,19 +1,14 @@
 /* eslint-disable no-unused-vars */
-import {
-  Switch,
-  Route,
-  Redirect,
-  useLocation,
-  useContext
-} from "react-router-dom";
-import { ProtectedRoute } from "../components";
-import { Header, Footer, Container } from "../layouts";
+import { Route, Switch, useLocation } from "react-router-dom";
+import { Container, Footer, Header } from "../layouts";
 import { LocaleProvider } from "../context/Locale";
 
 import Home from "../pages/home";
 import Login from "../pages/login";
 import Register from "../pages/register";
 import GettingStarted from "../pages/gettingStarted";
+import CreateNote from "../pages/createNote";
+import Note from "../pages/notes";
 
 const Layout = ({ children, ...props }) => {
   const { pathname } = useLocation();
@@ -44,6 +39,12 @@ const Layout = ({ children, ...props }) => {
             </Route>
             <Route exact path="/getting-started">
               <GettingStarted />
+            </Route>
+            <Route exact path="/notes">
+              <CreateNote />
+            </Route>
+            <Route exact path="/notes/:id">
+              <Note />
             </Route>
           </Switch>
         </Container>

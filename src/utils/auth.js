@@ -28,6 +28,7 @@ const setUser = user => {
  * @returns
  */
 export const handleLogin = ({
+  _id,
   lastName,
   firstName,
   email,
@@ -36,6 +37,7 @@ export const handleLogin = ({
   token
 }) => {
   return setUser({
+    _id,
     lastName,
     firstName,
     email,
@@ -53,6 +55,11 @@ export const isLoggedIn = () => {
   const user = getUser();
 
   return !!user.token;
+};
+
+export const getUserLogged = () => {
+  const user = getUser();
+  return user;
 };
 
 /**
