@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import EditorJS from "@editorjs/editorjs";
 
@@ -21,9 +21,10 @@ const StyledEditor = styled.div`
     margin: 0 !important;
   }
 `;
-const Editor = () => {
+const Editor = ({ data, onChange }) => {
+  let editor = null;
   useEffect(() => {
-    const editor = new EditorJS({
+    editor = new EditorJS({
       holder: "editorjs",
       autofocus: true,
       tools: {
@@ -36,22 +37,26 @@ const Editor = () => {
         raw: RawTool,
         marker: Marker
       },
-      data: {},
+      data: data,
       onReady: () => {
         console.log("Editor.js is ready to work!");
       },
       onChange: api => {
         api.saver
           .save()
-          .then(outputData => {
-            console.log("Article data: ", outputData);
-          })
+          .then(outputData => onChange(outputData))
           .catch(error => {
             console.log("Saving failed: ", error);
           });
       }
     });
   }, []);
+
+  useEffect(() => {
+    if (editor) {
+      editor.data = data;
+    }
+  }, [data]);
 
   return (
     <>

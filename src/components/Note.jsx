@@ -3,9 +3,10 @@ import { useHistory } from "react-router-dom";
 import NoteService from "../services/NoteService";
 import Checklist from "../components/Checklist";
 import { useDebounce } from "../hooks";
-import { Button } from "../components";
+import Button from "./Button";
 import styled from "styled-components";
 import EditableText from "./EditableText";
+import Editor from "./Editor";
 
 const Note = ({ id }) => {
   const history = useHistory();
@@ -19,7 +20,7 @@ const Note = ({ id }) => {
   const ref = useRef(null);
   const inputElement = useRef(null);
 
-  const debouncedNote = useDebounce(note, 5000);
+  const debouncedNote = useDebounce(note, 3000);
 
   const toggleEditingTitle = () => {
     if (!isEditingTitle) {
@@ -51,6 +52,10 @@ const Note = ({ id }) => {
     setNote({ ...note, checklist: checklistCopy });
   };
 
+  const onTextChange = async text => {
+    setNote({ ...note, text });
+  };
+
   useEffect(() => {
     NoteService.get(id)
       .then(response => {
@@ -69,7 +74,6 @@ const Note = ({ id }) => {
   }, []);
 
   useEffect(() => {
-    console.log(debouncedNote);
     if (debouncedNote._id) {
       updateChecklist(debouncedNote);
     }
@@ -90,9 +94,12 @@ const Note = ({ id }) => {
           maxLength="140"
         />
       </h2>
-      <div></div>
-      <Checklist checklist={checklist} onTasksChange={onTasksChange} />
-      <div></div>
+      <Content>
+        {note && note._id && (
+          <Editor data={note.text} onChange={onTextChange} />
+        )}
+        <Checklist checklist={checklist} onTasksChange={onTasksChange} />
+      </Content>
     </Container>
   );
 };
@@ -102,6 +109,10 @@ const Container = styled.div`
     font-size: 2rem;
     font-weight: bold;
   }
+`;
+
+const Content = styled.div`
+  /* display: flex; */
 `;
 
 export default Note;
