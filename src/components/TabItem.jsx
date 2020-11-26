@@ -32,7 +32,7 @@ const StyledTabItem = styled.div`
   }
 
   @media (min-width: ${({ theme }) => theme.screens.md}) {
-    height: 5%;
+    height: 40px;
     .tab__link {
       width: 50%;
       justify-content: flex-start;
@@ -53,7 +53,7 @@ const TabItem = ({ children, to, text, icon, ...props }) => {
     <StyledTabItem className="tab">
       <Link className="tab__link" to={to}>
         <Icon name={icon} className="tab__icon" width="18px"></Icon>
-        <span className="tab__text">{text}</span>
+        {!props.toggle && <span className="tab__text">{text}</span>}
       </Link>
     </StyledTabItem>
   );

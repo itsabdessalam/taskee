@@ -11,7 +11,7 @@ const Link = ({ children, to, className, ...props }) => {
   const location = useLocation();
   const cssClasses = [className, "link"];
 
-  const isInternal = path => {
+  const isInternal = (path) => {
     return /^\/(?!\/)/.test(path);
   };
 
