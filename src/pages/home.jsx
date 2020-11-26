@@ -1,8 +1,17 @@
 import { FormattedMessage } from "react-intl";
+import NotificationService from "../services/NotificationService";
 
 import { Title } from "../components";
 
 const Home = () => {
+  const testNotification = () => {
+    NotificationService.send(
+      "test",
+      "test message",
+      "https://taskee.playgrnd.dev"
+    );
+  };
+
   return (
     <>
       <Title level={2}>Home</Title>
@@ -13,6 +22,7 @@ const Home = () => {
         }}
       />
       {/* only for test purposes */}
+      <button onClick={testNotification}></button>
     </>
   );
 };
