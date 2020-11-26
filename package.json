@@ -40,18 +40,6 @@
     "lint": "eslint --ext .js,.jsx ./src",
     "lint:fix": "eslint --fix --ext .js,.jsx ./src"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "plugin:prettier/recommended"
-    ]
-  },
-  "prettier": {
-    "trailingComma": "none",
-    "arrowParens": "avoid",
-    "endOfLine": "auto",
-    "printWidth": 80
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -63,5 +51,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^7.14.0",
+    "eslint-plugin-react": "^7.21.5"
   }
 }

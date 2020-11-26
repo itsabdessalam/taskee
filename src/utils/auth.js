@@ -6,6 +6,7 @@ const AUTH_VAR = `${process.env.REACT_APP_BASE_NAME}_auth`;
  * @returns
  */
 const getUser = () =>
+  // eslint-disable-next-line no-extra-boolean-cast
   !!window.localStorage[AUTH_VAR]
     ? JSON.parse(window.localStorage[AUTH_VAR])
     : {};
