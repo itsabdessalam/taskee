@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import TaskModal from "./TaskModal";
-import TextareaAutosize from "react-textarea-autosize";
+import EditableText from "./EditableText";
 
 const Task = ({ data, taskIndex, onChange, remove }) => {
   const ref = useRef(null);
@@ -78,14 +78,13 @@ const Task = ({ data, taskIndex, onChange, remove }) => {
             />
           </label>
           <div ref={ref} onClick={toggleEditingTitle}>
-            <TextareaAutosize
+            <EditableText
               ref={inputElement}
               value={task.title}
               onChange={onTitleChange}
               disabled={!isEditingTitle}
               cols="40"
               maxLength="140"
-              wrap="soft"
             />
           </div>
         </div>
@@ -126,15 +125,6 @@ const Container = styled.div`
     }
     textarea {
       align-self: center;
-      resize: none;
-      padding: 7px 5px;
-      border: none;
-      :disabled {
-        background: none;
-      }
-      :focus {
-        outline: none;
-      }
     }
   }
 `;
