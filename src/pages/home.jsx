@@ -4,9 +4,12 @@ import NotificationService from "../services/NotificationService";
 import { Title } from "../components";
 
 const Home = () => {
-
   const testNotification = () => {
-    NotificationService.send('test', 'test message', 'https://taskee.playgrnd.dev');
+    NotificationService.send(
+      "test",
+      "test message",
+      "https://taskee.playgrnd.dev"
+    );
   };
 
   return (
@@ -22,7 +25,6 @@ const Home = () => {
       <button onClick={testNotification}></button>
     </>
   );
-
 };
 
 export default Home;

@@ -73,4 +73,4 @@ self.addEventListener("message", event => {
 });
 
 // Any other custom service worker logic can go here.
-importScripts('https://cdn.pushbots.com/js/pushbots-worker.js');
+importScripts("https://cdn.pushbots.com/js/pushbots-worker.js");
