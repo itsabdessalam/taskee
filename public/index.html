@@ -22,6 +22,33 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React app</title>
+
+    <script>
+      //some default pre init
+      let PB = PB || {};PB.q = PB.q || [];PB.events = PB.events || [];
+
+      //PushBots ApplicationId (required)
+      PB.app_id = "5fbfbb169b06a046ba536d78";
+      //Your domain name, must be HTTPS or localhost  (required)
+      PB.domain = "https://taskee.playgrnd.dev";
+      //Update and uncomment it if you are using custom safari certificate for your app
+      PB.safari_push_id = "web.com.pushbots.safaripush";
+      //****************************************
+
+      PB.logging_enabled = true;
+      PB.auto_subscribe = true;
+
+      //Custom worker and manifest URL
+      PB.worker_url = PB.domain + "/pushbots-worker.js";
+
+      /*function sendNotification(){
+        PB.register();
+        PB.q.push(["sendNotification", {title:"Hey ",message:"Why not?", url :"https://taskee.playgrnd.dev"}]);
+      }*/
+
+    </script>
+
+    <script src="//cdn.pushbots.com/js/sdk.min.js" type="text/javascript" onload="PB.init()" async>window.pb = PB;</script>
 </head>
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
