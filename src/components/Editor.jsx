@@ -36,7 +36,7 @@ const Editor = () => {
         table: Table,
         raw: RawTool,
         marker: Marker,
-        paragraph: Pa
+        paragraph: Paragraph
       },
       data: {},
       onReady: () => {
