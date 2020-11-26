@@ -6,9 +6,9 @@ const AUTH_VAR = `${process.env.REACT_APP_BASE_NAME}_auth`;
  * @returns
  */
 const getUser = () =>
-  !!window.localStorage[AUTH_VAR]
-    ? JSON.parse(window.localStorage[AUTH_VAR])
-    : {};
+ !!window.localStorage[AUTH_VAR]
+  ? JSON.parse(window.localStorage[AUTH_VAR])
+  : {};
 
 /**
  * Sets user in localStorage
@@ -27,14 +27,16 @@ const setUser = user => {
  * @returns
  */
 export const handleLogin = ({
-  lastName,
-  firstName,
-  email,
-  password,
-  language,
-  token
-}) => {
+                              _id,
+                              lastName,
+                              firstName,
+                              email,
+                              password,
+                              language,
+                              token
+                            }) => {
   return setUser({
+    _id,
     lastName,
     firstName,
     email,
@@ -52,6 +54,11 @@ export const isLoggedIn = () => {
   const user = getUser();
 
   return !!user.token;
+};
+
+export const getUserLogged = () => {
+  const user = getUser();
+  return user;
 };
 
 /**
