@@ -15,6 +15,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import RegisterForm from "./RegisterForm";
 import CreateNoteForm from "./CreateNoteForm";
 import Editor from "./Editor";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 export {
   Button,
@@ -33,5 +34,6 @@ export {
   Select,
   Title,
   LocaleSelector,
-  Editor
+  Editor,
+  ThemeSwitcher
 };

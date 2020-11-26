@@ -18,12 +18,12 @@ const StyledTabItem = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    color: ${({ theme }) => theme.colors.gray.light};
+    flex-direction: column-reverse;
+    color: ${({ theme }) => theme.colors.muted};
     box-shadow: 0px 0px 50px rgba(0 0 0 / 8%);
     &.link--active,
     &.link--partially-active {
-      color: ${({ theme }) => theme.colors.gray.dark};
+      color: ${({ theme }) => theme.colors.text};
     }
   }
 

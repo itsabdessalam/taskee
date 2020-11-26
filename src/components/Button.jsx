@@ -15,7 +15,7 @@ const StyledButton = styled.button`
   border: none;
   border-radius: 8px;
   color: #ffffff;
-  background-color: ${({ theme }) => theme.colors.primary.base};
+  background-color: ${({ theme }) => theme.colors.primary};
   text-align: center;
   text-decoration: none;
 

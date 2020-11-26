@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { LocaleSelector } from "../components";
+import { LocaleSelector, ThemeSwitcher } from "../components";
 
 const StyledHeader = styled.header``;
 
@@ -8,7 +8,8 @@ const Header = ({ children, ...props }) => {
   return (
     <>
       <StyledHeader {...props}>
-        <LocaleSelector></LocaleSelector> {/* only for test purposes */}
+        <ThemeSwitcher /> {/* only for test purposes */}
+        <LocaleSelector /> {/* only for test purposes */}
       </StyledHeader>
     </>
   );
