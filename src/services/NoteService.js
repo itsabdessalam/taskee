@@ -11,8 +11,32 @@ const NoteService = {
       }
     });
   },
+  delete(noteId) {
+    return axios.delete(`${API_URL}/notes/${noteId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${getUserLogged().token}`
+      }
+    });
+  },
   get(noteId) {
     return axios.get(`${API_URL}/notes/${noteId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${getUserLogged().token}`
+      }
+    });
+  },
+  getAll() {
+    return axios.get(`${API_URL}/notes`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${getUserLogged().token}`
+      }
+    });
+  },
+  update(note) {
+    return axios.put(`${API_URL}/notes/${note._id}`, note, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `${getUserLogged().token}`
