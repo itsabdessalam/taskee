@@ -6,10 +6,12 @@ import logo from "./../assets/images/taskee_full_black.png";
 import logoIcon from "./../assets/images/taskee_icon.png";
 
 const StyledAppLogo = styled.div`
-  height: 15%;
+  height: 150px;
+  width: 100%;
+  padding: 8px 16px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   @media (max-width: ${({ theme }) => theme.screens.md}) {
     display: none;
   }
@@ -17,12 +19,10 @@ const StyledAppLogo = styled.div`
 
 const StyledNoteButton = styled.div`
   height: 100%;
-
   box-shadow: 0 0 50px rgba(0 0 0 / 8%);
   @media (min-width: ${({ theme }) => theme.screens.md}) {
     display: none;
   }
-
   .button__container {
     outline: none;
     cursor: pointer;

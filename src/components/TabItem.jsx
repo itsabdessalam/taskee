@@ -12,6 +12,7 @@ const StyledTabItem = styled.div`
   flex-direction: column-reverse;
 
   .tab__link {
+    padding: 0;
     width: 100%;
     height: 100%;
     display: flex;
@@ -34,7 +35,8 @@ const StyledTabItem = styled.div`
   @media (min-width: ${({ theme }) => theme.screens.md}) {
     height: 40px;
     .tab__link {
-      width: 50%;
+      padding: 8px 16px;
+      width: 100%;
       justify-content: flex-start;
       box-shadow: none;
       display: flex;
