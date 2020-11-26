@@ -1,4 +1,4 @@
-module.exports = [
+const LOCALES = [
   {
     default: true,
     label: "English",
@@ -9,3 +9,5 @@ module.exports = [
     locale: "fr"
   }
 ];
+
+export default LOCALES;

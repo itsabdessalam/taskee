@@ -12,7 +12,7 @@ const StyledInput = styled.input`
   border: none;
   box-shadow: 0px 10px 50px rgb(220 226 229 / 0.2);
   border-radius: 8px;
-  color: ${({ theme }) => theme.colors.gray.dark};
+  color: ${({ theme }) => theme.colors.text};
   background-color: #ffffff;
   font-family: inherit;
   outline: 0;
@@ -22,7 +22,7 @@ const StyledInput = styled.input`
   }
 
   ::placeholder {
-    color: ${({ theme }) => theme.colors.gray.light};
+    color: ${({ theme }) => theme.colors.muted};
   }
 `;
 

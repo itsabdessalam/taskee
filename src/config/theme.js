@@ -1,31 +1,48 @@
-const colors = {
-  primary: {
-    base: "#6f2ac8"
+const BASE = {
+  colors: {
+    text: "#1e293b",
+    muted: "#64748b",
+    background: "#f8fafc",
+    primary: "#6c29f5",
+    secondary: "#f56c29"
   },
-  secondary: {
-    base: "#db8834"
+  breakpoints: {
+    sm: "640px",
+    md: "768px",
+    lg: "1024px",
+    xl: "1280px"
   },
-  background: {
-    light: "#f7fafc"
+  fonts: {
+    body:
+      'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+    heading: "inherit",
+    monospace: "Menlo, monospace"
   },
-  gray: {
-    dark: "#2d3748",
-    light: "#8b9cac"
+  fontWeights: {
+    body: 400,
+    heading: 700,
+    bold: 700
+  },
+  lineHeights: {
+    body: 1.5,
+    heading: 1.125
   }
 };
 
-const screens = {
-  sm: "640px",
-  md: "768px",
-  lg: "1024px",
-  xl: "1280px"
+const THEME = {
+  light: {
+    ...BASE
+  },
+  dark: {
+    ...BASE,
+    colors: {
+      text: "#ffffff",
+      muted: "#ffffff",
+      background: "#1a202f",
+      primary: "#6c29f5",
+      secondary: "#f56c29"
+    }
+  }
 };
 
-const theme = {
-  colors,
-  screens,
-  fontFamily: {},
-  layout: {}
-};
-
-export default theme;
+export default THEME;

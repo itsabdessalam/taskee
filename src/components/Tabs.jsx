@@ -8,11 +8,10 @@ const StyledTabs = styled.footer`
   right: 0;
   height: 50px;
   display: flex;
-  width: 100%;
-  background: #ffffff;
+  background: ${({ theme }) => theme.colors.background};
   align-items: center;
   justify-content: space-between;
-  max-width: ${({ theme }) => theme.screens.md};
+  max-width: ${({ theme }) => theme.breakpoints.md};
   margin: 0 auto;
   z-index: 1070;
   transition: width 0.5s ease;
