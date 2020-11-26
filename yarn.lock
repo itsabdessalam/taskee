@@ -1317,6 +1317,14 @@
     "@fullcalendar/common" "~5.4.0"
     tslib "^2.0.3"
 
+"@fullcalendar/interaction@^5.4.0":
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/interaction/-/interaction-5.4.0.tgz#5d709a3381ca0670f6e629a4b19bdb4b9e18515c"
+  integrity sha512-Ve7i+kZ6ZwL84n2aSE762Pr5Sj9hFNKNVd+0wSGDpwgm4G4AWDfycHx0IyrbzqWCjcaP1aKChNYunkuPVl+rCg==
+  dependencies:
+    "@fullcalendar/common" "~5.4.0"
+    tslib "^2.0.3"
+
 "@fullcalendar/react@^5.4.0":
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/@fullcalendar/react/-/react-5.4.0.tgz#874fa7a72b92aec1d907e253f1d59b48ef1b9759"
