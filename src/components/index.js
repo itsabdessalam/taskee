@@ -14,6 +14,7 @@ import LoginForm from "./LoginForm";
 import ProtectedRoute from "./ProtectedRoute";
 import RegisterForm from "./RegisterForm";
 import CreateNoteForm from "./CreateNoteForm";
+import Editor from "./Editor";
 
 export {
   Button,
@@ -31,5 +32,6 @@ export {
   CreateNoteForm,
   Select,
   Title,
-  LocaleSelector
+  LocaleSelector,
+  Editor
 };
