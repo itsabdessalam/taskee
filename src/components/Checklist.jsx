@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import Task from "./Task";
+import Button from "./Button";
 
 const Checklist = ({ checklist, onTasksChange }) => {
   const [tasks, setTasks] = useState([]);
@@ -47,7 +48,9 @@ const Checklist = ({ checklist, onTasksChange }) => {
           />
         ))}
       </div>
-      <button onClick={addTask}>Add task</button>
+      <Button onClick={addTask} width="12vw">
+        Add task
+      </Button>
     </div>
   );
 };

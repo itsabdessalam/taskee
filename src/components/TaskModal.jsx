@@ -26,7 +26,7 @@ const TaskModal = ({ data, isVisible, setIsVisible, onChange }) => {
           value={mutableTask.title}
           onChange={event => updateTask(event.target.value, "title")}
           cols="40"
-          maxlength="140"
+          maxLength="140"
           wrap="soft"
         />
         <label>Description</label>
@@ -34,7 +34,6 @@ const TaskModal = ({ data, isVisible, setIsVisible, onChange }) => {
           value={mutableTask.description}
           onChange={event => updateTask(event.target.value, "description")}
           cols="40"
-          maxlength="140"
           wrap="soft"
           minRows={7}
         />
