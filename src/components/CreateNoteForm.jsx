@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Option, Select } from "./index";
 import until from "../utils/until";
 
-import { getUserLogged, isLoggedIn } from "../utils/auth";
+import { getUserLogged } from "../utils/auth";
 import { useForm } from "../hooks";
 import { Redirect, useHistory } from "react-router-dom";
 import NoteService from "../services/NoteService";
@@ -46,9 +46,6 @@ const CreateNoteForm = () => {
     template: ""
   });
 
-  if (!isLoggedIn()) {
-    return <Redirect to="/login" />;
-  }
   return (
     <>
       <Title level={2}>New note</Title>

@@ -2,13 +2,14 @@
 import { Route, Switch, useLocation } from "react-router-dom";
 import { Container, Footer, Header } from "../layouts";
 import { LocaleProvider } from "../context/Locale";
+import { ProtectedRoute } from "../components";
 
 import Home from "../pages/home";
 import Login from "../pages/login";
 import Register from "../pages/register";
 import GettingStarted from "../pages/gettingStarted";
 import CreateNote from "../pages/createNote";
-import Note from "../pages/notes";
+import Notes from "../pages/notes";
 import EditorTest from "../pages/editorTest";
 
 const Layout = ({ children, ...props }) => {
@@ -29,9 +30,9 @@ const Layout = ({ children, ...props }) => {
         {!isFullPage(pathname) ? <Header /> : null}
         <Container className={cssClasses}>
           <Switch>
-            <Route exact path="/">
+            <ProtectedRoute exact path="/">
               <Home />
-            </Route>
+            </ProtectedRoute>
             <Route exact path="/login">
               <Login />
             </Route>
@@ -41,12 +42,15 @@ const Layout = ({ children, ...props }) => {
             <Route exact path="/getting-started">
               <GettingStarted />
             </Route>
-            <Route exact path="/notes">
+            <ProtectedRoute exact path="/notes">
+              <Notes />
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/notes/new">
               <CreateNote />
-            </Route>
-            <Route exact path="/notes/:id">
-              <Note />
-            </Route>
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/notes/:id">
+              <Notes />
+            </ProtectedRoute>
             <Route exact path="/editor-test">
               <EditorTest />
             </Route>
