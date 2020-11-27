@@ -11,6 +11,16 @@ const NotesList = () => {
     return history.push(page);
   };
 
+  const deleteNote = (id, index) => {
+    NoteService.delete(id).then(response => {
+      if (response.data.code === 200) {
+        const notesCopy = [...notes];
+        notesCopy.splice(index, 1);
+        setNotes(notesCopy);
+      }
+    });
+  };
+
   useEffect(() => {
     NoteService.getAll().then(response => {
       if (!response.data.data) {
@@ -25,8 +35,12 @@ const NotesList = () => {
         Add new note
       </Button>
       <div>
-        {notes.map(note => (
-          <NoteCard key={note._id} note={note} />
+        {notes.map((note, index) => (
+          <NoteCard
+            key={note._id}
+            note={note}
+            deleteNote={id => deleteNote(id, index)}
+          />
         ))}
       </div>
     </>

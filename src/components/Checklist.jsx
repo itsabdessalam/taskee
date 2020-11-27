@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Task from "./Task";
 import Button from "./Button";
 
-const Checklist = ({ checklist, onTasksChange }) => {
+const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");
 
@@ -30,7 +30,15 @@ const Checklist = ({ checklist, onTasksChange }) => {
   };
 
   const addTask = () => {
-    const tasksCopy = [...tasks, { title: "", isCompleted: false }];
+    const tasksCopy = [
+      ...tasks,
+      {
+        title: "",
+        isCompleted: false,
+        ...(noteTemplate &&
+          noteTemplate === "project" && { template: "projectTask" })
+      }
+    ];
     updateTasks(tasksCopy);
   };
 
