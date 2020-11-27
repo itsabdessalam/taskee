@@ -7,6 +7,7 @@ import Button from "./Button";
 import styled from "styled-components";
 import EditableText from "./EditableText";
 import Editor from "./Editor";
+import Deadline from "./Deadline";
 
 const Note = ({ id }) => {
   const history = useHistory();
@@ -20,7 +21,7 @@ const Note = ({ id }) => {
   const ref = useRef(null);
   const inputElement = useRef(null);
 
-  const debouncedNote = useDebounce(note, 3000);
+  const debouncedNote = useDebounce(note, 2000);
 
   const toggleEditingTitle = () => {
     if (!isEditingTitle) {
@@ -52,8 +53,14 @@ const Note = ({ id }) => {
     setNote({ ...note, checklist: checklistCopy });
   };
 
-  const onTextChange = async text => {
+  const onTextChange = text => {
     setNote({ ...note, text });
+  };
+
+  const updateDeadline = date => {
+    if (note.template === "project") {
+      setNote({ ...note, deadline: date });
+    }
   };
 
   useEffect(() => {
@@ -94,6 +101,10 @@ const Note = ({ id }) => {
           maxLength="140"
         />
       </h2>
+      {note.template === "project" && (
+        <Deadline deadline={note.deadline} onChange={updateDeadline} />
+      )}
+
       <Content>
         {note && note._id && (
           <Editor data={note.text} onChange={onTextChange} />

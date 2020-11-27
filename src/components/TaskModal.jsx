@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
 import styled from "styled-components";
 import EditableText from "./EditableText";
+import Deadline from "./Deadline";
+import Reminders from "./Reminders";
 
 const TaskModal = ({ data, isVisible, setIsVisible, onChange }) => {
   const [mutableTask, setMutableTask] = useState({});
@@ -18,6 +20,7 @@ const TaskModal = ({ data, isVisible, setIsVisible, onChange }) => {
     setMutableTask(taskCopy);
     onChange(taskCopy);
   };
+
   return (
     <Modal isVisible={isVisible}>
       <Container>
@@ -35,6 +38,24 @@ const TaskModal = ({ data, isVisible, setIsVisible, onChange }) => {
           cols="40"
           minRows={7}
         />
+        {mutableTask.template === "projectTask" && (
+          <>
+            <div className="deadline">
+              <span>Deadline</span>
+              <Deadline
+                deadline={mutableTask.deadline}
+                onChange={deadline => updateTask(deadline, "deadline")}
+              />
+            </div>
+            <div className="reminders">
+              <p>Reminders</p>
+              <Reminders
+                reminders={mutableTask.reminders}
+                onChange={reminders => updateTask(reminders, "reminders")}
+              />
+            </div>
+          </>
+        )}
         <button onClick={() => setIsVisible(false)}>Close</button>
       </Container>
     </Modal>
@@ -42,13 +63,21 @@ const TaskModal = ({ data, isVisible, setIsVisible, onChange }) => {
 };
 
 const Container = styled.div`
-  * {
+  > * {
     display: block;
     text-align: left;
     margin: 5px;
   }
   textarea {
     background: ${({ theme }) => theme.colors.background.light};
+  }
+  .deadline,
+  .reminders {
+    width: 100%;
+    text-align: left;
+    span {
+      margin-right: 15px;
+    }
   }
 `;
 export default TaskModal;
