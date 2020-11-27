@@ -13,8 +13,8 @@ import Notes from "../pages/notes";
 import EditorTest from "../pages/editorTest";
 import Calendar from "../pages/calendar";
 
-const Layout = ({children, ...props}) => {
-  const {pathname} = useLocation();
+const Layout = ({ children, ...props }) => {
+  const { pathname } = useLocation();
   const fullPages = ["/login", "/register", "/getting-started"];
 
   const isFullPage = page => {
@@ -26,43 +26,43 @@ const Layout = ({children, ...props}) => {
   const cssClasses = isFullPage(pathname) ? "full" : null;
 
   return (
-   <>
-     <LocaleProvider>
-       {!isFullPage(pathname) ? <Header/> : null}
-       <Container className={cssClasses}>
-         <Switch>
-           <ProtectedRoute exact path="/">
-             <Home/>
-           </ProtectedRoute>
-           <Route exact path="/login">
-             <Login/>
-           </Route>
-           <Route exact path="/register">
-             <Register/>
-           </Route>
-           <Route exact path="/getting-started">
-             <GettingStarted/>
-           </Route>
-           <ProtectedRoute exact path="/notes">
-             <Notes/>
-           </ProtectedRoute>
-           <ProtectedRoute exact path="/notes/new">
-             <CreateNote/>
-           </ProtectedRoute>
-           <ProtectedRoute exact path="/notes/:id">
-             <Notes/>
-           </ProtectedRoute>
-           <Route exact path="/editor-test">
-             <EditorTest/>
-           </Route>
-           <Route exact path="/calendar">
-             <Calendar/>
-           </Route>
-         </Switch>
-       </Container>
-       {!isFullPage(pathname) ? <Footer/> : null}
-     </LocaleProvider>
-   </>
+    <>
+      <LocaleProvider>
+        {!isFullPage(pathname) ? <Header /> : null}
+        <Container className={cssClasses}>
+          <Switch>
+            <ProtectedRoute exact path="/">
+              <Home />
+            </ProtectedRoute>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/register">
+              <Register />
+            </Route>
+            <Route exact path="/getting-started">
+              <GettingStarted />
+            </Route>
+            <ProtectedRoute exact path="/notes">
+              <Notes />
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/notes/new">
+              <CreateNote />
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/notes/:id">
+              <Notes />
+            </ProtectedRoute>
+            <Route exact path="/editor-test">
+              <EditorTest />
+            </Route>
+            <Route exact path="/calendar">
+              <Calendar />
+            </Route>
+          </Switch>
+        </Container>
+        {!isFullPage(pathname) ? <Footer /> : null}
+      </LocaleProvider>
+    </>
   );
 };
 
