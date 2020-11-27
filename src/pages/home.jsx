@@ -4,10 +4,10 @@ import NotificationService from "../services/NotificationService";
 import { Title } from "../components";
 
 const Home = () => {
-  const testNotification = () => {
+  const handleClick = () => {
     NotificationService.send(
-      "test",
-      "test message",
+      "Taskee",
+      "Hello world",
       "https://taskee.playgrnd.dev"
     );
   };
@@ -22,7 +22,7 @@ const Home = () => {
         }}
       />
       {/* only for test purposes */}
-      <button onClick={testNotification}></button>
+      <button onClick={handleClick}>Push notification test</button>
     </>
   );
 };
