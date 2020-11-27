@@ -37,7 +37,7 @@ const CreateNoteForm = () => {
       setIsLoading(false);
     }
     const { data = {} } = result.data || {};
-    history.push(`notes/${data._id}`);
+    history.push(`/notes/${data._id}`);
   };
 
   const { values, handleChange, handleSubmit } = useForm(createNote, {
@@ -60,6 +60,7 @@ const CreateNoteForm = () => {
         />
         <Select onChange={handleChange} name="template" type="select">
           <Option value="">Blank</Option>
+          <Option value="project">Project</Option>
         </Select>
         {error ? <p className="error">{error.message}</p> : null}
         <Button type="submit" disabled={isLoading}>

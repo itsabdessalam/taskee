@@ -21,7 +21,7 @@ const Note = ({ id }) => {
   const ref = useRef(null);
   const inputElement = useRef(null);
 
-  const debouncedNote = useDebounce(note, 2000);
+  const debouncedNote = useDebounce(note, 1000);
 
   const toggleEditingTitle = () => {
     if (!isEditingTitle) {
@@ -109,7 +109,11 @@ const Note = ({ id }) => {
         {note && note._id && (
           <Editor data={note.text} onChange={onTextChange} />
         )}
-        <Checklist checklist={checklist} onTasksChange={onTasksChange} />
+        <Checklist
+          checklist={checklist}
+          onTasksChange={onTasksChange}
+          noteTemplate={note.template}
+        />
       </Content>
     </Container>
   );
