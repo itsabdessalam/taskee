@@ -2,23 +2,9 @@ import styled from "styled-components";
 import React from "react";
 
 const StyledTabs = styled.footer`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 50px;
-  display: flex;
-  background: ${({ theme }) => theme.colors.background};
-  align-items: center;
-  justify-content: space-between;
-  max-width: ${({ theme }) => theme.breakpoints.md};
-  margin: 0 auto;
-  z-index: 1070;
-  transition: width 0.5s ease;
-  -moz-transition: width 0.5s ease;
-  -webkit-transition: width 0.5s ease;
-  -o-transition: width 0.5s ease;
-  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+  &.navigation {
+    position: fixed;
+
     height: 100%;
     flex-direction: column;
     justify-content: flex-start;
@@ -27,23 +13,50 @@ const StyledTabs = styled.footer`
     overflow-x: hidden;
     bottom: unset;
     right: unset;
-    ${props => {
-      if (props.toggle) {
-        return `
-          width: 50px;
-        `;
-      } else {
-        return `
-          width: 20%;
-        `;
+
+    width: 210px;
+    display: flex;
+    background: #ffffff;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    z-index: 1070;
+
+    &--collapsed {
+      width: 50px;
+
+      .logo {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
-    }}
+
+      .tab {
+        padding: 0;
+
+        .tab__link {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .tab__text {
+          display: none;
+        }
+      }
+    }
   }
 `;
 
 const Tabs = ({ children, ...props }) => {
   return (
-    <StyledTabs {...props} className="nav">
+    <StyledTabs
+      {...props}
+      className={
+        "navigation " + (props.collapsed ? "navigation--collapsed" : "")
+      }
+    >
       {children}
     </StyledTabs>
   );

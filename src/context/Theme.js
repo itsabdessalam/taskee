@@ -5,6 +5,7 @@ import {
 } from "styled-components";
 import useLocalStorage from "../hooks/useLocalStorage";
 import THEME from "../config/theme";
+import "../assets/fonts/main.css";
 
 const ThemeContext = createContext();
 const reducer = (state, { type, theme }) => {
@@ -34,13 +35,14 @@ const ThemeProvider = ({ children, theme = "light" }) => {
 
     html,
     body {
-      max-width: ${activeTheme.breakpoints.md};
+      width: 100%;
+      height: 100%;
       margin: 0 auto;
     }
 
     body {
       margin: 0;
-      font-family: ${activeTheme.fonts.body};
+      font-family: 'Circular', 'Helvetica', 'Arial', sans-serif;
       background-color: ${activeTheme.colors.background};
       color: ${activeTheme.colors.text};  
     }

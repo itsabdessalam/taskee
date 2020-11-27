@@ -6,6 +6,8 @@ import Icon from "./Icon";
 const StyledTabItem = styled.div`
   width: 100%;
   height: 100%;
+  min-height: 48px;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,13 +31,16 @@ const StyledTabItem = styled.div`
 
   .tab__text {
     font-size: 10px;
-    margin-top: 2px;
+  }
+
+  .tab__icon {
+    width: 20px;
+    height: 20px;
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    height: 40px;
+    height: 48px;
     .tab__link {
-      padding: 8px 16px;
       width: 100%;
       justify-content: flex-start;
       box-shadow: none;
@@ -44,8 +49,8 @@ const StyledTabItem = styled.div`
     }
 
     .tab__text {
-      margin-left: 5px;
-      font-size: 14px;
+      margin-left: 12px;
+      font-size: 15px;
     }
   }
 `;
@@ -54,8 +59,8 @@ const TabItem = ({ children, to, text, icon, ...props }) => {
   return (
     <StyledTabItem className="tab">
       <Link className="tab__link" to={to}>
-        <Icon name={icon} className="tab__icon" width="18px"></Icon>
-        {!props.toggle && <span className="tab__text">{text}</span>}
+        <Icon name={icon} className="tab__icon"></Icon>
+        <span className="tab__text">{text}</span>
       </Link>
     </StyledTabItem>
   );
