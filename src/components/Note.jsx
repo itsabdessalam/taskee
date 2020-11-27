@@ -124,6 +124,10 @@ const Container = styled.div`
     font-size: 2rem;
     font-weight: bold;
   }
+
+  .react-datepicker-popper {
+    z-index: 3;
+  }
 `;
 
 const Content = styled.div`

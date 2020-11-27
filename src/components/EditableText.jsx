@@ -10,7 +10,7 @@ const StyledTextarea = styled(TextareaAutosize)`
   resize: none;
   padding: 7px 5px;
   border: none;
-  color: ${({ theme }) => theme.colors.gray.dark};
+  color: ${({ theme }) => theme.colors.text};
   :disabled {
     background: none;
   }

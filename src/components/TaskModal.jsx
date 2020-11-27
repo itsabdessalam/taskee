@@ -69,7 +69,7 @@ const Container = styled.div`
     margin: 5px;
   }
   textarea {
-    background: ${({ theme }) => theme.colors.background.light};
+    background: ${({ theme }) => theme.colors.background};
   }
   .deadline,
   .reminders {
