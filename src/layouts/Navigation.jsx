@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useIntl } from "react-intl";
 import styled from "styled-components";
 import { Tabs, TabItem, Icon } from "../components";
 import logo from "./../assets/images/taskee-logo.png";
@@ -50,6 +51,7 @@ const StyledCollapseBlock = styled.div`
 `;
 
 const Navigation = () => {
+  const intl = useIntl();
   const [main, setMain] = useState("");
   const [collapsed, setCollapsed] = useState(false);
 
@@ -99,10 +101,31 @@ const Navigation = () => {
         <img alt="Taskee" src={logo} className="logo__img" width={30} />
         <span className="logo__text">taskee</span>
       </StyledAppLogo>
-      <TabItem to="/dashboard" icon="home" text="Home" />
-      <TabItem to="/notes" icon="notes" text="Notes" />
-      <TabItem to="/calendar" icon="calendar" text="Calendar" />
-      <TabItem to="/settings" icon="settings" text="Settings" />
+      <TabItem
+        to="/dashboard"
+        icon="home"
+        text={intl.formatMessage({ id: "home" })}
+      />
+      <TabItem
+        to="/notes"
+        icon="notes"
+        text={intl.formatMessage({ id: "notes" })}
+      />
+      <TabItem
+        to="/calendar"
+        icon="calendar"
+        text={intl.formatMessage({ id: "calendar" })}
+      />
+      <TabItem
+        to="/notifications"
+        icon="alert"
+        text={intl.formatMessage({ id: "notifications" })}
+      />
+      <TabItem
+        to="/settings"
+        icon="settings"
+        text={intl.formatMessage({ id: "settings" })}
+      />
       <StyledCollapseBlock className="collapse" onClick={handleCollapse}>
         <Icon name={"chevron-right"} width={14}></Icon>
       </StyledCollapseBlock>

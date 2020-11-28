@@ -17,9 +17,7 @@ const reducer = (state, { type, locale }) => {
   }
 };
 
-const defaultLocale = locales.find(locale => locale.default);
-
-const LocaleProvider = ({ children, locale = defaultLocale.locale }) => {
+const LocaleProvider = ({ children, locale = "en" }) => {
   const [savedLocale, saveLocale] = useLocalStorage(
     `${process.env.REACT_APP_BASE_NAME}_locales`,
     JSON.stringify({

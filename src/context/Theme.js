@@ -27,6 +27,8 @@ const ThemeProvider = ({ children, theme = "light" }) => {
   const [state, dispatch] = useReducer(reducer, JSON.parse(savedTheme));
   const updateTheme = theme => dispatch({ type: "UPDATE_THEME", theme });
   const activeTheme = THEME[state.activeTheme];
+
+  // TODO: move to a separate component
   const GlobalStyle = createGlobalStyle`
     *, ::after, ::before {
       -webkit-box-sizing: border-box;
@@ -62,6 +64,13 @@ const ThemeProvider = ({ children, theme = "light" }) => {
     }
     .ce-toolbar__actions {
       right: -18px;
+    }
+
+    .page__actions {
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
     }
   `;
   useEffect(() => {

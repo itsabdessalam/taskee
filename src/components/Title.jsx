@@ -9,7 +9,7 @@ const StyledTitle = styled.div`
 
 const Title = ({ children, level = 1, ...props }) => {
   return (
-    <StyledTitle as={`h${level}`} level={level}>
+    <StyledTitle as={`h${level}`} level={level} {...props}>
       {children}
     </StyledTitle>
   );

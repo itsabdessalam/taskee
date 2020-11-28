@@ -118,7 +118,7 @@ const Container = styled.div`
     padding: 15px;
     margin: 10px;
     background: white;
-    border-radius: 5px;
+    border-radius: 8px;
     display: flex;
     label {
       align-self: center;

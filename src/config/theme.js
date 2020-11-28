@@ -7,7 +7,8 @@ const BASE = {
     item: "",
     primary: "#6c29f5",
     secondary: "#f56c29",
-    logo: "#1e293b"
+    logo: "#1e293b",
+    card: "#ffffff"
   },
   breakpoints: {
     sm: "640px",
@@ -45,7 +46,8 @@ const THEME = {
       navigation: "#1E293B",
       primary: "#6c29f5",
       secondary: "#f56c29",
-      logo: "#ffffff"
+      logo: "#ffffff",
+      card: "#1E293B"
     }
   }
 };
