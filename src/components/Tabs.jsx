@@ -1,48 +1,84 @@
 import styled from "styled-components";
 import React from "react";
 
-const StyledTabs = styled.footer`
+const StyledTabs = styled.div`
   &.navigation {
     position: fixed;
-
     height: 100%;
-    flex-direction: column;
-    justify-content: flex-start;
     top: 0;
     left: 0;
-    overflow-x: hidden;
-    bottom: unset;
-    right: unset;
-
+    min-width: 54px;
     width: 210px;
-    display: flex;
-    background: #ffffff;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 auto;
+    background-color: ${({ theme }) => theme.colors.navigation};
     z-index: 1070;
+    transform: translate3d(0, 0, 0);
+    transition: width 0.4s, left 0.4s;
+
+    .collapse {
+      svg {
+        transform: rotate(180deg);
+      }
+    }
 
     &--collapsed {
-      width: 50px;
+      width: 54px;
 
       .logo {
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        padding: 8px 12px;
+
+        .logo__text {
+          width: 0;
+          margin: 0;
+          visibility: hidden;
+        }
+      }
+
+      .tab {
+        .tab__text {
+          display: none;
+        }
+      }
+
+      .collapse {
+        svg {
+          transform: rotate(0deg);
+        }
+      }
+    }
+
+    &:hover {
+      @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+        .collapse {
+          display: flex;
+        }
+      }
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+      width: 100%;
+      height: 50px;
+      top: unset;
+      bottom: 0;
+      left: 0;
+      display: flex;
+
+      .logo {
+        display: none;
       }
 
       .tab {
         padding: 0;
 
         .tab__link {
+          padding: 0;
           display: flex;
-          align-items: center;
-          justify-content: center;
+          flex-direction: column;
         }
 
         .tab__text {
-          display: none;
+          margin: 0;
+          margin-top: 2px;
+          font-size: 11px;
         }
       }
     }

@@ -15,10 +15,14 @@ const StyledEditor = styled.div`
   display: block;
   position: relative;
   background-color: #ffffff;
-  padding: 24px;
+  padding: 0 24px;
 
   .codex-editor--narrow .codex-editor__redactor {
     margin: 0 !important;
+  }
+
+  .codex-editor {
+    padding: 12px 0;
   }
 `;
 const Editor = ({ data, onChange }) => {
@@ -27,6 +31,7 @@ const Editor = ({ data, onChange }) => {
     editor = new EditorJS({
       holder: "editorjs",
       autofocus: true,
+      logLevel: "ERROR",
       tools: {
         header: Header,
         image: SimpleImage,
@@ -38,15 +43,12 @@ const Editor = ({ data, onChange }) => {
         marker: Marker
       },
       data: data,
-      onReady: () => {
-        console.log("Editor.js is ready to work!");
-      },
       onChange: api => {
         api.saver
           .save()
           .then(outputData => onChange(outputData))
           .catch(error => {
-            console.log("Saving failed: ", error);
+            console.error("Saving failed: ", error);
           });
       }
     });

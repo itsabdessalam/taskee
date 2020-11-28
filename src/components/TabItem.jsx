@@ -5,53 +5,52 @@ import Icon from "./Icon";
 
 const StyledTabItem = styled.div`
   width: 100%;
-  height: 100%;
-  min-height: 48px;
-  padding: 8px 12px;
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column-reverse;
+  padding: 8px;
+  transition: width 0.4s;
 
   .tab__link {
-    padding: 0;
+    padding: 8px;
     width: 100%;
-    height: 100%;
+    height: 38px;
+    border-radius: 4px;
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    flex-direction: column-reverse;
+    justify-content: flex-start;
+    position: relative;
     color: ${({ theme }) => theme.colors.muted};
-    box-shadow: 0px 0px 50px rgba(0 0 0 / 8%);
+
     &.link--active,
     &.link--partially-active {
-      color: ${({ theme }) => theme.colors.text};
+      color: #334155;
+
+      @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+        background-color: #f1f5f9;
+      }
     }
   }
 
   .tab__text {
-    font-size: 10px;
+    display: block;
+    font-size: 15px;
+    margin-left: 12px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    min-width: 0px;
   }
 
   .tab__icon {
+    min-width: 20px;
     width: 20px;
     height: 20px;
-  }
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    height: 48px;
-    .tab__link {
-      width: 100%;
-      justify-content: flex-start;
-      box-shadow: none;
-      display: flex;
-      flex-direction: row;
-    }
-
-    .tab__text {
-      margin-left: 12px;
-      font-size: 15px;
-    }
+    margin: 0;
+    transition: margin 0.4s;
   }
 `;
 

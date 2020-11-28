@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import NoteService from "../services/NoteService";
 import Button from "./Button";
 import NoteCard from "./NoteCard";
+import Title from "./Title";
+
 const NotesList = () => {
   const history = useHistory();
   const [notes, setNotes] = useState([]);
@@ -31,6 +33,7 @@ const NotesList = () => {
   }, []);
   return (
     <>
+      <Title level={2}>All notes</Title>
       <Button onClick={() => redirectTo("/notes/new")} width="15vw">
         Add new note
       </Button>

@@ -53,6 +53,16 @@ const ThemeProvider = ({ children, theme = "light" }) => {
         pointer-events: none;
       }
     }
+
+    .ce-block__content,.ce-toolbar__content {
+      max-width: 100%;
+    }
+    .ce-toolbar__plus {
+      left: -24px;
+    }
+    .ce-toolbar__actions {
+      right: -18px;
+    }
   `;
   useEffect(() => {
     saveTheme(JSON.stringify(state));

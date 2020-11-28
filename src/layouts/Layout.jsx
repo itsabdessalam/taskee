@@ -29,6 +29,7 @@ const Layout = ({ children, ...props }) => {
     <>
       <LocaleProvider>
         <ThemeProvider>
+          {!isFullPage(pathname) ? <Navigation /> : null}
           <Container className={cssClasses}>
             <Switch>
               <Route exact path="/">
@@ -54,7 +55,6 @@ const Layout = ({ children, ...props }) => {
               </ProtectedRoute>
             </Switch>
           </Container>
-          {!isFullPage(pathname) ? <Navigation /> : null}
         </ThemeProvider>
       </LocaleProvider>
     </>
