@@ -27,6 +27,7 @@ import Note from "./Note";
 import NotesList from "./NotesList";
 import SEO from "./SEO";
 import Logout from "./Logout";
+import Offline from "./Offline";
 
 export {
   Button,
@@ -57,5 +58,7 @@ export {
   Note,
   NotesList,
   SEO,
-  Logout
+  Logout,
+  Offline,
+  NotesList
 };
