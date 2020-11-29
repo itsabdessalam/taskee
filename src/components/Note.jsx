@@ -39,17 +39,35 @@ const StyledNote = styled.div`
     -ms-overflow-style: none;
     scrollbar-width: none;
 
-    .checklist__title {
+    .checklist__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding: 15px;
-      margin-top: 0;
 
-      // justify-content: space-between;
-
-      .checklist__count {
-        margin-left: 12px;
-        font-size: 16px;
-        color: #64748b;
+      .checklist__title {
+        margin: 0;
+        .checklist__count {
+          margin-left: 12px;
+          font-size: 16px;
+          color: #64748b;
+        }
       }
+    }
+
+    .checklist__add {
+      color: #ffffff;
+      width: 36px;
+      height: 36px;
+      background: #6c29f5;
+      border: none;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 15px;
+      display: flex;
+      right: 15px;
+      align-items: center;
+      justify-content: center;
     }
   }
 

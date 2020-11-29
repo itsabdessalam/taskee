@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Task from "./Task";
 import Button from "./Button";
+import Icon from "./Icon";
 
 const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
   const [tasks, setTasks] = useState([]);
@@ -44,28 +45,33 @@ const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
 
   return (
     <>
-      <h2 className="checklist__title">
-        <span className="checklist__title_text">{title}</span>
-        <span className="checklist__count">
-          {tasks.filter(t => t.isCompleted).length} out of {tasks.length}
-        </span>
-      </h2>
-
-      <div className="checklist__tasks">
-        {tasks.map((task, index) => (
-          <Task
-            key={index}
-            data={task}
-            taskIndex={index}
-            onChange={updateChecklist}
-            remove={removeTask}
-            className="checklist__task"
-          />
-        ))}
+      <div className="checklist__header">
+        <h2 className="checklist__title">
+          <span className="checklist__title_text">{title}</span>
+          <span className="checklist__count">
+            {tasks.filter(t => t.isCompleted).length} out of {tasks.length}
+          </span>
+        </h2>
+        <button className="checklist__uncheck">Uncheck all</button>
       </div>
-      {/* <Button onClick={addTask} width="12vw">
-        Add task
-      </Button> */}
+
+      <div className="checklist__body">
+        <div className="checklist__tasks">
+          {tasks.map((task, index) => (
+            <Task
+              key={index}
+              data={task}
+              taskIndex={index}
+              onChange={updateChecklist}
+              remove={removeTask}
+              className="checklist__task"
+            />
+          ))}
+        </div>
+      </div>
+      <button onClick={addTask} className="checklist__add">
+        <Icon name={"plus"} width={18} />
+      </button>
     </>
   );
 };
