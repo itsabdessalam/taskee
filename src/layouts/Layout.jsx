@@ -12,6 +12,7 @@ import GettingStarted from "../pages/gettingStarted";
 import CreateNote from "../pages/createNote";
 import Notes from "../pages/notes";
 import EditorTest from "../pages/editorTest";
+import Calendar from "../pages/calendar";
 
 const Layout = ({ children, ...props }) => {
   const { pathname } = useLocation();
@@ -54,6 +55,9 @@ const Layout = ({ children, ...props }) => {
               </ProtectedRoute>
               <ProtectedRoute exact path="/notes/:id">
                 <Notes />
+              </ProtectedRoute>
+              <ProtectedRoute exact path="/calendar">
+                <Calendar />
               </ProtectedRoute>
             </Switch>
           </Container>
