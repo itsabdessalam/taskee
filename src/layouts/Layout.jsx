@@ -55,9 +55,9 @@ const Layout = ({ children, ...props }) => {
             <Route exact path="/editor-test">
               <EditorTest />
             </Route>
-            <Route exact path="/calendar">
+            <ProtectedRoute exact path="/calendar">
               <Calendar />
-            </Route>
+            </ProtectedRoute>
           </Switch>
         </Container>
         {!isFullPage(pathname) ? <Footer /> : null}
