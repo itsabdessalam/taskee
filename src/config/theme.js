@@ -2,7 +2,7 @@ const BASE = {
   colors: {
     text: "#1e293b",
     muted: "#64748b",
-    background: "#f1f5f9",
+    background: "#ffffff",
     editor: "#ffffff",
     navigation: "#ffffff",
     item: "",

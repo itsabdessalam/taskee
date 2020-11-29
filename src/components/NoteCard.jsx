@@ -16,6 +16,7 @@ const StyledNoteCard = styled.div`
     background-color: ${({ theme }) => theme.colors.card};
     padding: 10px 15px;
     border-radius: 8px;
+    border: 1px solid #f1f5f9;
     box-shadow: 0px 20px 48px rgba(100, 116, 139, 0.02);
     z-index: 1;
 
