@@ -1,9 +1,21 @@
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 
 const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
-  const context = {};
+  const [root, setRoot] = useState(null);
+
+  useEffect(() => {
+    const app = document.querySelector("#app");
+
+    if (app) {
+      setRoot(app);
+    }
+  }, []);
+
+  const context = {
+    root
+  };
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;
 };

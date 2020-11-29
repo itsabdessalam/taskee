@@ -1,8 +1,42 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Task from "./Task";
 import Button from "./Button";
 import Icon from "./Icon";
+import styled from "styled-components";
+
+const StyledChecklist = styled.div`
+  .checklist__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 15px;
+
+    .checklist__title {
+      margin: 0;
+      .checklist__count {
+        margin-left: 12px;
+        font-size: 16px;
+        color: #64748b;
+      }
+    }
+  }
+
+  .checklist__add {
+    color: #ffffff;
+    width: 36px;
+    height: 36px;
+    background: #6c29f5;
+    border: none;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 15px;
+    display: flex;
+    right: 15px;
+    align-items: center;
+    justify-content: center;
+  }
+`;
 
 const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
   const [tasks, setTasks] = useState([]);
@@ -44,7 +78,7 @@ const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
   };
 
   return (
-    <>
+    <StyledChecklist className="checklist">
       <div className="checklist__header">
         <h2 className="checklist__title">
           <span className="checklist__title_text">{title}</span>
@@ -52,7 +86,10 @@ const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
             {tasks.filter(t => t.isCompleted).length} out of {tasks.length}
           </span>
         </h2>
-        <button className="checklist__uncheck">Uncheck all</button>
+        {/* TODO: use custom action buttons */}
+        {tasks.length > 0 && (
+          <button className="checklist__uncheck">Uncheck all</button>
+        )}
       </div>
 
       <div className="checklist__body">
@@ -69,10 +106,11 @@ const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
           ))}
         </div>
       </div>
+      {/* TODO: use custom action buttons */}
       <button onClick={addTask} className="checklist__add">
         <Icon name={"plus"} width={18} />
       </button>
-    </>
+    </StyledChecklist>
   );
 };
 

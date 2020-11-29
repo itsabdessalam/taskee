@@ -9,6 +9,7 @@ const ThemeSwitcher = () => {
 
   return (
     <>
+      {/* TODO: use theme switcher button */}
       <button onClick={switchTheme}>Switch Theme</button>
     </>
   );

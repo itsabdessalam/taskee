@@ -46,6 +46,7 @@ const NotesList = () => {
         </Title>
         <div className="page__actions">
           <Button
+            // TODO: should be a modal
             onClick={() => redirectTo("/notes/new")}
             className="page__action page__action--add-note"
             width="auto"

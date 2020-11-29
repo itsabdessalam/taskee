@@ -56,6 +56,7 @@ const TaskModal = ({ data, isVisible, setIsVisible, onChange }) => {
             </div>
           </>
         )}
+        {/* TODO: use custom action buttons */}
         <button onClick={() => setIsVisible(false)}>Close</button>
       </Container>
     </Modal>

@@ -28,8 +28,7 @@ const StyledNote = styled.div`
     width: 100%;
     height: 100vh;
     max-width: 470px;
-    // padding: 24px;
-    background-color: #ffffff;
+    background-color: ${({ theme }) => theme.colors.editor};
     border-left: 1px solid #f1f5f9;
     overflow-y: scroll;
 
@@ -38,37 +37,6 @@ const StyledNote = styled.div`
     }
     -ms-overflow-style: none;
     scrollbar-width: none;
-
-    .checklist__header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 15px;
-
-      .checklist__title {
-        margin: 0;
-        .checklist__count {
-          margin-left: 12px;
-          font-size: 16px;
-          color: #64748b;
-        }
-      }
-    }
-
-    .checklist__add {
-      color: #ffffff;
-      width: 36px;
-      height: 36px;
-      background: #6c29f5;
-      border: none;
-      border-radius: 50%;
-      position: absolute;
-      bottom: 15px;
-      display: flex;
-      right: 15px;
-      align-items: center;
-      justify-content: center;
-    }
   }
 
   .note__title {

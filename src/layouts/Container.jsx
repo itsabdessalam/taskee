@@ -15,7 +15,7 @@ const StyledContainer = styled.main`
   }
 
   &.editor {
-    background-color: #ffffff;
+    background-color: ${({ theme }) => theme.colors.editor};
     border-left: 1px solid #f1f5f9;
     padding: 24px;
   }
@@ -27,10 +27,6 @@ const StyledContainer = styled.main`
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     margin-left: 210px;
-
-    &.has-collapsed-navigation {
-      margin-left: 54px;
-    }
   }
 `;
 

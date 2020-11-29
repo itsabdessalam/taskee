@@ -8,11 +8,10 @@ const StyledTask = styled.div`
   position: relative;
   display: flex;
   width: 100%;
-  border-bottom: 1px solid #f1f5f9;
 
-  // &:not(:last-child) {
-  //   margin-bottom: 12px;
-  // }
+  &:not(:last-child) {
+    border-bottom: 1px solid #f1f5f9;
+  }
 
   .task__card {
     padding: 10px 15px;
@@ -36,8 +35,10 @@ const StyledTask = styled.div`
   }
 
   .task__checkbox {
+    display: flex;
+    align-items: center;
     width: 18px;
-    height: 18px;
+    height: 100%;
     margin-right: 12px;
 
     input {
@@ -85,6 +86,13 @@ const StyledTask = styled.div`
       &--delete {
         background-color: transparent;
         color: #ef4444;
+        width: 32px;
+        height: 32px;
+      }
+
+      &--update {
+        background-color: transparent;
+        color: ${({ theme }) => theme.colors.muted};
         width: 32px;
         height: 32px;
       }
@@ -174,18 +182,20 @@ const Task = ({ data, taskIndex, onChange, remove }) => {
           />
         </div>
         <div className="task__actions">
+          {/* TODO: use custom action buttons */}
           <button
             className="task__action task__action--delete"
             onClick={removeTask}
           >
             <Icon name={"trash"} width={18} />
           </button>
-          {/* <button
+          {/* TODO: use custom action buttons */}
+          <button
             className="task__action task__action--update"
             onClick={() => setIsModalVisible(true)}
           >
-            ...
-          </button> */}
+            <Icon name={"dots"} width={18} />
+          </button>
         </div>
       </div>
       <TaskModal

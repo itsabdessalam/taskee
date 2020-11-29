@@ -12,7 +12,7 @@ const StyledTabs = styled.div`
     background-color: ${({ theme }) => theme.colors.navigation};
     z-index: 1070;
     transform: translate3d(0, 0, 0);
-    transition: width 0.4s, left 0.4s;
+    transition: width 0.4s;
 
     .collapse {
       svg {
@@ -85,13 +85,10 @@ const StyledTabs = styled.div`
   }
 `;
 
-const Tabs = ({ children, ...props }) => {
+const Tabs = ({ children, collapsed, ...props }) => {
   return (
     <StyledTabs
-      {...props}
-      className={
-        "navigation " + (props.collapsed ? "navigation--collapsed" : "")
-      }
+      className={"navigation " + (collapsed ? "navigation--collapsed" : "")}
     >
       {children}
     </StyledTabs>

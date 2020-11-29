@@ -86,6 +86,14 @@ const ThemeProvider = ({ children, theme = "light" }) => {
       align-items: center;
       justify-content: flex-end;
     }
+
+   .has-collapsed-navigation {
+      main {
+        @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+          margin-left: 54px;
+        }
+      }
+    }
   `;
   useEffect(() => {
     saveTheme(JSON.stringify(state));

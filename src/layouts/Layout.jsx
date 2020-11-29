@@ -28,6 +28,7 @@ const Layout = ({ children, ...props }) => {
     ...(isFullPage(pathname) ? ["full"] : []),
     ...(pathname.indexOf("/notes/") !== -1 ? ["editor"] : [])
   ].join(" ");
+
   return (
     <>
       <LocaleProvider>

@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useIntl } from "react-intl";
 import styled from "styled-components";
+import AppContext from "../context/App";
 import { Tabs, TabItem, Icon } from "../components";
 import logo from "./../assets/images/taskee-logo.png";
 
@@ -52,19 +53,11 @@ const StyledCollapseBlock = styled.div`
 
 const Navigation = () => {
   const intl = useIntl();
-  const [main, setMain] = useState("");
   const [collapsed, setCollapsed] = useState(false);
-
-  useEffect(() => {
-    const main = document.querySelector("#app main");
-
-    if (document.querySelector("#app main")) {
-      setMain(document.querySelector("#app main"));
-    }
-  }, []);
+  const { root } = useContext(AppContext);
 
   const collapseSidebar = () => {
-    main.classList.add("has-collapsed-navigation");
+    root && root.classList.add("has-collapsed-navigation");
     setCollapsed(true);
   };
 
@@ -73,7 +66,7 @@ const Navigation = () => {
       return;
     }
 
-    main.classList.remove("has-collapsed-navigation");
+    root && root.classList.remove("has-collapsed-navigation");
     setCollapsed(false);
   };
 

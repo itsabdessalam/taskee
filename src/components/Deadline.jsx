@@ -25,6 +25,7 @@ const Deadline = ({ deadline, className, onChange }) => {
           className={className}
         />
       )) || (
+        // TODO: use custom action buttons
         <button onClick={() => updateDate(new Date())} className={className}>
           Add a deadline
         </button>
