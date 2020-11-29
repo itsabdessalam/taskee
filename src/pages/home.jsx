@@ -1,7 +1,6 @@
 import { FormattedMessage } from "react-intl";
 import NotificationService from "../services/NotificationService";
-
-import { Title } from "../components";
+import { Title, LocaleSelector, ThemeSwitcher } from "../components";
 
 const Home = () => {
   const testNotification = () => {
@@ -15,6 +14,8 @@ const Home = () => {
   return (
     <>
       <Title level={2}>Home</Title>
+      <ThemeSwitcher /> {/* only for test purposes */}
+      <LocaleSelector /> {/* only for test purposes */}
       <FormattedMessage
         id="greeting"
         values={{

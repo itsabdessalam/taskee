@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import NoteService from "../services/NoteService";
 import Checklist from "../components/Checklist";
@@ -8,6 +8,77 @@ import styled from "styled-components";
 import EditableText from "./EditableText";
 import Editor from "./Editor";
 import Deadline from "./Deadline";
+import Icon from "./Icon";
+
+import LocaleContext from "../context/Locale";
+import { localizedDate } from "../utils/date";
+
+const StyledNote = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  .note__content {
+    width: calc(100% - 470px);
+  }
+
+  .note__checklist {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    max-width: 470px;
+    background-color: ${({ theme }) => theme.colors.editor};
+    border-left: 1px solid #f1f5f9;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .note__title {
+    font-size: 32px;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 0;
+
+    textarea {
+      font-size: 32px;
+      font-weight: 500;
+      width: 100%;
+      background: transparent !important;
+    }
+  }
+
+  .note__deadline {
+    .react-datepicker-popper {
+      z-index: 3;
+    }
+
+    .react-datepicker__close-icon {
+      height: auto;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      padding: 0;
+
+      &::after {
+        font-size: 14px;
+        background-color: #e2e8f0;
+        color: #64748b;
+        height: 20px;
+        width: 20px;
+      }
+    }
+
+    .react-datepicker__triangle {
+      left: 50px !important;
+    }
+  }
+`;
 
 const Note = ({ id }) => {
   const history = useHistory();
@@ -17,6 +88,7 @@ const Note = ({ id }) => {
     tasks: []
   });
   const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const { activeLocale, updateLocale } = useContext(LocaleContext);
 
   const ref = useRef(null);
   const inputElement = useRef(null);
@@ -86,52 +158,46 @@ const Note = ({ id }) => {
     }
   }, [debouncedNote]);
   return (
-    <Container>
-      <Button onClick={redirectToList} width="8vw">
+    <>
+      {/* <Button onClick={redirectToList} width="120px">
         Back
-      </Button>
-      <h2 ref={ref} onClick={toggleEditingTitle}>
-        <EditableText
-          ref={inputElement}
-          value={note.title}
-          onChange={onTitleChange}
-          disabled={!isEditingTitle}
-          className="note__title"
-          cols="40"
-          maxLength="140"
-        />
-      </h2>
-      {note.template === "project" && (
-        <Deadline deadline={note.deadline} onChange={updateDeadline} />
-      )}
+      </Button> */}
 
-      <Content>
-        {note && note._id && (
-          <Editor data={note.text} onChange={onTextChange} />
-        )}
-        <Checklist
-          checklist={checklist}
-          onTasksChange={onTasksChange}
-          noteTemplate={note.template}
-        />
-      </Content>
-    </Container>
+      <StyledNote className="note">
+        <div className="note__content">
+          <h2 ref={ref} onClick={toggleEditingTitle} className="note__title">
+            <EditableText
+              ref={inputElement}
+              value={note.title}
+              onChange={onTitleChange}
+              disabled={!isEditingTitle}
+              cols="40"
+              maxLength="140"
+            />
+          </h2>
+          {/* {note.template === "project" && (
+            <Deadline
+              deadline={note.deadline}
+              onChange={updateDeadline}
+              className="note__deadline"
+            />
+          )} */}
+          <div className="note__text">
+            {note && note._id && (
+              <Editor data={note.text} onChange={onTextChange} />
+            )}
+          </div>
+        </div>
+        <div className="note__checklist">
+          <Checklist
+            checklist={checklist}
+            onTasksChange={onTasksChange}
+            noteTemplate={note.template}
+          />
+        </div>
+      </StyledNote>
+    </>
   );
 };
-
-const Container = styled.div`
-  .note__title {
-    font-size: 2rem;
-    font-weight: bold;
-  }
-
-  .react-datepicker-popper {
-    z-index: 3;
-  }
-`;
-
-const Content = styled.div`
-  /* display: flex; */
-`;
 
 export default Note;

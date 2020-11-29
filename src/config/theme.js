@@ -2,9 +2,14 @@ const BASE = {
   colors: {
     text: "#1e293b",
     muted: "#64748b",
-    background: "#f8fafc",
+    background: "#f1f5f9",
+    editor: "#ffffff",
+    navigation: "#ffffff",
+    item: "",
     primary: "#6c29f5",
-    secondary: "#f56c29"
+    secondary: "#f56c29",
+    logo: "#1e293b",
+    card: "#ffffff"
   },
   breakpoints: {
     sm: "640px",
@@ -38,9 +43,13 @@ const THEME = {
     colors: {
       text: "#ffffff",
       muted: "#ffffff",
-      background: "#1a202f",
+      background: "#1b2535",
+      editor: "#1b2535",
+      navigation: "#1E293B",
       primary: "#6c29f5",
-      secondary: "#f56c29"
+      secondary: "#f56c29",
+      logo: "#ffffff",
+      card: "#1E293B"
     }
   }
 };

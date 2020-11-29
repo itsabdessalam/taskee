@@ -9,6 +9,7 @@ import Tabs from "./Tabs";
 import TabItem from "./TabItem";
 import Title from "./Title";
 import Img from "./Img";
+import Icon from "./Icon";
 import Input from "./Input";
 import LoginForm from "./LoginForm";
 import ProtectedRoute from "./ProtectedRoute";
@@ -28,6 +29,7 @@ export {
   Tabs,
   TabItem,
   Img,
+  Icon,
   Input,
   ProtectedRoute,
   LoginForm,

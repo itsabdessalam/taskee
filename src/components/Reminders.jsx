@@ -39,6 +39,7 @@ const Reminders = ({ reminders, onChange }) => {
     <div>
       {mutableReminders.map((reminder, index) => (
         <Reminder key={index}>
+          {/* TODO: use custom action buttons */}
           <button onClick={() => removeReminder(index)}>x</button>
           <DatePicker
             date={reminder}
@@ -48,6 +49,7 @@ const Reminders = ({ reminders, onChange }) => {
           />
         </Reminder>
       ))}
+      {/* TODO: use custom action buttons */}
       <Button onClick={addReminder} width="15vw">
         Add a reminder
       </Button>

@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider } from "../context/Theme";
 import Layout from "./Layout";
 import { getUserLogged, isLoggedIn } from "../utils/auth";
 import Pusher from "pusher-js";
@@ -34,11 +33,9 @@ const App = () => {
   }, []);
   return (
     <>
-      <ThemeProvider>
-        <BrowserRouter>
-          <Layout />
-        </BrowserRouter>
-      </ThemeProvider>
+      <BrowserRouter>
+        <Layout />
+      </BrowserRouter>
     </>
   );
 };

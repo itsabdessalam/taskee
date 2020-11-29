@@ -1,7 +1,7 @@
 import App from "./App";
 import Header from "./Header";
-import Footer from "./Footer";
+import Navigation from "./Navigation";
 import Layout from "./Layout";
 import Container from "./Container";
 
-export { App, Layout, Container, Header, Footer };
+export { App, Layout, Container, Header, Navigation };

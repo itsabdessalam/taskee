@@ -5,48 +5,52 @@ import Icon from "./Icon";
 
 const StyledTabItem = styled.div`
   width: 100%;
-  height: 100%;
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column-reverse;
+  padding: 8px;
+  transition: width 0.4s;
 
   .tab__link {
-    padding: 0;
+    padding: 8px;
     width: 100%;
-    height: 100%;
+    height: 38px;
+    border-radius: 4px;
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    flex-direction: column-reverse;
+    justify-content: flex-start;
+    position: relative;
     color: ${({ theme }) => theme.colors.muted};
-    box-shadow: 0px 0px 50px rgba(0 0 0 / 8%);
+
     &.link--active,
     &.link--partially-active {
-      color: ${({ theme }) => theme.colors.text};
+      color: #334155;
+
+      @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+        background-color: #f1f5f9;
+      }
     }
   }
 
   .tab__text {
-    font-size: 10px;
-    margin-top: 2px;
+    display: block;
+    font-size: 15px;
+    margin-left: 12px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    min-width: 0px;
   }
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    height: 40px;
-    .tab__link {
-      padding: 8px 16px;
-      width: 100%;
-      justify-content: flex-start;
-      box-shadow: none;
-      display: flex;
-      flex-direction: row;
-    }
-
-    .tab__text {
-      margin-left: 5px;
-      font-size: 14px;
-    }
+  .tab__icon {
+    min-width: 20px;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    transition: margin 0.4s;
   }
 `;
 
@@ -54,8 +58,8 @@ const TabItem = ({ children, to, text, icon, ...props }) => {
   return (
     <StyledTabItem className="tab">
       <Link className="tab__link" to={to}>
-        <Icon name={icon} className="tab__icon" width="18px"></Icon>
-        {!props.toggle && <span className="tab__text">{text}</span>}
+        <Icon name={icon} className="tab__icon"></Icon>
+        <span className="tab__text">{text}</span>
       </Link>
     </StyledTabItem>
   );

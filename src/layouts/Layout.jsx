@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Route, Switch, useLocation } from "react-router-dom";
-import { Container, Footer, Header } from "../layouts";
+import { Container, Navigation, Header } from "../layouts";
+import { ThemeProvider } from "../context/Theme";
 import { LocaleProvider } from "../context/Locale";
 import { ProtectedRoute } from "../components";
 
@@ -23,44 +24,45 @@ const Layout = ({ children, ...props }) => {
     });
   };
 
-  const cssClasses = isFullPage(pathname) ? "full" : null;
+  const cssClasses = [
+    ...(isFullPage(pathname) ? ["full"] : []),
+    ...(pathname.indexOf("/notes/") !== -1 ? ["editor"] : [])
+  ].join(" ");
 
   return (
     <>
       <LocaleProvider>
-        {!isFullPage(pathname) ? <Header /> : null}
-        <Container className={cssClasses}>
-          <Switch>
-            <ProtectedRoute exact path="/">
-              <Home />
-            </ProtectedRoute>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/register">
-              <Register />
-            </Route>
-            <Route exact path="/getting-started">
-              <GettingStarted />
-            </Route>
-            <ProtectedRoute exact path="/notes">
-              <Notes />
-            </ProtectedRoute>
-            <ProtectedRoute exact path="/notes/new">
-              <CreateNote />
-            </ProtectedRoute>
-            <ProtectedRoute exact path="/notes/:id">
-              <Notes />
-            </ProtectedRoute>
-            <Route exact path="/editor-test">
-              <EditorTest />
-            </Route>
-            <ProtectedRoute exact path="/calendar">
-              <Calendar />
-            </ProtectedRoute>
-          </Switch>
-        </Container>
-        {!isFullPage(pathname) ? <Footer /> : null}
+        <ThemeProvider>
+          {!isFullPage(pathname) ? <Navigation /> : null}
+          <Container className={cssClasses}>
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route exact path="/login">
+                <Login />
+              </Route>
+              <Route exact path="/register">
+                <Register />
+              </Route>
+              <Route exact path="/getting-started">
+                <GettingStarted />
+              </Route>
+              <ProtectedRoute exact path="/notes">
+                <Notes />
+              </ProtectedRoute>
+              <ProtectedRoute exact path="/notes/new">
+                <CreateNote />
+              </ProtectedRoute>
+              <ProtectedRoute exact path="/notes/:id">
+                <Notes />
+              </ProtectedRoute>
+              <ProtectedRoute exact path="/calendar">
+                <Calendar />
+              </ProtectedRoute>
+            </Switch>
+          </Container>
+        </ThemeProvider>
       </LocaleProvider>
     </>
   );

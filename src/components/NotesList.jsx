@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useIntl, FormattedMessage } from "react-intl";
 import NoteService from "../services/NoteService";
 import Button from "./Button";
 import NoteCard from "./NoteCard";
+import Title from "./Title";
+
 const NotesList = () => {
   const history = useHistory();
   const [notes, setNotes] = useState([]);
@@ -12,6 +15,12 @@ const NotesList = () => {
   };
 
   const deleteNote = (id, index) => {
+    const remove = confirm("Delete note?");
+
+    if (!remove) {
+      return;
+    }
+
     NoteService.delete(id).then(response => {
       if (response.data.code === 200) {
         const notesCopy = [...notes];
@@ -31,10 +40,22 @@ const NotesList = () => {
   }, []);
   return (
     <>
-      <Button onClick={() => redirectTo("/notes/new")} width="15vw">
-        Add new note
-      </Button>
-      <div>
+      <div className="page__header">
+        <Title level={2} className="page__title">
+          All notes
+        </Title>
+        <div className="page__actions">
+          <Button
+            // TODO: should be a modal
+            onClick={() => redirectTo("/notes/new")}
+            className="page__action page__action--add-note"
+            width="auto"
+          >
+            <FormattedMessage id="addNote" />
+          </Button>
+        </div>
+      </div>
+      <div className="notes">
         {notes.map((note, index) => (
           <NoteCard
             key={note._id}
