@@ -59,6 +59,5 @@ export {
   NotesList,
   SEO,
   Logout,
-  Offline,
-  NotesList
+  Offline
 };
