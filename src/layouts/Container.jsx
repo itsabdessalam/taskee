@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const StyledContainer = styled.main`
   margin: 0 auto;
-  padding: 15px;
+  padding: 32px;
   min-height: 100vh;
   transition: margin 0.4s;
 
@@ -12,6 +12,12 @@ const StyledContainer = styled.main`
     flex-direction: column;
     min-height: 100vh;
     padding-bottom: 15px;
+  }
+
+  &.editor {
+    background-color: #ffffff;
+    border-left: 1px solid #f1f5f9;
+    padding: 24px;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {

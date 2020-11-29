@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import DatePicker from "./DatePicker";
 
-const Deadline = ({ deadline, onChange }) => {
+const Deadline = ({ deadline, className, onChange }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const updateDate = date => {
@@ -19,9 +19,15 @@ const Deadline = ({ deadline, onChange }) => {
   return (
     <>
       {(deadline && (
-        <DatePicker date={selectedDate} onChange={updateDate} />
+        <DatePicker
+          date={selectedDate}
+          onChange={updateDate}
+          className={className}
+        />
       )) || (
-        <button onClick={() => updateDate(new Date())}>Add a deadline</button>
+        <button onClick={() => updateDate(new Date())} className={className}>
+          Add a deadline
+        </button>
       )}
     </>
   );

@@ -16,8 +16,7 @@ const StyledNoteCard = styled.div`
     background-color: ${({ theme }) => theme.colors.card};
     padding: 10px 15px;
     border-radius: 8px;
-    box-shadow: 0px 10px 25px -5px rgb(100 116 139 / 0.01),
-      0px -8px 10px -5px rgb(100 116 139 / 0.02);
+    box-shadow: 0px 20px 48px rgba(100, 116, 139, 0.02);
     z-index: 1;
 
     &:not(:last-child) {
@@ -148,6 +147,7 @@ const NoteCard = ({ note, deleteNote }) => {
           <div className="note__meta">
             <span className="note__title">{note.title}</span>
             <span className="note__time">
+              {intl.formatMessage({ id: "edited" })}{" "}
               {intl.formatMessage(
                 { id: "duration" },
                 { duration: localizedDuration(note.updatedAt, activeLocale) }

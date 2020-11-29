@@ -23,8 +23,10 @@ const Layout = ({ children, ...props }) => {
     });
   };
 
-  const cssClasses = isFullPage(pathname) ? "full" : null;
-
+  const cssClasses = [
+    ...(isFullPage(pathname) ? ["full"] : []),
+    ...(pathname.indexOf("/notes/") !== -1 ? ["editor"] : [])
+  ].join(" ");
   return (
     <>
       <LocaleProvider>

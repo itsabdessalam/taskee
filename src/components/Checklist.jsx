@@ -43,9 +43,15 @@ const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
   };
 
   return (
-    <div>
-      <h2>{title}</h2>
-      <div>
+    <>
+      <h2 className="checklist__title">
+        <span className="checklist__title_text">{title}</span>
+        <span className="checklist__count">
+          {tasks.filter(t => t.isCompleted).length} out of {tasks.length}
+        </span>
+      </h2>
+
+      <div className="checklist__tasks">
         {tasks.map((task, index) => (
           <Task
             key={index}
@@ -53,13 +59,14 @@ const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
             taskIndex={index}
             onChange={updateChecklist}
             remove={removeTask}
+            className="checklist__task"
           />
         ))}
       </div>
-      <Button onClick={addTask} width="12vw">
+      {/* <Button onClick={addTask} width="12vw">
         Add task
-      </Button>
-    </div>
+      </Button> */}
+    </>
   );
 };
 

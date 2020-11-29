@@ -15,7 +15,8 @@ const StyledEditor = styled.div`
   display: block;
   position: relative;
   background-color: #ffffff;
-  padding: 0 24px;
+  padding: 0 8px;
+  // min-height: calc(100vh - 192px);
 
   .codex-editor--narrow .codex-editor__redactor {
     margin: 0 !important;
@@ -23,6 +24,15 @@ const StyledEditor = styled.div`
 
   .codex-editor {
     padding: 12px 0;
+    // min-height: calc(100vh - 192px);
+  }
+
+  .codex-editor__redactor {
+    // min-height: calc(100vh - 192px);
+  }
+
+  .ce-header {
+    padding-top: 0 !important;
   }
 `;
 const Editor = ({ data, onChange }) => {

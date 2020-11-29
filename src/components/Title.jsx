@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const StyledTitle = styled.div`
   font-size: ${({ level }) => 54 / level}px;
-  font-weight: 600;
+  font-weight: 500;
   margin-top: 12px;
   margin-bottom: 24px;
 `;

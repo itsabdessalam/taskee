@@ -8,6 +8,6 @@ module.exports = {
   settings: "Paramètres",
   notifications: "Notifications",
   duration: "il y a {duration}",
-  lastEdited: "dernière édition le",
+  edited: "édité",
   addNote: "Ajouter une nouvelle note"
 };

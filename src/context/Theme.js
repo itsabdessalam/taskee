@@ -51,9 +51,23 @@ const ThemeProvider = ({ children, theme = "light" }) => {
 
     a, button {
       cursor: pointer;
+      font-family: 'Circular', 'Helvetica', 'Arial', sans-serif;
       > svg {
         pointer-events: none;
       }
+    }
+
+    input, textarea {
+      font-family: 'Circular', 'Helvetica', 'Arial', sans-serif;
+    }
+
+    h1,h2,h3,h4,h5,h6 {
+      font-weight: 500;
+    }
+
+    ::selection {
+      background-color: ${activeTheme.colors.primary};
+      color: #ffffff;
     }
 
     .ce-block__content,.ce-toolbar__content {
