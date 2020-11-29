@@ -11,6 +11,7 @@ const StyledTabs = styled.div`
     width: 210px;
     background-color: ${({ theme }) => theme.colors.navigation};
     z-index: 1070;
+    border-right: 1px solid #f1f5f9;
     transform: translate3d(0, 0, 0);
     transition: width 0.4s;
 
