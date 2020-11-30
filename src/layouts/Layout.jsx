@@ -11,6 +11,7 @@ import GettingStarted from "../pages/gettingStarted";
 import CreateNote from "../pages/createNote";
 import Notes from "../pages/notes";
 import EditorTest from "../pages/editorTest";
+import Settings from "../pages/settings";
 
 const Layout = ({ children, ...props }) => {
   const { pathname } = useLocation();
@@ -54,6 +55,9 @@ const Layout = ({ children, ...props }) => {
             <Route exact path="/editor-test">
               <EditorTest />
             </Route>
+            <ProtectedRoute exact path="/settings">
+              <Settings />
+            </ProtectedRoute>
           </Switch>
         </Container>
         {!isFullPage(pathname) ? <Footer /> : null}

@@ -12,6 +12,14 @@ const AuthService = {
     return axios.post(`${API_URL}/user`, user, {
       "Content-Type": "application/json"
     });
+  },
+  update(payload, token) {
+    return axios.put(`${API_URL}/user/${payload._id}`, payload, {
+      "Content-Type": "application/json",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
   }
 };
 

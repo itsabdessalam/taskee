@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledContainer = styled.main`
-  margin: 0 auto;
+  margin-left: 20%;
   padding: 15px;
   padding-bottom: 65px;
   min-height: calc(100vh - 65px);
@@ -12,9 +12,6 @@ const StyledContainer = styled.main`
     flex-direction: column;
     height: 100vh;
     padding-bottom: 15px;
-  }
-  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    margin-left: 20%;
   }
 `;
 

@@ -34,7 +34,6 @@ const ThemeProvider = ({ children, theme = "light" }) => {
 
     html,
     body {
-      max-width: ${activeTheme.breakpoints.md};
       margin: 0 auto;
     }
 
