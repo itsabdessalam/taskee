@@ -12,5 +12,6 @@ module.exports = {
   myNotes: "My notes",
   addNote: "Add new note",
   checkAll: "Check all",
-  uncheckAll: "Uncheck all"
+  uncheckAll: "Uncheck all",
+  noDeadline: "No deadline"
 };

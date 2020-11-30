@@ -48,7 +48,7 @@ const StyledNoteCard = styled.div`
     }
 
     .note__right-side {
-      justify-content: space-between;
+      justify-content: flex-end;
       min-width: 200px;
     }
 
@@ -70,7 +70,7 @@ const StyledNoteCard = styled.div`
 
     .note__deadline,
     .note__tasks {
-      color: ${({ theme }) => theme.colors.muted};
+      color: ${({ theme }) => theme.colors.text};
       margin-right: 12px;
       font-size: 14px;
       svg {
@@ -82,6 +82,9 @@ const StyledNoteCard = styled.div`
       .note__action {
         border: none;
         border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         &--delete {
           background-color: transparent;
@@ -160,15 +163,10 @@ const NoteCard = ({ note, deleteNote }) => {
           </div>
         </div>
         <div className="note__right-side">
-          {note.deadline ? (
+          {note.deadline && (
             <div className="note__deadline">
               <Icon name={"calendar"} width={18} />
               {localizedDate(note.deadline, activeLocale)}
-            </div>
-          ) : (
-            <div className="note__deadline">
-              <Icon name={"calendar"} width={18} />
-              No deadline
             </div>
           )}
           {note.checklist &&
