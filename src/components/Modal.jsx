@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Title from "./Title";
 
 const Modal = ({ isVisible, children }) => {
   if (!isVisible) {
@@ -21,7 +22,9 @@ const Modal = ({ isVisible, children }) => {
   return (
     <StyledModal className="modal" id="modal">
       <div className="modal__content">
-        <div className="modal__header">{header}</div>
+        <div className="modal__header">
+          <Title level={2}>{header}</Title>
+        </div>
         <div className="modal__body">{body}</div>
         <div className="modal__footer">{footer}</div>
       </div>
