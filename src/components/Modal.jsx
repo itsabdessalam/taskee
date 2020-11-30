@@ -6,33 +6,48 @@ const Modal = ({ isVisible, children }) => {
     return null;
   }
 
+  const getChildBySlot = (children, slot) => {
+    if (!children || !slot) {
+      return null;
+    }
+    const slotItem = children.find(child => child.props["data-slot"] === slot);
+    return slotItem ? slotItem.props.children : null;
+  };
+
+  const header = getChildBySlot(children, "header");
+  const body = getChildBySlot(children, "body");
+  const footer = getChildBySlot(children, "footer");
+
   return (
     <StyledModal className="modal" id="modal">
-      <div className="content">{children}</div>
+      <div className="modal__content">
+        <div className="modal__header">{header}</div>
+        <div className="modal__body">{body}</div>
+        <div className="modal__footer">{footer}</div>
+      </div>
     </StyledModal>
   );
 };
 
 const StyledModal = styled.div`
   position: fixed;
-  display: block;
-  overflow: auto;
-  width: 100%;
-  height: 100%;
   top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
-  bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-  cursor: pointer;
-  .content {
-    margin: 15% auto;
-    background-color: white;
-    border-radius: 0.25rem;
-    width: 50vw;
-    padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1200;
+
+  .modal__content {
     position: relative;
+    padding: 24px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 8px;
+    width: 50vw;
   }
 `;
 

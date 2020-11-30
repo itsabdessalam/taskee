@@ -12,5 +12,6 @@ module.exports = {
   myNotes: "Mes notes",
   addNote: "Ajouter une nouvelle note",
   checkAll: "Cocher tout",
-  uncheckAll: "Décocher tout"
+  uncheckAll: "Décocher tout",
+  noDeadline: "Aucune deadline"
 };

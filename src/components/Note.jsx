@@ -107,12 +107,22 @@ const Note = ({ id }) => {
   };
 
   const updateChecklist = async note => {
+    if (!note) {
+      return;
+    }
+
     delete note.createdAt;
     delete note.updatedAt;
-    NoteService.update(note).catch(error => {
-      console.error("Error while updating user note", error);
-      return null;
-    });
+
+    if (
+      note.checklist.tasks &&
+      note.checklist.tasks.every(task => task.title)
+    ) {
+      NoteService.update(note).catch(error => {
+        console.error("Error while updating user note", error);
+        return null;
+      });
+    }
   };
 
   const onTitleChange = event => {

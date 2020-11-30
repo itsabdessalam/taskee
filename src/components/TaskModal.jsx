@@ -5,6 +5,8 @@ import EditableText from "./EditableText";
 import Deadline from "./Deadline";
 import Reminders from "./Reminders";
 
+const StyledTaskModal = styled(Modal)``;
+
 const TaskModal = ({ data, isVisible, setIsVisible, onChange }) => {
   const [mutableTask, setMutableTask] = useState({});
 
@@ -22,8 +24,9 @@ const TaskModal = ({ data, isVisible, setIsVisible, onChange }) => {
   };
 
   return (
-    <Modal isVisible={isVisible}>
-      <Container>
+    <StyledTaskModal isVisible={isVisible}>
+      <div data-slot="header">Update a task</div>
+      <div data-slot="body">
         <label>Title</label>
         <EditableText
           value={mutableTask.title}
@@ -56,29 +59,13 @@ const TaskModal = ({ data, isVisible, setIsVisible, onChange }) => {
             </div>
           </>
         )}
+      </div>
+      <div data-slot="footer">
         {/* TODO: use custom action buttons */}
         <button onClick={() => setIsVisible(false)}>Close</button>
-      </Container>
-    </Modal>
+      </div>
+    </StyledTaskModal>
   );
 };
 
-const Container = styled.div`
-  > * {
-    display: block;
-    text-align: left;
-    margin: 5px;
-  }
-  textarea {
-    background: ${({ theme }) => theme.colors.background};
-  }
-  .deadline,
-  .reminders {
-    width: 100%;
-    text-align: left;
-    span {
-      margin-right: 15px;
-    }
-  }
-`;
 export default TaskModal;

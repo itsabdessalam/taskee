@@ -60,6 +60,11 @@ const ThemeProvider = ({ children, theme = "light" }) => {
 
     input, textarea {
       font-family: 'Circular', 'Helvetica', 'Arial', sans-serif;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
 
     h1,h2,h3,h4,h5,h6 {

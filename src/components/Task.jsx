@@ -65,7 +65,12 @@ const StyledTask = styled.div`
           width: 16px;
           height: 16px;
           text-align: center;
-          transition: background-color 300ms ease 0s;
+        }
+      }
+
+      &:not([aria-checked="true"]) {
+        &:hover {
+          background-color: rgba(108, 41, 245, 0.08);
         }
       }
     }
