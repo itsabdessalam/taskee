@@ -70,15 +70,30 @@ const StyledNoteCard = styled.div`
 
     .note__deadline,
     .note__tasks {
-      color: ${({ theme }) => theme.colors.text};
-      margin-right: 12px;
-      font-size: 14px;
+      color: ${({ theme }) => theme.colors.muted};
+      margin-right: 4px;
+      font-size: 12px;
+      padding: 4px;
+      border-radius: 4px;
+
       svg {
         margin-right: 4px;
       }
     }
 
+    // .note__deadline {
+    //   color: #41bdfe;
+    //   background-color: rgba(65, 189, 254, 0.1);
+    // }
+
+    // .note__tasks {
+    //   color: #3cbe9d;
+    //   background-color: rgba(60, 190, 157, 0.1);
+    // }
+
     .note__actions {
+      margin-left: 12px;
+
       .note__action {
         border: none;
         border-radius: 5px;
@@ -87,7 +102,7 @@ const StyledNoteCard = styled.div`
         justify-content: center;
 
         &--delete {
-          background-color: transparent;
+          background-color: rgba(239, 68, 68, 0.1);
           color: #ef4444;
           width: 32px;
           height: 32px;
@@ -104,16 +119,14 @@ const StyledNoteCard = styled.div`
       border-radius: 5px;
       margin-right: 12px;
 
-      svg {
-        color: #ffffff;
-      }
-
       &--project {
-        background-color: #ec6c14;
+        color: #ec6c14;
+        background-color: rgba(236, 108, 20, 0.1);
       }
 
       &--blank {
-        background-color: #41bdfe;
+        color: #41bdfe;
+        background-color: rgba(65, 189, 254, 0.1);
       }
     }
 
@@ -165,7 +178,7 @@ const NoteCard = ({ note, deleteNote }) => {
         <div className="note__right-side">
           {note.deadline && (
             <div className="note__deadline">
-              <Icon name={"calendar"} width={18} />
+              <Icon name={"calendar"} width={16} />
               {localizedDate(note.deadline, activeLocale)}
             </div>
           )}
@@ -173,12 +186,12 @@ const NoteCard = ({ note, deleteNote }) => {
           note.checklist.tasks &&
           note.checklist.tasks.length ? (
             <div className="note__tasks">
-              <Icon name={"checklist"} width={18} />{" "}
+              <Icon name={"checklist"} width={16} />{" "}
               {note.checklist.tasks.length}
             </div>
           ) : (
             <div className="note__tasks">
-              <Icon name={"checklist"} width={18} /> 0
+              <Icon name={"checklist"} width={16} /> 0
             </div>
           )}
           <div className="note__actions">
