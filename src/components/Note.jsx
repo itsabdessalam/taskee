@@ -136,8 +136,6 @@ const Note = ({ className, id }) => {
 
   const ref = useRef(null);
   const inputElement = useRef(null);
-  const noteRef = useRef(null);
-
   const debouncedNote = useDebounce(note, 1000);
 
   const toggleEditingTitle = () => {
