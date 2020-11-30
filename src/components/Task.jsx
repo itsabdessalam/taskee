@@ -10,14 +10,12 @@ const StyledTask = styled.div`
   width: 100%;
 
   &:not(:last-child) {
-    border-bottom: 1px solid #edf2f7;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.separator};
   }
 
   .task__card {
     padding: 10px 15px;
     padding-right: 70px;
-    // border: 2px solid #edf2f7;
-    // background-color: #edf2f7;
     border-radius: 8px;
     width: 100%;
     display: flex;
@@ -46,8 +44,8 @@ const StyledTask = styled.div`
       margin: 0;
       color: rgb(0, 0, 0);
       border-radius: 5px;
-      background-color: #ffffff;
-      border: 2px solid #edf2f7;
+      background-color: ${({ theme }) => theme.colors.background};
+      border: 1px solid ${({ theme }) => theme.colors.checkbox};
       outline: none;
       appearance: none;
       width: 18px;
@@ -78,22 +76,28 @@ const StyledTask = styled.div`
     top: 50%;
     right: 15px;
     transform: translateY(-50%);
+    display: flex;
+    align-items: center;
 
     .task__action {
       border: none;
       border-radius: 5px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       &--delete {
         background-color: transparent;
         color: #ef4444;
-        width: 32px;
+        width: 24px;
         height: 32px;
       }
 
       &--update {
         background-color: transparent;
         color: ${({ theme }) => theme.colors.muted};
-        width: 32px;
+        width: 24px;
         height: 32px;
       }
     }

@@ -8,6 +8,8 @@ const StyledContainer = styled.main`
   padding: 32px;
   min-height: 100vh;
   transition: margin 0.25s, width 0.25s;
+  overflow-y: scroll;
+  height: 100vh;
 
   &.full {
     display: flex;
@@ -18,7 +20,17 @@ const StyledContainer = styled.main`
   }
 
   &.editor {
-    padding: 24px;
+    padding: 0;
+
+    .note {
+      width: calc(100% - 470px);
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {

@@ -16,8 +16,11 @@ const StyledNoteCard = styled.div`
     background-color: ${({ theme }) => theme.colors.card};
     padding: 10px 15px;
     border-radius: 8px;
-    border: 1px solid #edf2f7;
-    box-shadow: 0px 1px 100px 10px rgba(226, 232, 240, 0.16);
+    border: 1px solid ${({ theme }) => theme.colors.separator};
+    ${({ theme }) =>
+      theme.mode === "light" && {
+        "box-shadow": "0px 1px 100px 10px rgba(226, 232, 240, 0.16)"
+      }}
     z-index: 1;
 
     &:not(:last-child) {
@@ -67,7 +70,7 @@ const StyledNoteCard = styled.div`
 
     .note__deadline,
     .note__tasks {
-      color: #334155;
+      color: ${({ theme }) => theme.colors.muted};
       margin-right: 12px;
       font-size: 14px;
       svg {
