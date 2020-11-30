@@ -19,7 +19,7 @@ const StyledDatePickerInput = styled(ReactDatePicker)`
   display: block;
   color: ${({ theme }) => theme.colors.text};
   padding: 12px;
-  border: 2px solid #edf2f7;
+  border: 1px solid #edf2f7;
   font-family: inherit;
   border-radius: 5px;
   font-size: 16px;

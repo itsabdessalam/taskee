@@ -98,6 +98,30 @@ const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
     updateTasks(tasksCopy);
   };
 
+  const checkAllTasks = () => {
+    const tasksCopy = [
+      ...tasks.map(t => {
+        return {
+          ...t,
+          isCompleted: true
+        };
+      })
+    ];
+    updateTasks(tasksCopy);
+  };
+
+  const uncheckAllTasks = () => {
+    const tasksCopy = [
+      ...tasks.map(t => {
+        return {
+          ...t,
+          isCompleted: false
+        };
+      })
+    ];
+    updateTasks(tasksCopy);
+  };
+
   return (
     <StyledChecklist className="checklist">
       <div className="checklist__header">
@@ -108,11 +132,19 @@ const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
           </span>
         </h2>
         {/* TODO: use custom action buttons */}
-        {tasks.length > 0 && (
-          <button className="checklist__uncheck">
-            <FormattedMessage id={"uncheckAll"} />
-          </button>
-        )}
+        {tasks.length > 0 &&
+          tasks.filter(t => t.isCompleted).length === tasks.length && (
+            <button className="checklist__uncheck" onClick={uncheckAllTasks}>
+              <FormattedMessage id={"uncheckAll"} />
+            </button>
+          )}
+
+        {tasks.length > 0 &&
+          tasks.filter(t => t.isCompleted).length !== tasks.length && (
+            <button className="checklist__uncheck" onClick={checkAllTasks}>
+              <FormattedMessage id={"checkAll"} />
+            </button>
+          )}
       </div>
 
       <div className="checklist__body">

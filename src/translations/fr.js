@@ -11,5 +11,6 @@ module.exports = {
   edited: "édité",
   myNotes: "Mes notes",
   addNote: "Ajouter une nouvelle note",
+  checkAll: "Cocher tout",
   uncheckAll: "Décocher tout"
 };

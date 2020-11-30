@@ -18,7 +18,8 @@ const StyledNote = styled.div`
   justify-content: space-between;
 
   .note__content {
-    width: calc(100% - 470px);
+    width: 100%;
+    padding: 24px;
   }
 
   .note__checklist {
@@ -29,7 +30,7 @@ const StyledNote = styled.div`
     height: 100vh;
     max-width: 470px;
     background-color: ${({ theme }) => theme.colors.editor};
-    border-left: 1px solid #edf2f7;
+    border-left: 1px solid ${({ theme }) => theme.colors.separator};
     overflow-y: scroll;
 
     &::-webkit-scrollbar {
