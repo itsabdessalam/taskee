@@ -19,6 +19,7 @@ const StyledChecklist = styled.div`
         margin-left: 12px;
         font-size: 16px;
         color: #64748b;
+        font-weight: 400;
       }
     }
   }

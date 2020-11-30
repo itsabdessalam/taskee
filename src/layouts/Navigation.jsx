@@ -57,16 +57,16 @@ const Navigation = () => {
   const [collapsed, setCollapsed] = useState(false);
   const { root, fullPage } = useContext(AppContext);
 
-  if (fullPage) {
-    return null;
-  }
-
   const collapseSidebar = () => {
     root && root.classList.add("has-collapsed-navigation");
     setCollapsed(true);
   };
 
   const unCollapseSidebar = () => {
+    if (!collapsed) {
+      return;
+    }
+
     root && root.classList.remove("has-collapsed-navigation");
     setCollapsed(false);
   };
@@ -88,6 +88,10 @@ const Navigation = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   });
+
+  if (fullPage) {
+    return null;
+  }
 
   return (
     <Tabs collapsed={collapsed}>

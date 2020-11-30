@@ -1,8 +1,7 @@
-import { Button, Title } from "../components";
+import { Button, ButtonGroup, Title, SEO } from "../components";
 import React from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import { isLoggedIn } from "../utils/auth";
-import ButtonGroup from "../components/ButtonGroup";
 
 const GettingStarted = () => {
   const history = useHistory();
@@ -12,6 +11,7 @@ const GettingStarted = () => {
   if (isLoggedIn()) return <Redirect to={"/"} />;
   return (
     <>
+      <SEO title={"Getting Started"} />
       <Title level={2}>Getting Started</Title>
       <ButtonGroup>
         <Button onClick={() => redirectTo("/login")}>Login</Button>

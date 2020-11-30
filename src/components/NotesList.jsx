@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useIntl, FormattedMessage } from "react-intl";
+import styled from "styled-components";
 import NoteService from "../services/NoteService";
 import Button from "./Button";
 import NoteCard from "./NoteCard";
 import Title from "./Title";
+import Modal from "./Modal";
+import CreateNoteForm from "./CreateNoteForm";
+
+const StyledTaskModal = styled(Modal)``;
 
 const NotesList = () => {
   const history = useHistory();
   const [notes, setNotes] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const redirectTo = page => {
     return history.push(page);
@@ -47,7 +53,7 @@ const NotesList = () => {
         <div className="page__actions">
           <Button
             // TODO: should be a modal
-            onClick={() => redirectTo("/notes/new")}
+            onClick={() => setIsModalVisible(true)}
             className="page__action page__action--add-note"
             width="auto"
           >
@@ -64,6 +70,15 @@ const NotesList = () => {
           />
         ))}
       </div>
+      <StyledTaskModal isVisible={isModalVisible}>
+        <div data-slot="header">Add a new note</div>
+        <div data-slot="body">
+          <CreateNoteForm />
+        </div>
+        <div data-slot="footer">
+          <button onClick={() => setIsModalVisible(false)}>Close</button>
+        </div>
+      </StyledTaskModal>
     </>
   );
 };

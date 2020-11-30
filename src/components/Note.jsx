@@ -115,6 +115,7 @@ const Note = ({ id }) => {
     delete note.updatedAt;
 
     if (
+      note.checklist &&
       note.checklist.tasks &&
       note.checklist.tasks.every(task => task.title)
     ) {

@@ -13,6 +13,7 @@ const StyledTemplateSelector = styled.div`
     width: 100%;
     height: 100%;
     padding-left: 52px;
+    cursor: pointer;
   }
 
   .template {

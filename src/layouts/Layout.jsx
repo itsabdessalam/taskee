@@ -1,18 +1,15 @@
-/* eslint-disable no-unused-vars */
 import { useContext } from "react";
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import classNames from "classnames";
 import { Container, Navigation, Header } from "../layouts";
 import { AppProvider } from "../context/App";
-import { ProtectedRoute } from "../components";
+import { SEO, ProtectedRoute } from "../components";
 
 import Home from "../pages/home";
 import Login from "../pages/login";
 import Register from "../pages/register";
 import GettingStarted from "../pages/gettingStarted";
-import CreateNote from "../pages/createNote";
 import Notes from "../pages/notes";
-import EditorTest from "../pages/editorTest";
 import Calendar from "../pages/calendar";
 
 const Layout = ({ children, ...props }) => {
@@ -36,9 +33,6 @@ const Layout = ({ children, ...props }) => {
             </Route>
             <ProtectedRoute exact path="/notes">
               <Notes />
-            </ProtectedRoute>
-            <ProtectedRoute exact path="/notes/new">
-              <CreateNote />
             </ProtectedRoute>
             <ProtectedRoute exact path="/notes/:id">
               <Notes />
