@@ -28,16 +28,14 @@ const StyledTemplateSelector = styled.div`
     justify-content: center;
     border-radius: 5px;
 
-    svg {
-      color: #ffffff;
-    }
-
     &--project {
-      background-color: #ec6c14;
+      color: #ec6c14;
+      background-color: rgba(236, 108, 20, 0.1);
     }
 
     &--blank {
-      background-color: #41bdfe;
+      color: #41bdfe;
+      background-color: rgba(65, 189, 254, 0.1);
     }
   }
 `;
