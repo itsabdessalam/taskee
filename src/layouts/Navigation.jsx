@@ -67,10 +67,6 @@ const Navigation = () => {
   };
 
   const unCollapseSidebar = () => {
-    if (!collapsed) {
-      return;
-    }
-
     root && root.classList.remove("has-collapsed-navigation");
     setCollapsed(false);
   };
