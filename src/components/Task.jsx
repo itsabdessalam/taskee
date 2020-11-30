@@ -10,14 +10,14 @@ const StyledTask = styled.div`
   width: 100%;
 
   &:not(:last-child) {
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid #edf2f7;
   }
 
   .task__card {
     padding: 10px 15px;
     padding-right: 70px;
-    // border: 2px solid #e2e8f0;
-    // background-color: #e2e8f0;
+    // border: 2px solid #edf2f7;
+    // background-color: #edf2f7;
     border-radius: 8px;
     width: 100%;
     display: flex;
@@ -45,9 +45,9 @@ const StyledTask = styled.div`
       position: relative;
       margin: 0;
       color: rgb(0, 0, 0);
-      border-radius: 4px;
+      border-radius: 5px;
       background-color: #ffffff;
-      border: 2px solid #e2e8f0;
+      border: 2px solid #edf2f7;
       outline: none;
       appearance: none;
       width: 18px;
@@ -81,7 +81,7 @@ const StyledTask = styled.div`
 
     .task__action {
       border: none;
-      border-radius: 4px;
+      border-radius: 5px;
 
       &--delete {
         background-color: transparent;

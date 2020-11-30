@@ -9,5 +9,7 @@ module.exports = {
   notifications: "Notifications",
   duration: "il y a {duration}",
   edited: "édité",
-  addNote: "Ajouter une nouvelle note"
+  myNotes: "Mes notes",
+  addNote: "Ajouter une nouvelle note",
+  uncheckAll: "Décocher tout"
 };

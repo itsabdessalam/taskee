@@ -11,9 +11,9 @@ const StyledTabs = styled.div`
     width: 210px;
     background-color: ${({ theme }) => theme.colors.navigation};
     z-index: 1070;
-    border-right: 1px solid #f1f5f9;
+    border-right: 1px solid #edf2f7;
     transform: translate3d(0, 0, 0);
-    transition: width 0.4s;
+    transition: all 0.25s;
 
     .collapse {
       svg {
@@ -28,9 +28,8 @@ const StyledTabs = styled.div`
         padding: 8px 12px;
 
         .logo__text {
-          width: 0;
+          max-width: 0;
           margin: 0;
-          visibility: hidden;
         }
       }
 

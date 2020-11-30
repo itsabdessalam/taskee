@@ -12,12 +12,12 @@ const StyledAppLogo = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  transition: width 0.4s;
+  transition: all 0.25s;
 
   .logo__img {
     object-fit: cover;
     object-position: left;
-    transition: width 0.4s;
+    transition: all 0.25s;
   }
 
   .logo__text {
@@ -28,8 +28,9 @@ const StyledAppLogo = styled.div`
     font-weight: 500;
     margin-left: 10px;
     letter-spacing: -1px;
-    width: 86px;
-    transition: width 0.4s;
+    max-width: 86px;
+    overflow: hidden;
+    transition: all 0.25s;
   }
 `;
 

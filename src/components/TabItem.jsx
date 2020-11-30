@@ -11,13 +11,13 @@ const StyledTabItem = styled.div`
   align-items: center;
   justify-content: center;
   padding: 8px;
-  transition: width 0.4s;
+  transition: all 0.25s;
 
   .tab__link {
     padding: 8px;
     width: 100%;
     height: 38px;
-    border-radius: 4px;
+    border-radius: 5px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -30,7 +30,7 @@ const StyledTabItem = styled.div`
       color: #334155;
 
       @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-        background-color: #f1f5f9;
+        background-color: #edf2f7;
       }
     }
   }
@@ -50,7 +50,7 @@ const StyledTabItem = styled.div`
     width: 20px;
     height: 20px;
     margin: 0;
-    transition: margin 0.4s;
+    transition: all 0.25s;
   }
 `;
 

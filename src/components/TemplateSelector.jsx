@@ -25,7 +25,7 @@ const StyledTemplateSelector = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 4px;
+    border-radius: 5px;
 
     svg {
       color: #ffffff;
