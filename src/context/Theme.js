@@ -45,26 +45,34 @@ const ThemeProvider = ({ children, theme = "light" }) => {
 
     body {
       margin: 0;
-      font-family: 'Circular', 'Helvetica', 'Arial', sans-serif;
+      font-family: ${activeTheme.fonts.body};
       background-color: ${activeTheme.colors.background};
       color: ${activeTheme.colors.text};  
     }
 
     a, button {
       cursor: pointer;
-      font-family: 'Circular', 'Helvetica', 'Arial', sans-serif;
+      font-family: ${activeTheme.fonts.body};
       > svg {
         pointer-events: none;
       }
     }
 
     input, textarea {
-      font-family: 'Circular', 'Helvetica', 'Arial', sans-serif;
+      font-family: ${activeTheme.fonts.body};
       &::-webkit-scrollbar {
         display: none;
       }
       -ms-overflow-style: none;
       scrollbar-width: none;
+    }
+
+    button {
+      outline: 0;
+
+      &:focus {
+        box-shadow: 0 0 0 2px #cbd5e1;
+      }
     }
 
     h1,h2,h3,h4,h5,h6 {

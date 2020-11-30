@@ -23,7 +23,7 @@ const StyledAppLogo = styled.div`
   .logo__text {
     display: block;
     position: relative;
-    font-family: "Euclid Flex", "Helvetica", "Arial", sans-serif;
+    font-family: ${({ theme }) => theme.fonts.logo};
     font-size: 30px;
     font-weight: 500;
     margin-left: 10px;

@@ -20,8 +20,8 @@ const BASE = {
     xl: "1280px"
   },
   fonts: {
-    body:
-      'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+    body: '"Circular", "Helvetica", "Arial", sans-serif',
+    logo: '"Euclid Flex", "Helvetica", "Arial", sans-serif',
     heading: "inherit",
     monospace: "Menlo, monospace"
   },
