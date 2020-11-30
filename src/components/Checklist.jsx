@@ -37,6 +37,7 @@ const StyledChecklist = styled.div`
     right: 15px;
     align-items: center;
     justify-content: center;
+    transition: right 0.4s;
   }
 
   .checklist__uncheck {

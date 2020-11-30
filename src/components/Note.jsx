@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import classNames from "classnames";
 import NoteService from "../services/NoteService";
 import Checklist from "../components/Checklist";
 import { useDebounce } from "../hooks";
@@ -14,74 +15,115 @@ import LocaleContext from "../context/Locale";
 import { localizedDate } from "../utils/date";
 
 const StyledNote = styled.div`
-  display: flex;
-  justify-content: space-between;
+  &.note {
+    display: flex;
+    justify-content: space-between;
+    transition: width 0.4s;
 
-  .note__content {
-    width: 100%;
-    padding: 24px;
-  }
-
-  .note__checklist {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100vh;
-    max-width: 470px;
-    background-color: ${({ theme }) => theme.colors.editor};
-    border-left: 1px solid ${({ theme }) => theme.colors.separator};
-    overflow-y: scroll;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .note__title {
-    font-size: 32px;
-    font-weight: 500;
-    margin-top: 0;
-    margin-bottom: 0;
-
-    textarea {
-      font-size: 32px;
-      font-weight: 500;
+    .note__content {
       width: 100%;
-      background: transparent !important;
-    }
-  }
-
-  .note__deadline {
-    .react-datepicker-popper {
-      z-index: 3;
+      padding: 24px;
+      position: relative;
     }
 
-    .react-datepicker__close-icon {
-      height: auto;
-      top: 50%;
-      right: 12px;
-      transform: translateY(-50%);
+    .note__expand {
+      position: absolute;
+      right: 24px;
+      top: 36px;
+      color: #64748b;
+      background-color: transparent;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 32px;
+      width: 32px;
+      border-radius: 4px;
       padding: 0;
 
-      &::after {
-        font-size: 14px;
+      &:hover {
         background-color: #edf2f7;
-        color: #64748b;
-        height: 20px;
-        width: 20px;
       }
     }
 
-    .react-datepicker__triangle {
-      left: 50px !important;
+    .note__checklist {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100vh;
+      max-width: 470px;
+      background-color: ${({ theme }) => theme.colors.editor};
+      border-left: 1px solid ${({ theme }) => theme.colors.separator};
+      overflow-y: scroll;
+      transition: right 0.4s;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .note__title {
+      font-size: 32px;
+      font-weight: 500;
+      margin-top: 0;
+      margin-bottom: 0;
+
+      textarea {
+        font-size: 32px;
+        font-weight: 500;
+        width: 100%;
+        background: transparent !important;
+      }
+    }
+
+    .note__deadline {
+      .react-datepicker-popper {
+        z-index: 3;
+      }
+
+      .react-datepicker__close-icon {
+        height: auto;
+        top: 50%;
+        right: 12px;
+        transform: translateY(-50%);
+        padding: 0;
+
+        &::after {
+          font-size: 14px;
+          background-color: #edf2f7;
+          color: #64748b;
+          height: 20px;
+          width: 20px;
+        }
+      }
+
+      .react-datepicker__triangle {
+        left: 50px !important;
+      }
+    }
+
+    &.expanded {
+      width: 100% !important;
+
+      .note__checklist {
+        right: -500px;
+      }
+
+      .checklist__add {
+        right: -500px;
+      }
+
+      .note__expand {
+        background-color: #edf2f7;
+      }
     }
   }
 `;
 
-const Note = ({ id }) => {
+const Note = ({ className, id }) => {
   const history = useHistory();
   const [note, setNote] = useState({});
   const [checklist, setChecklist] = useState({
@@ -89,10 +131,12 @@ const Note = ({ id }) => {
     tasks: []
   });
   const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const { activeLocale, updateLocale } = useContext(LocaleContext);
 
   const ref = useRef(null);
   const inputElement = useRef(null);
+  const noteRef = useRef(null);
 
   const debouncedNote = useDebounce(note, 1000);
 
@@ -147,6 +191,10 @@ const Note = ({ id }) => {
     }
   };
 
+  const handleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   useEffect(() => {
     NoteService.get(id)
       .then(response => {
@@ -169,14 +217,21 @@ const Note = ({ id }) => {
       updateChecklist(debouncedNote);
     }
   }, [debouncedNote]);
+
+  const cssClasses = classNames(className, "note", {
+    expanded: isExpanded
+  });
+
   return (
     <>
       {/* <Button onClick={redirectToList} width="120px">
         Back
       </Button> */}
-
-      <StyledNote className="note">
+      <StyledNote className={cssClasses}>
         <div className="note__content">
+          <button className="note__expand" onClick={handleExpand}>
+            <Icon name={"expand"} width={18} />
+          </button>
           <h2 ref={ref} onClick={toggleEditingTitle} className="note__title">
             <EditableText
               ref={inputElement}
