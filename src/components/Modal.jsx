@@ -50,7 +50,8 @@ const StyledModal = styled.div`
     margin: 0 auto;
     background-color: white;
     border-radius: 8px;
-    width: 50vw;
+    width: 100%;
+    max-width: 840px;
   }
 `;
 
