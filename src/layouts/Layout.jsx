@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import classNames from "classnames";
 import { Container, Navigation, Header } from "../layouts";
 import { AppProvider } from "../context/App";
@@ -40,6 +40,7 @@ const Layout = ({ children, ...props }) => {
             <ProtectedRoute exact path="/calendar">
               <Calendar />
             </ProtectedRoute>
+            <Redirect to="/notes" /> {/* please keep it last */}
           </Switch>
         </Container>
       </AppProvider>
