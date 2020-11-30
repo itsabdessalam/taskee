@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import styled from "styled-components";
 import AppContext from "../context/App";
 import { Tabs, TabItem, Icon } from "../components";
-import logo from "./../assets/images/taskee-logo.png";
+import Logo from "./../assets/images/taskee-logo.png";
 
 const StyledAppLogo = styled.div`
   height: 90px;
@@ -55,7 +55,11 @@ const StyledCollapseBlock = styled.div`
 const Navigation = () => {
   const intl = useIntl();
   const [collapsed, setCollapsed] = useState(false);
-  const { root } = useContext(AppContext);
+  const { root, fullPage } = useContext(AppContext);
+
+  if (fullPage) {
+    return null;
+  }
 
   const collapseSidebar = () => {
     root && root.classList.add("has-collapsed-navigation");
@@ -92,7 +96,7 @@ const Navigation = () => {
   return (
     <Tabs collapsed={collapsed}>
       <StyledAppLogo className="logo">
-        <img alt="Taskee" src={logo} className="logo__img" width={30} />
+        <img alt="Taskee" src={Logo} className="logo__img" width={30} />
         <span className="logo__text">taskee</span>
       </StyledAppLogo>
       <TabItem
