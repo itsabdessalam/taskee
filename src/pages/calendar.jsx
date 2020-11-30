@@ -1,9 +1,9 @@
+import { useState } from "react";
 import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import React, { useState } from "react";
-import { Button, Title } from "../components";
+import { Button, Title, SEO } from "../components";
 
 const Calendar = () => {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
@@ -40,6 +40,7 @@ const Calendar = () => {
 
   return (
     <>
+      <SEO title={"Calendar"} />
       <Title level={2}>My calendar</Title>
       {renderSidebar()}
       <FullCalendar

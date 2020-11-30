@@ -7,7 +7,7 @@ const StyledTitle = styled.div`
   margin-bottom: 24px;
 `;
 
-const Title = ({ children, level = 1, ...props }) => {
+const Title = ({ children, level = 1, title, ...props }) => {
   return (
     <StyledTitle as={`h${level}`} level={level} {...props}>
       {children}

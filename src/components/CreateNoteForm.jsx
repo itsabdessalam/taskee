@@ -50,7 +50,6 @@ const CreateNoteForm = () => {
 
   return (
     <>
-      <Title level={2}>New note</Title>
       <Form onSubmit={handleSubmit}>
         <Input
           name="title"

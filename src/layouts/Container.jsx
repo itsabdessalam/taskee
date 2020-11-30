@@ -17,6 +17,7 @@ const StyledContainer = styled.main`
     flex-direction: column;
     min-height: 100vh;
     padding-bottom: 15px;
+    margin: 0;
   }
 
   &.editor {

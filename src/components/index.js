@@ -19,6 +19,7 @@ import Editor from "./Editor";
 import ThemeSwitcher from "./ThemeSwitcher";
 import Note from "./Note";
 import NotesList from "./NotesList";
+import SEO from "./SEO";
 
 export {
   Button,
@@ -41,5 +42,6 @@ export {
   Editor,
   ThemeSwitcher,
   Note,
-  NotesList
+  NotesList,
+  SEO
 };

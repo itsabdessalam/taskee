@@ -10,6 +10,7 @@ module.exports = {
   duration: "{duration} ago",
   edited: "edited",
   myNotes: "My notes",
+  myCalendar: "My calendar",
   addNote: "Add new note",
   checkAll: "Check all",
   uncheckAll: "Uncheck all",
