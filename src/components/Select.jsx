@@ -7,9 +7,9 @@ const StyledSelect = styled.select`
   display: block;
   color: ${({ theme }) => theme.colors.text};
   padding: 12px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #edf2f7;
   font-family: inherit;
-  border-radius: 8px;
+  border-radius: 5px;
   font-size: 16px;
   line-height: 24px;
   background-color: #ffffff;

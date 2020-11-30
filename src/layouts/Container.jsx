@@ -4,7 +4,7 @@ const StyledContainer = styled.main`
   margin: 0 auto;
   padding: 32px;
   min-height: 100vh;
-  transition: margin 0.4s;
+  transition: margin 0.25s, width 0.25s;
 
   &.full {
     display: flex;

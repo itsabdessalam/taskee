@@ -12,7 +12,7 @@ const StyledButton = styled.button`
   margin: 0;
   padding: 12px 24px;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   color: #ffffff;
   font-family: inherit;
   background-color: ${({ theme }) => theme.colors.primary};

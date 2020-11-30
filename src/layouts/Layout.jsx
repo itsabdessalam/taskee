@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Route, Switch, useLocation } from "react-router-dom";
+import classNames from "classnames";
 import { Container, Navigation, Header } from "../layouts";
 import { ThemeProvider } from "../context/Theme";
 import { LocaleProvider } from "../context/Locale";
@@ -16,18 +17,18 @@ import Calendar from "../pages/calendar";
 
 const Layout = ({ children, ...props }) => {
   const { pathname } = useLocation();
-  const fullPages = ["/login", "/register", "/getting-started"];
-
   const isFullPage = page => {
-    return fullPages.find(p => {
+    return ["/login", "/register", "/getting-started"].find(p => {
       return p === page;
     });
   };
 
-  const cssClasses = [
-    ...(isFullPage(pathname) ? ["full"] : []),
-    ...(pathname.indexOf("/notes/") !== -1 ? ["editor"] : [])
-  ].join(" ");
+  const isFull = isFullPage(pathname);
+  const isEditorMode = pathname.indexOf("/notes/") !== -1;
+  const cssClasses = classNames({
+    full: isFull,
+    editor: isEditorMode
+  });
 
   return (
     <>

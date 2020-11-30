@@ -29,7 +29,7 @@ const StyledNote = styled.div`
     height: 100vh;
     max-width: 470px;
     background-color: ${({ theme }) => theme.colors.editor};
-    border-left: 1px solid #f1f5f9;
+    border-left: 1px solid #edf2f7;
     overflow-y: scroll;
 
     &::-webkit-scrollbar {
@@ -67,7 +67,7 @@ const StyledNote = styled.div`
 
       &::after {
         font-size: 14px;
-        background-color: #e2e8f0;
+        background-color: #edf2f7;
         color: #64748b;
         height: 20px;
         width: 20px;

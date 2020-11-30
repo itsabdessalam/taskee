@@ -16,8 +16,8 @@ const StyledNoteCard = styled.div`
     background-color: ${({ theme }) => theme.colors.card};
     padding: 10px 15px;
     border-radius: 8px;
-    border: 1px solid #f1f5f9;
-    box-shadow: 0px 20px 48px rgba(100, 116, 139, 0.02);
+    border: 1px solid #edf2f7;
+    box-shadow: 0px 1px 100px 10px rgba(226, 232, 240, 0.16);
     z-index: 1;
 
     &:not(:last-child) {
@@ -78,7 +78,7 @@ const StyledNoteCard = styled.div`
     .note__actions {
       .note__action {
         border: none;
-        border-radius: 4px;
+        border-radius: 5px;
 
         &--delete {
           background-color: transparent;
@@ -95,7 +95,7 @@ const StyledNoteCard = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 4px;
+      border-radius: 5px;
       margin-right: 12px;
 
       svg {

@@ -42,7 +42,7 @@ const NotesList = () => {
     <>
       <div className="page__header">
         <Title level={2} className="page__title">
-          All notes
+          <FormattedMessage id="myNotes" />
         </Title>
         <div className="page__actions">
           <Button

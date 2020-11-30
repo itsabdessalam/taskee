@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useIntl, FormattedMessage } from "react-intl";
 
 import Task from "./Task";
 import Button from "./Button";
@@ -35,6 +36,26 @@ const StyledChecklist = styled.div`
     right: 15px;
     align-items: center;
     justify-content: center;
+  }
+
+  .checklist__uncheck {
+    width: auto;
+    font-size: 14px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-family: inherit;
+    background-color: #6c29f5;
+    text-align: center;
+    text-decoration: none;
+    outline: 0;
+    cursor: pointer;
   }
 `;
 
@@ -88,7 +109,9 @@ const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
         </h2>
         {/* TODO: use custom action buttons */}
         {tasks.length > 0 && (
-          <button className="checklist__uncheck">Uncheck all</button>
+          <button className="checklist__uncheck">
+            <FormattedMessage id={"uncheckAll"} />
+          </button>
         )}
       </div>
 

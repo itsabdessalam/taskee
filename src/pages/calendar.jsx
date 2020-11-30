@@ -40,7 +40,7 @@ const Calendar = () => {
 
   return (
     <>
-      <Title level={2}>Calendar</Title>
+      <Title level={2}>My calendar</Title>
       {renderSidebar()}
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -58,6 +58,7 @@ const Calendar = () => {
         weekends={weekendsVisible}
         eventContent={renderEventContent}
         eventsSet={handleEvents}
+        aspectRatio={1.8}
       />
     </>
   );
