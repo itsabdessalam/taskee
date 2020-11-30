@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import Layout from "./Layout";
 import { getUserLogged, isLoggedIn } from "../utils/auth";
 import Pusher from "pusher-js";
@@ -33,9 +33,9 @@ const App = () => {
   }, []);
   return (
     <>
-      <BrowserRouter>
+      <Router>
         <Layout />
-      </BrowserRouter>
+      </Router>
     </>
   );
 };

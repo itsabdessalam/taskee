@@ -1,4 +1,7 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import classNames from "classnames";
+import AppContext from "../context/App";
 
 const StyledContainer = styled.main`
   margin: 0 auto;
@@ -28,8 +31,19 @@ const StyledContainer = styled.main`
   }
 `;
 
-const Container = ({ children, ...props }) => (
-  <StyledContainer {...props}>{children}</StyledContainer>
-);
+const Container = ({ children, className, ...props }) => {
+  const { fullPage, editorMode } = useContext(AppContext);
+  const cssClasses = classNames({
+    className,
+    full: fullPage,
+    editor: editorMode
+  });
+
+  return (
+    <StyledContainer className={cssClasses} {...props}>
+      {children}
+    </StyledContainer>
+  );
+};
 
 export default Container;

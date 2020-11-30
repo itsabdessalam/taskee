@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
+import { useContext } from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 import classNames from "classnames";
 import { Container, Navigation, Header } from "../layouts";
+import { AppProvider } from "../context/App";
 import { ThemeProvider } from "../context/Theme";
 import { LocaleProvider } from "../context/Locale";
 import { ProtectedRoute } from "../components";
@@ -16,55 +18,43 @@ import EditorTest from "../pages/editorTest";
 import Calendar from "../pages/calendar";
 
 const Layout = ({ children, ...props }) => {
-  const { pathname } = useLocation();
-  const isFullPage = page => {
-    return ["/login", "/register", "/getting-started"].find(p => {
-      return p === page;
-    });
-  };
-
-  const isFull = isFullPage(pathname);
-  const isEditorMode = pathname.indexOf("/notes/") !== -1;
-  const cssClasses = classNames({
-    full: isFull,
-    editor: isEditorMode
-  });
-
   return (
     <>
-      <LocaleProvider>
-        <ThemeProvider>
-          {!isFullPage(pathname) ? <Navigation /> : null}
-          <Container className={cssClasses}>
-            <Switch>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route exact path="/login">
-                <Login />
-              </Route>
-              <Route exact path="/register">
-                <Register />
-              </Route>
-              <Route exact path="/getting-started">
-                <GettingStarted />
-              </Route>
-              <ProtectedRoute exact path="/notes">
-                <Notes />
-              </ProtectedRoute>
-              <ProtectedRoute exact path="/notes/new">
-                <CreateNote />
-              </ProtectedRoute>
-              <ProtectedRoute exact path="/notes/:id">
-                <Notes />
-              </ProtectedRoute>
-              <ProtectedRoute exact path="/calendar">
-                <Calendar />
-              </ProtectedRoute>
-            </Switch>
-          </Container>
-        </ThemeProvider>
-      </LocaleProvider>
+      <AppProvider>
+        <LocaleProvider>
+          <ThemeProvider>
+            <Navigation />
+            <Container>
+              <Switch>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                <Route exact path="/login">
+                  <Login />
+                </Route>
+                <Route exact path="/register">
+                  <Register />
+                </Route>
+                <Route exact path="/getting-started">
+                  <GettingStarted />
+                </Route>
+                <ProtectedRoute exact path="/notes">
+                  <Notes />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/notes/new">
+                  <CreateNote />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/notes/:id">
+                  <Notes />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/calendar">
+                  <Calendar />
+                </ProtectedRoute>
+              </Switch>
+            </Container>
+          </ThemeProvider>
+        </LocaleProvider>
+      </AppProvider>
     </>
   );
 };
