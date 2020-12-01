@@ -1,39 +1,29 @@
-/* eslint-disable no-unused-vars */
-import { Route, Switch, useLocation } from "react-router-dom";
-import { Container, Footer, Header } from "../layouts";
-import { LocaleProvider } from "../context/Locale";
-import { ProtectedRoute } from "../components";
+import { useContext } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
+import classNames from "classnames";
+import { Container, Navigation, Header } from "../layouts";
+import { AppProvider } from "../context/App";
+import { SEO, ProtectedRoute } from "../components";
 
 import Home from "../pages/home";
 import Login from "../pages/login";
 import Register from "../pages/register";
 import GettingStarted from "../pages/gettingStarted";
-import CreateNote from "../pages/createNote";
 import Notes from "../pages/notes";
 import EditorTest from "../pages/editorTest";
 import Settings from "../pages/settings";
+import Calendar from "../pages/calendar";
 
 const Layout = ({ children, ...props }) => {
-  const { pathname } = useLocation();
-  const fullPages = ["/login", "/register", "/getting-started"];
-
-  const isFullPage = page => {
-    return fullPages.find(p => {
-      return p === page;
-    });
-  };
-
-  const cssClasses = isFullPage(pathname) ? "full" : null;
-
   return (
     <>
-      <LocaleProvider>
-        {!isFullPage(pathname) ? <Header /> : null}
-        <Container className={cssClasses}>
+      <AppProvider>
+        <Navigation />
+        <Container>
           <Switch>
-            <ProtectedRoute exact path="/">
+            <Route exact path="/">
               <Home />
-            </ProtectedRoute>
+            </Route>
             <Route exact path="/login">
               <Login />
             </Route>
@@ -46,9 +36,6 @@ const Layout = ({ children, ...props }) => {
             <ProtectedRoute exact path="/notes">
               <Notes />
             </ProtectedRoute>
-            <ProtectedRoute exact path="/notes/new">
-              <CreateNote />
-            </ProtectedRoute>
             <ProtectedRoute exact path="/notes/:id">
               <Notes />
             </ProtectedRoute>
@@ -58,10 +45,13 @@ const Layout = ({ children, ...props }) => {
             <ProtectedRoute exact path="/settings">
               <Settings />
             </ProtectedRoute>
+            <ProtectedRoute exact path="/calendar">
+              <Calendar />
+            </ProtectedRoute>
+            <Redirect to="/notes" /> {/* please keep it last */}
           </Switch>
         </Container>
-        {!isFullPage(pathname) ? <Footer /> : null}
-      </LocaleProvider>
+      </AppProvider>
     </>
   );
 };

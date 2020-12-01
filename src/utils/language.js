@@ -1,5 +1,5 @@
 /**
- * Get navigator Language and format then
+ * Returns current navigator language
  *
  * @return string
  */

@@ -2,26 +2,35 @@ import styled from "styled-components";
 
 const StyledInput = styled.input`
   width: 100%;
-  height: 48px;
+  height: 52px;
   font-weight: 400;
+  display: block;
+  color: ${({ theme }) => theme.colors.text};
+  padding: 12px;
+  border: 1px solid #edf2f7;
+  font-family: inherit;
+  border-radius: 5px;
   font-size: 16px;
   line-height: 24px;
-  display: block;
-  margin: 0;
-  padding: 10px 16px;
-  border: none;
-  box-shadow: 0px 10px 50px rgb(220 226 229 / 0.2);
-  border-radius: 8px;
-  color: ${({ theme }) => theme.colors.text};
   background-color: #ffffff;
-  font-family: inherit;
+  box-shadow: 0 0 0 0 rgb(108 41 245 / 0.05);
   outline: 0;
+  transition: border-color 0.3s, box-shadow 0.3s;
 
   &:not(:last-child) {
     margin-bottom: 12px;
   }
 
-  ::placeholder {
+  &:hover {
+    border-color: #cbd5e1;
+  }
+
+  &:focus {
+    border-color: ${({ theme }) => theme.colors.primary};
+    box-shadow: 0 0 0 4px rgb(108 41 245 / 0.05);
+  }
+
+  &::placeholder {
     color: ${({ theme }) => theme.colors.muted};
   }
 `;

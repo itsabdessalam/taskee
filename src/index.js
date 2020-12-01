@@ -1,15 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { App } from "./layouts";
-import { AppContextProvider } from "./context/App";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppContextProvider>
-      <App />
-    </AppContextProvider>
+    <App />
   </React.StrictMode>,
   document.getElementById("app")
 );

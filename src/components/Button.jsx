@@ -3,7 +3,6 @@ import styled from "styled-components";
 const StyledButton = styled.button`
   width: ${({ width }) => width || "100%"};
   height: 48px;
-  font-weight: 500;
   font-size: 16px;
   line-height: 24px;
   position: relative;
@@ -13,8 +12,9 @@ const StyledButton = styled.button`
   margin: 0;
   padding: 12px 24px;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   color: #ffffff;
+  font-family: inherit;
   background-color: ${({ theme }) => theme.colors.primary};
   text-align: center;
   text-decoration: none;
