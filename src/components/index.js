@@ -11,10 +11,15 @@ import Title from "./Title";
 import Img from "./Img";
 import Icon from "./Icon";
 import Input from "./Input";
+import Label from "./Label";
+import Radio from "./Radio";
+import Checkbox from "./Checkbox";
+import Form from "./Form";
 import LoginForm from "./LoginForm";
-import ProtectedRoute from "./ProtectedRoute";
 import RegisterForm from "./RegisterForm";
-import CreateNoteForm from "./CreateNoteForm";
+import NoteForm from "./NoteForm";
+import SettingsForm from "./SettingsForm";
+import ProtectedRoute from "./ProtectedRoute";
 import Editor from "./Editor";
 import ThemeSwitcher from "./ThemeSwitcher";
 import Note from "./Note";
@@ -32,10 +37,15 @@ export {
   Img,
   Icon,
   Input,
+  Label,
+  Radio,
+  Checkbox,
   ProtectedRoute,
+  Form,
   LoginForm,
   RegisterForm,
-  CreateNoteForm,
+  NoteForm,
+  SettingsForm,
   Select,
   Title,
   LocaleSelector,

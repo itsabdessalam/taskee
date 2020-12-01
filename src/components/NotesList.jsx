@@ -7,7 +7,7 @@ import Button from "./Button";
 import NoteCard from "./NoteCard";
 import Title from "./Title";
 import Modal from "./Modal";
-import CreateNoteForm from "./CreateNoteForm";
+import NoteForm from "./NoteForm";
 
 const StyledTaskModal = styled(Modal)``;
 
@@ -73,7 +73,7 @@ const NotesList = () => {
       <StyledTaskModal isVisible={isModalVisible}>
         <div data-slot="header">Add a new note</div>
         <div data-slot="body">
-          <CreateNoteForm />
+          <NoteForm />
         </div>
         <div data-slot="footer">
           <button onClick={() => setIsModalVisible(false)}>Close</button>

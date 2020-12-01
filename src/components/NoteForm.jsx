@@ -13,7 +13,7 @@ import { useForm } from "../hooks";
 
 import NoteService from "../services/NoteService";
 
-const CreateNoteForm = () => {
+const NoteForm = () => {
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -69,4 +69,4 @@ const CreateNoteForm = () => {
   );
 };
 
-export default CreateNoteForm;
+export default NoteForm;

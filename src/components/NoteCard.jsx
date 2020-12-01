@@ -72,7 +72,7 @@ const StyledNoteCard = styled.div`
     .note__tasks {
       color: ${({ theme }) => theme.colors.muted};
       margin-right: 4px;
-      font-size: 12px;
+      font-size: 14px;
       padding: 4px;
       border-radius: 4px;
 
