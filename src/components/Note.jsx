@@ -18,7 +18,13 @@ const StyledNote = styled.div`
   &.note {
     display: flex;
     justify-content: space-between;
-    transition: width 0.4s;
+    transition: width 0.4s ease;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 
     .note__content {
       width: 100%;
@@ -44,6 +50,10 @@ const StyledNote = styled.div`
       &:hover {
         background-color: #edf2f7;
       }
+
+      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+        display: none;
+      }
     }
 
     .note__checklist {
@@ -56,13 +66,17 @@ const StyledNote = styled.div`
       background-color: ${({ theme }) => theme.colors.editor};
       border-left: 1px solid ${({ theme }) => theme.colors.separator};
       overflow-y: scroll;
-      transition: right 0.4s;
+      transition: right 0.4s ease;
 
       &::-webkit-scrollbar {
         display: none;
       }
       -ms-overflow-style: none;
       scrollbar-width: none;
+
+      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+        display: none;
+      }
     }
 
     .note__title {
@@ -70,7 +84,10 @@ const StyledNote = styled.div`
       font-weight: 500;
       margin-top: 0;
       margin-bottom: 0;
-      padding-right: 32px !important;
+
+      @media (mix-width: ${({ theme }) => theme.breakpoints.md}) {
+        padding-right: 32px !important;
+      }
 
       textarea {
         font-size: 32px;
@@ -81,29 +98,6 @@ const StyledNote = styled.div`
     }
 
     .note__deadline {
-      .react-datepicker-popper {
-        z-index: 3;
-      }
-
-      .react-datepicker__close-icon {
-        height: auto;
-        top: 50%;
-        right: 12px;
-        transform: translateY(-50%);
-        padding: 0;
-
-        &::after {
-          font-size: 14px;
-          background-color: #edf2f7;
-          color: #64748b;
-          height: 20px;
-          width: 20px;
-        }
-      }
-
-      .react-datepicker__triangle {
-        left: 50px !important;
-      }
     }
 
     &.expanded {
@@ -229,7 +223,7 @@ const Note = ({ className, id }) => {
       <StyledNote className={cssClasses}>
         <div className="note__content">
           <button className="note__expand" onClick={handleExpand}>
-            <Icon name={"expand"} width={18} />
+            <Icon name="expand" width={18} />
           </button>
           <h2 ref={ref} onClick={toggleEditingTitle} className="note__title">
             <EditableText

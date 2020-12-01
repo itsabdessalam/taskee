@@ -3,6 +3,7 @@ import styled from "styled-components";
 import TaskModal from "./TaskModal";
 import EditableText from "./EditableText";
 import Icon from "./Icon";
+import Button from "./Button";
 import Checkbox from "./Checkbox";
 
 const StyledTask = styled.div`
@@ -49,10 +50,11 @@ const StyledTask = styled.div`
     .task__action {
       border: none;
       border-radius: 5px;
-      padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 0;
+      margin: 0;
 
       &--delete {
         background-color: transparent;
@@ -79,7 +81,7 @@ const Task = ({ data, taskIndex, onChange, remove }) => {
     title: "",
     isCompleted: false
   });
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
 
   useEffect(() => {
@@ -152,25 +154,25 @@ const Task = ({ data, taskIndex, onChange, remove }) => {
         </div>
         <div className="task__actions">
           {/* TODO: use custom action buttons */}
-          <button
+          <Button
             className="task__action task__action--delete"
             onClick={removeTask}
           >
-            <Icon name={"trash"} width={18} />
-          </button>
+            <Icon name="trash" width={18} />
+          </Button>
           {/* TODO: use custom action buttons */}
-          <button
+          <Button
             className="task__action task__action--update"
-            onClick={() => setIsModalVisible(true)}
+            onClick={() => setIsModalOpen(true)}
           >
-            <Icon name={"dots"} width={18} />
-          </button>
+            <Icon name="dots" width={18} />
+          </Button>
         </div>
       </div>
       <TaskModal
         data={task}
-        isVisible={isModalVisible}
-        setIsVisible={setIsModalVisible}
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
         onChange={updatedTask => onChange(updatedTask, taskIndex)}
       />
     </StyledTask>

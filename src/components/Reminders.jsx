@@ -3,6 +3,21 @@ import DatePicker from "./DatePicker";
 import Button from "./Button";
 import styled from "styled-components";
 
+const StyledReminder = styled.div`
+  width: 100%;
+  display: flex;
+
+  .reminder__remove {
+    width: 32px;
+  }
+
+  .reminder__date {
+    .react-datepicker__close-icon {
+      display: none !important;
+    }
+  }
+`;
+
 const Reminders = ({ reminders, onChange }) => {
   const [mutableReminders, setMutableReminders] = useState([]);
 
@@ -38,30 +53,27 @@ const Reminders = ({ reminders, onChange }) => {
   return (
     <div>
       {mutableReminders.map((reminder, index) => (
-        <Reminder key={index}>
+        <StyledReminder key={index} className="reminder">
           {/* TODO: use custom action buttons */}
-          <button onClick={() => removeReminder(index)}>x</button>
+          <Button
+            onClick={() => removeReminder(index)}
+            className="reminder__remove"
+          >
+            x
+          </Button>
           <DatePicker
             date={reminder}
             showTimeInput={true}
             onChange={date => updateReminder(date, index)}
             dateFormat="dd/MM/yyyy H:mm"
+            className="reminder__date"
           />
-        </Reminder>
+        </StyledReminder>
       ))}
       {/* TODO: use custom action buttons */}
-      <Button onClick={addReminder} width="15vw">
-        Add a reminder
-      </Button>
+      <Button onClick={addReminder}>Add a reminder</Button>
     </div>
   );
 };
-
-const Reminder = styled.div`
-  width: 100%;
-  * {
-    float: left;
-  }
-`;
 
 export default Reminders;

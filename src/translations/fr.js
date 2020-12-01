@@ -22,7 +22,7 @@ module.exports = {
   language: "Langue",
   theme: "Thème",
   enableNotifications: "Activer les notifications",
-  save: "Enregister",
+  save: "Sauvegarder les modifications",
   login: "Se connecter",
   register: "S'inscrite"
 };

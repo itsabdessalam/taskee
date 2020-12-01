@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
+import styled from "styled-components";
 
 import Title from "./Title";
 import Form from "./Form";
 import Input from "./Input";
+import Label from "./Label";
 import Button from "./Button";
 import TemplateSelector from "./TemplateSelector";
 
@@ -12,6 +14,13 @@ import { getUserLogged } from "../utils/auth";
 import { useForm } from "../hooks";
 
 import NoteService from "../services/NoteService";
+
+const StyledNoteForm = styled.div`
+  button {
+    width: auto;
+    margin-left: auto;
+  }
+`;
 
 const NoteForm = () => {
   const history = useHistory();
@@ -38,6 +47,7 @@ const NoteForm = () => {
       setError({ message: "Invalid credentials provided" });
       setIsLoading(false);
     }
+
     const { data = {} } = result.data || {};
     history.push(`/notes/${data._id}`);
   };
@@ -49,23 +59,26 @@ const NoteForm = () => {
   });
 
   return (
-    <>
+    <StyledNoteForm>
       <Form onSubmit={handleSubmit}>
         <Input
           name="title"
           type="text"
           onChange={handleChange}
-          placeholder={"My note title"}
-          label={"My note title"}
+          placeholder={"Title"}
+          label={"Title"}
           required
         />
+
+        <Label>Template</Label>
         <TemplateSelector onChange={handleChange} template={values.template} />
         {error ? <p className="error">{error.message}</p> : null}
+
         <Button type="submit" disabled={isLoading}>
-          {isLoading ? "Loading" : "Create new note"}
+          {isLoading ? "Loading" : "Create"}
         </Button>
       </Form>
-    </>
+    </StyledNoteForm>
   );
 };
 

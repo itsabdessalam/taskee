@@ -19,7 +19,7 @@ const Layout = ({ children, ...props }) => {
         <Container>
           <Switch>
             <Route exact path="/">
-              <Home />
+              <Redirect to="/notes" />
             </Route>
             <Route exact path="/login">
               <Login />

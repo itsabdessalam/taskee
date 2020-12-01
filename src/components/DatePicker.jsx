@@ -4,12 +4,39 @@ import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
 
 const StyledDatePicker = styled.div`
+  width: 100%;
+
   .react-datepicker-wrapper {
     width: 100%;
     .react-datepicker__input-container {
       width: 100%;
     }
     margin-bottom: 12px;
+  }
+
+  .react-datepicker-popper {
+    z-index: 3;
+  }
+
+  .react-datepicker__close-icon {
+    display: none !important;
+    height: auto;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    padding: 0;
+
+    &::after {
+      font-size: 14px;
+      background-color: #edf2f7;
+      color: #64748b;
+      height: 20px;
+      width: 20px;
+    }
+  }
+
+  .react-datepicker__triangle {
+    left: 50px !important;
   }
 `;
 const StyledDatePickerInput = styled(ReactDatePicker)`
@@ -24,7 +51,7 @@ const StyledDatePickerInput = styled(ReactDatePicker)`
   border-radius: 5px;
   font-size: 16px;
   line-height: 24px;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.card};
   box-shadow: 0 0 0 0 rgb(108 41 245 / 0.05);
   outline: 0;
   transition: border-color 0.3s, box-shadow 0.3s;
@@ -58,7 +85,7 @@ const DatePicker = ({ date, onChange, ...props }) => {
     onChange(date);
   };
   return (
-    <StyledDatePicker {...props}>
+    <StyledDatePicker>
       <StyledDatePickerInput
         selected={startDate}
         onChange={updateDate}
@@ -66,6 +93,7 @@ const DatePicker = ({ date, onChange, ...props }) => {
         minDate={new Date()}
         closeOnScroll={true}
         dateFormat="dd/MM/yyyy"
+        {...props}
       />
     </StyledDatePicker>
   );

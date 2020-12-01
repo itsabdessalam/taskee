@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Button from "./Button";
 import DatePicker from "./DatePicker";
 
 const Deadline = ({ deadline, className, onChange }) => {
@@ -26,9 +27,9 @@ const Deadline = ({ deadline, className, onChange }) => {
         />
       )) || (
         // TODO: use custom action buttons
-        <button onClick={() => updateDate(new Date())} className={className}>
+        <Button onClick={() => updateDate(new Date())} className={className}>
           Add a deadline
-        </button>
+        </Button>
       )}
     </>
   );

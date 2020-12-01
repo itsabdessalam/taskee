@@ -164,8 +164,6 @@ const SettingsForm = () => {
       language: user.language
     };
 
-    console.log("toto", payload);
-
     // AuthService.update(payload, user.token).then(response => {
     //   //todo add flash message
     // });
@@ -175,63 +173,71 @@ const SettingsForm = () => {
     <>
       <Title level={2}>Settings</Title>
       <Form onSubmit={handleSubmit}>
-        <Label>{intl.formatMessage({ id: "lastname" })}</Label>
-        <Input
-          id="lastName"
-          name="lastName"
-          type="text"
-          value={user.lastName}
-          onChange={handleChange}
-        />
-        <Label>{intl.formatMessage({ id: "firstname" })}</Label>
-        <Input
-          id="name"
-          name="firstName"
-          type="text"
-          value={user.firstName}
-          onChange={handleChange}
-        />
-        <Label>{intl.formatMessage({ id: "email" })}</Label>
-        <Input
-          id="email"
-          name="email"
-          type="text"
-          value={user.email}
-          onChange={handleChange}
-        />
-        <span>{intl.formatMessage({ id: "theme" })}</span>
-        <StyledFormRow>
-          <StyledLabelTheme htmlFor="light" color="light" />
-          <Radio
-            name="theme"
-            type="radio"
-            id="light"
-            checked={activeTheme === "light"}
-            onChange={handleTheme}
-          />
-          <StyledLabelTheme htmlFor="dark" color="dark" />
-          <Radio
-            name="theme"
-            type="radio"
-            id="dark"
-            checked={activeTheme === "dark"}
-            onChange={handleTheme}
-          />
-        </StyledFormRow>
-        <Label>{intl.formatMessage({ id: "language" })}</Label>
-        <StyledFormRow>
-          <LocaleSelector />
-        </StyledFormRow>
-        <span>Notifications</span>
-        <StyledFormRow>
-          <Checkbox
-            name="notificationActivated"
-            type="checkbox"
-            checked={user.notificationActivated}
-            onChange={handleNotification}
-            label={intl.formatMessage({ id: "enableNotifications" })}
-          />
-        </StyledFormRow>
+        <div>
+          <div>
+            <h3>Account</h3>
+            <Label>{intl.formatMessage({ id: "lastname" })}</Label>
+            <Input
+              id="lastName"
+              name="lastName"
+              type="text"
+              value={user.lastName}
+              onChange={handleChange}
+            />
+            <Label>{intl.formatMessage({ id: "firstname" })}</Label>
+            <Input
+              id="name"
+              name="firstName"
+              type="text"
+              value={user.firstName}
+              onChange={handleChange}
+            />
+            <Label>{intl.formatMessage({ id: "email" })}</Label>
+            <Input
+              id="email"
+              name="email"
+              type="text"
+              value={user.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <h3>Cutomization</h3>
+            <Label>{intl.formatMessage({ id: "theme" })}</Label>
+            <StyledFormRow>
+              <Radio
+                name="theme"
+                type="radio"
+                id="light"
+                checked={activeTheme === "light"}
+                onChange={handleTheme}
+              />
+              <StyledLabelTheme htmlFor="light" color="light" />
+              <Radio
+                name="theme"
+                type="radio"
+                id="dark"
+                checked={activeTheme === "dark"}
+                onChange={handleTheme}
+              />{" "}
+              <StyledLabelTheme htmlFor="dark" color="dark" />
+            </StyledFormRow>
+            <Label>{intl.formatMessage({ id: "language" })}</Label>
+            <StyledFormRow>
+              <LocaleSelector />
+            </StyledFormRow>
+            <Label>Notifications</Label>
+            <StyledFormRow>
+              <Checkbox
+                name="notificationActivated"
+                type="checkbox"
+                checked={user.notificationActivated}
+                onChange={handleNotification}
+                label={intl.formatMessage({ id: "enableNotifications" })}
+              />
+            </StyledFormRow>
+          </div>
+        </div>
         <Button>{intl.formatMessage({ id: "save" })}</Button>
       </Form>
     </>

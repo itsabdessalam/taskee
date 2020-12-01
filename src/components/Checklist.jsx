@@ -29,7 +29,7 @@ const StyledChecklist = styled.div`
     color: #ffffff;
     width: 36px;
     height: 36px;
-    background: #6c29f5;
+    padding: 0;
     border: none;
     border-radius: 50%;
     position: fixed;
@@ -38,11 +38,12 @@ const StyledChecklist = styled.div`
     right: 15px;
     align-items: center;
     justify-content: center;
-    transition: right 0.4s;
+    transition: right 0.4s ease;
   }
 
   .checklist__uncheck {
     width: auto;
+    height: auto;
     font-size: 14px;
     position: relative;
     display: flex;
@@ -138,16 +139,16 @@ const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
         {/* TODO: use custom action buttons */}
         {tasks.length > 0 &&
           tasks.filter(t => t.isCompleted).length === tasks.length && (
-            <button className="checklist__uncheck" onClick={uncheckAllTasks}>
+            <Button className="checklist__uncheck" onClick={uncheckAllTasks}>
               {intl.formatMessage({ id: "uncheckAll" })}
-            </button>
+            </Button>
           )}
 
         {tasks.length > 0 &&
           tasks.filter(t => t.isCompleted).length !== tasks.length && (
-            <button className="checklist__uncheck" onClick={checkAllTasks}>
+            <Button className="checklist__uncheck" onClick={checkAllTasks}>
               {intl.formatMessage({ id: "checkAll" })}
-            </button>
+            </Button>
           )}
       </div>
 
@@ -165,10 +166,9 @@ const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
           ))}
         </div>
       </div>
-      {/* TODO: use custom action buttons */}
-      <button onClick={addTask} className="checklist__add">
-        <Icon name={"plus"} width={18} />
-      </button>
+      <Button onClick={addTask} className="checklist__add">
+        <Icon name="plus" width={18} />
+      </Button>
     </StyledChecklist>
   );
 };

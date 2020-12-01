@@ -11,7 +11,7 @@ const StyledTabItem = styled.div`
   align-items: center;
   justify-content: center;
   padding: 8px;
-  transition: all 0.25s;
+  transition: all 0.25s ease;
 
   .tab__link {
     padding: 8px;
@@ -50,7 +50,7 @@ const StyledTabItem = styled.div`
     width: 20px;
     height: 20px;
     margin: 0;
-    transition: all 0.25s;
+    transition: all 0.25s ease;
   }
 `;
 

@@ -28,7 +28,7 @@ const StyledCheckbox = styled(Label)`
       height: 18px;
       padding: 0;
       cursor: pointer;
-      transition: background-color 300ms ease 0s;
+      transition: background-color 0.3s ease;
 
       &[aria-checked="true"] {
         background-color: ${({ theme }) => theme.colors.primary};

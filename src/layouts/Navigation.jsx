@@ -12,12 +12,12 @@ const StyledAppLogo = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  transition: all 0.25s;
+  transition: all 0.25s ease;
 
   .logo__img {
     object-fit: cover;
     object-position: left;
-    transition: all 0.25s;
+    transition: all 0.25s ease;
   }
 
   .logo__text {
@@ -30,7 +30,7 @@ const StyledAppLogo = styled.div`
     letter-spacing: -1px;
     max-width: 86px;
     overflow: hidden;
-    transition: all 0.25s;
+    transition: all 0.25s ease;
   }
 `;
 
@@ -125,7 +125,7 @@ const Navigation = () => {
         text={intl.formatMessage({ id: "settings" })}
       />
       <StyledCollapseBlock className="collapse" onClick={handleCollapse}>
-        <Icon name={"chevron-right"} width={14}></Icon>
+        <Icon name="chevron-right" width={14}></Icon>
       </StyledCollapseBlock>
     </Tabs>
   );

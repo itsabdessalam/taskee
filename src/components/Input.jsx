@@ -15,7 +15,7 @@ const StyledInput = styled.input`
   line-height: 24px;
   box-shadow: 0 0 0 0 rgb(108 41 245 / 0.05);
   outline: 0;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s ease;
 
   &:not(:last-child) {
     margin-bottom: 12px;
