@@ -6,11 +6,16 @@ const StyledCheckbox = styled(Label)`
   &.checkbox {
     display: flex;
     align-items: center;
-    width: 18px;
+    width: 100%;
     height: 100%;
-    margin-right: 12px;
+    cursor: pointer;
 
-    input {
+    .checkbox__check {
+      width: 18px;
+      height: 18px;
+    }
+
+    .checkbox__input {
       position: relative;
       margin: 0;
       color: rgb(0, 0, 0);
@@ -45,6 +50,10 @@ const StyledCheckbox = styled(Label)`
         }
       }
     }
+
+    .checkbox__text {
+      margin-left: 8px;
+    }
   }
 `;
 
@@ -53,6 +62,7 @@ const Checkbox = ({
   id,
   name,
   checked,
+  label,
   onChange,
   className,
   ...props
@@ -61,15 +71,18 @@ const Checkbox = ({
 
   return (
     <StyledCheckbox className={cssClasses}>
-      <input
-        type="checkbox"
-        id={id}
-        name={name}
-        checked={checked}
-        aria-checked={checked}
-        onChange={onChange}
-        className="checkbox__input"
-      />
+      <span className="checkbox__check">
+        <input
+          type="checkbox"
+          id={id}
+          name={name}
+          checked={checked}
+          aria-checked={checked}
+          onChange={onChange}
+          className="checkbox__input"
+        />
+      </span>
+      {label && <span className="checkbox__text">{label}</span>}
     </StyledCheckbox>
   );
 };

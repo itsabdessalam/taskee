@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { useIntl, FormattedMessage } from "react-intl";
+import { useIntl } from "react-intl";
 import Icon from "./Icon";
 
 import LocaleContext from "../context/Locale";

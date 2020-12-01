@@ -1,7 +1,11 @@
 import NotificationService from "../services/NotificationService";
 import { Title, SEO } from "../components";
+import { useIntl } from "react-intl";
 
 const Home = ({ children, ...props }) => {
+  const intl = useIntl();
+  const title = intl.formatMessage({ id: "home" });
+
   const testNotification = () => {
     NotificationService.send(
       "test",
@@ -12,8 +16,8 @@ const Home = ({ children, ...props }) => {
 
   return (
     <>
-      <SEO title={"Home"} />
-      <Title level={2} title={"Home"}>
+      <SEO title={title} />
+      <Title level={2} title={title}>
         Home
       </Title>
     </>

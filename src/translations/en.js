@@ -4,6 +4,7 @@ module.exports = {
   date: "The date is {d, date}.",
   home: "Home",
   notes: "Notes",
+  note: "Note",
   calendar: "Calendar",
   settings: "Settings",
   notifications: "Notifications",
@@ -14,5 +15,14 @@ module.exports = {
   addNote: "Add new note",
   checkAll: "Check all",
   uncheckAll: "Uncheck all",
-  noDeadline: "No deadline"
+  noDeadline: "No deadline",
+  lastname: "Lastname",
+  firstname: "Firstname",
+  email: "Email",
+  language: "Language",
+  theme: "Theme",
+  enableNotifications: "Enable notifications",
+  save: "Save",
+  login: "Login",
+  register: "Register"
 };

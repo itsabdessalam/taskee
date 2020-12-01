@@ -23,6 +23,11 @@ const StyledTask = styled.div`
     align-items: center;
   }
 
+  .task__checkbox {
+    width: 18px;
+    margin-right: 8px;
+  }
+
   .task__text {
     width: 100%;
     font-size: 16px;

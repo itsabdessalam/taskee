@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useIntl, FormattedMessage } from "react-intl";
+import { useIntl } from "react-intl";
 
 import Task from "./Task";
 import Button from "./Button";
@@ -15,8 +15,9 @@ const StyledChecklist = styled.div`
 
     .checklist__title {
       margin: 0;
+
       .checklist__count {
-        margin-left: 12px;
+        margin-left: 8px;
         font-size: 16px;
         color: #64748b;
         font-weight: 400;
@@ -64,6 +65,7 @@ const StyledChecklist = styled.div`
 const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");
+  const intl = useIntl();
 
   useEffect(() => {
     setTasks(checklist.tasks || []);
@@ -137,14 +139,14 @@ const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
         {tasks.length > 0 &&
           tasks.filter(t => t.isCompleted).length === tasks.length && (
             <button className="checklist__uncheck" onClick={uncheckAllTasks}>
-              <FormattedMessage id={"uncheckAll"} />
+              {intl.formatMessage({ id: "uncheckAll" })}
             </button>
           )}
 
         {tasks.length > 0 &&
           tasks.filter(t => t.isCompleted).length !== tasks.length && (
             <button className="checklist__uncheck" onClick={checkAllTasks}>
-              <FormattedMessage id={"checkAll"} />
+              {intl.formatMessage({ id: "checkAll" })}
             </button>
           )}
       </div>

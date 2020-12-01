@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useIntl, FormattedMessage } from "react-intl";
+import { useIntl } from "react-intl";
 import styled from "styled-components";
 import NoteService from "../services/NoteService";
 import Button from "./Button";
@@ -14,6 +14,7 @@ const StyledTaskModal = styled(Modal)``;
 const NotesList = () => {
   const history = useHistory();
   const [notes, setNotes] = useState([]);
+  const intl = useIntl();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const redirectTo = page => {
@@ -48,7 +49,7 @@ const NotesList = () => {
     <>
       <div className="page__header">
         <Title level={2} className="page__title">
-          <FormattedMessage id="myNotes" />
+          {intl.formatMessage({ id: "myNotes" })}
         </Title>
         <div className="page__actions">
           <Button
@@ -57,7 +58,7 @@ const NotesList = () => {
             className="page__action page__action--add-note"
             width="auto"
           >
-            <FormattedMessage id="addNote" />
+            {intl.formatMessage({ id: "addNote" })}
           </Button>
         </div>
       </div>

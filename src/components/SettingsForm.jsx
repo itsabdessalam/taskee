@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import { useIntl } from "react-intl";
 import {
   Title,
   Input,
@@ -103,6 +104,7 @@ let languages = {
 const SettingsForm = () => {
   const { activeTheme, updateTheme } = useContext(ThemeContext);
   const { updateLocale } = useContext(LocaleContext);
+  const intl = useIntl();
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -173,7 +175,7 @@ const SettingsForm = () => {
     <>
       <Title level={2}>Settings</Title>
       <Form onSubmit={handleSubmit}>
-        <Label>Nom</Label>
+        <Label>{intl.formatMessage({ id: "lastname" })}</Label>
         <Input
           id="lastName"
           name="lastName"
@@ -181,7 +183,7 @@ const SettingsForm = () => {
           value={user.lastName}
           onChange={handleChange}
         />
-        <Label>Prénom</Label>
+        <Label>{intl.formatMessage({ id: "firstname" })}</Label>
         <Input
           id="name"
           name="firstName"
@@ -189,7 +191,7 @@ const SettingsForm = () => {
           value={user.firstName}
           onChange={handleChange}
         />
-        <Label>Email</Label>
+        <Label>{intl.formatMessage({ id: "email" })}</Label>
         <Input
           id="email"
           name="email"
@@ -197,7 +199,7 @@ const SettingsForm = () => {
           value={user.email}
           onChange={handleChange}
         />
-        <span>Theme</span>
+        <span>{intl.formatMessage({ id: "theme" })}</span>
         <StyledFormRow>
           <StyledLabelTheme htmlFor="light" color="light" />
           <Radio
@@ -216,22 +218,21 @@ const SettingsForm = () => {
             onChange={handleTheme}
           />
         </StyledFormRow>
-        <Label>Language</Label>
+        <Label>{intl.formatMessage({ id: "language" })}</Label>
         <StyledFormRow>
           <LocaleSelector />
         </StyledFormRow>
         <span>Notifications</span>
         <StyledFormRow>
-          <span>Enable notifications</span>
-
           <Checkbox
             name="notificationActivated"
             type="checkbox"
             checked={user.notificationActivated}
             onChange={handleNotification}
+            label={intl.formatMessage({ id: "enableNotifications" })}
           />
         </StyledFormRow>
-        <Button>Save modifications</Button>
+        <Button>{intl.formatMessage({ id: "save" })}</Button>
       </Form>
     </>
   );

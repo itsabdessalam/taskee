@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useIntl } from "react-intl";
 import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -8,6 +9,8 @@ import { Button, Title, SEO } from "../components";
 const Calendar = () => {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
   const [currentEvents, setCurrentEvents] = useState([]);
+  const intl = useIntl();
+  const title = intl.formatMessage({ id: "calendar" });
 
   const handleWeekendsToggle = () => {
     setWeekendsVisible(!weekendsVisible);
@@ -40,8 +43,8 @@ const Calendar = () => {
 
   return (
     <>
-      <SEO title={"Calendar"} />
-      <Title level={2}>My calendar</Title>
+      <SEO title={title} />
+      <Title level={2}>{title}</Title>
       {renderSidebar()}
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}

@@ -38,7 +38,7 @@ const StyledTabItem = styled.div`
   .tab__text {
     display: block;
     font-size: 15px;
-    margin-left: 12px;
+    margin-left: 8px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
