@@ -1,16 +1,7 @@
 import { FormattedMessage } from "react-intl";
-import NotificationService from "../services/NotificationService";
 import { Title, LocaleSelector, ThemeSwitcher, SEO } from "../components";
 
-const Home = ({ children, ...props }) => {
-  const testNotification = () => {
-    NotificationService.send(
-      "test",
-      "test message",
-      "https://taskee.playgrnd.dev"
-    );
-  };
-
+const Home = () => {
   return (
     <>
       <SEO title={"Home"} />
@@ -25,8 +16,6 @@ const Home = ({ children, ...props }) => {
           name: "John Doe"
         }}
       />
-      {/* only for test purposes */}
-      <button onClick={testNotification}></button>
     </>
   );
 };

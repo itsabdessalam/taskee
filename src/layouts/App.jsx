@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Layout from "./Layout";
 import { getUserLogged, isLoggedIn } from "../utils/auth";
 import Pusher from "pusher-js";
+import NotificationService from "../services/NotificationService";
 
 const App = () => {
   useEffect(() => {
@@ -15,9 +16,25 @@ const App = () => {
       });
       const channel = pusher.subscribe(`notifications-${user._id}`);
       channel.bind("project-deadline", data => {
-        console.log("notifications", data);
+        if (data.type === "reminder") {
+          if (data.task !== undefined) {
+            //send notification for task reminder
+            let title = `Rappel - ${data.note.title}`;
+            let message = data.task.title;
+            let url = `${process.env.PUBLIC_URL}/notes/${data.note._id}`;
+
+            NotificationService.send(title, message, url);
+          } else if (data.note !== undefined) {
+            //send notification for note reminder
+            let title = `Reminder - ${data.note.title}`;
+            let message = "The deadline for your note is arrived";
+            let url = `${process.env.PUBLIC_URL}/notes/${data.note._id}`;
+
+            NotificationService.send(title, message, url);
+          }
+        }
+        //add new type if needed
         /*
-          @TODO send notifications with push bot
           Data is an array with objects looking like:
           {
             note: {_id: "5fbe718f5d783f001125aafd", template: "project", title: "My new project note"}
