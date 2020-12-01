@@ -1,6 +1,6 @@
 const NotificationService = {
   send(title, message, url) {
-    let pb = window.pb;
+    let pb = window.PB;
     pb.register();
     pb.q.push([
       "sendNotification",
@@ -8,3 +8,5 @@ const NotificationService = {
     ]);
   }
 };
+
+export default NotificationService;

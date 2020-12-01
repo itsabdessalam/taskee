@@ -6,14 +6,6 @@ const Home = ({ children, ...props }) => {
   const intl = useIntl();
   const title = intl.formatMessage({ id: "home" });
 
-  const testNotification = () => {
-    NotificationService.send(
-      "test",
-      "test message",
-      "https://taskee.playgrnd.dev"
-    );
-  };
-
   return (
     <>
       <SEO title={title} />
