@@ -2,26 +2,41 @@ import styled from "styled-components";
 
 const StyledSelect = styled.select`
   width: 100%;
-  height: 48px;
+  height: 52px;
   font-weight: 400;
+  display: block;
+  color: ${({ theme }) => theme.colors.text};
+  padding: 12px;
+  border: 1px solid #edf2f7;
+  font-family: inherit;
+  border-radius: 5px;
   font-size: 16px;
   line-height: 24px;
-  display: block;
-  margin: 0;
-  padding: 10px 16px;
-  border: none;
-  border: solid 2 ${({ theme }) => theme.colors.primary.base};
-  border-radius: 8px;
-  color: ${({ theme }) => theme.colors.primary.base};
-  text-align: center;
-  text-decoration: none;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 0 rgb(108 41 245 / 0.05);
+  outline: 0;
+  transition: border-color 0.3s, box-shadow 0.3s;
 
   &:not(:last-child) {
     margin-bottom: 12px;
   }
 
-  ::placeholder {
-    color: ${({ theme }) => theme.colors.gray.light};
+  &:hover {
+    border-color: #cbd5e1;
+  }
+
+  &:focus {
+    border-color: ${({ theme }) => theme.colors.primary};
+    box-shadow: 0 0 0 4px rgb(108 41 245 / 0.05);
+  }
+
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.muted};
+  }
+  &::-ms-expand {
+    display: none;
   }
 `;
 

@@ -1,13 +1,11 @@
 import { createContext, useEffect, useReducer } from "react";
 import { IntlProvider } from "react-intl";
-
-import locales from "../config/locales";
-import useLocalStorage from "../hooks/useLocalStorage";
+import { useLocalStorage } from "../hooks";
 import * as translations from "../translations";
+import locales from "../config/locales";
 
 const LocaleContext = createContext();
-
-function reducer(state, { type, locale }) {
+const reducer = (state, { type, locale }) => {
   switch (type) {
     case "UPDATE_LOCALE":
       return {
@@ -17,11 +15,9 @@ function reducer(state, { type, locale }) {
     default:
       throw new Error("Invalid action");
   }
-}
+};
 
-const defaultLocale = locales.find(locale => locale.default);
-
-function LocaleProvider({ children, locale = defaultLocale.locale }) {
+const LocaleProvider = ({ children, locale = "en" }) => {
   const [savedLocale, saveLocale] = useLocalStorage(
     `${process.env.REACT_APP_BASE_NAME}_locales`,
     JSON.stringify({
@@ -54,6 +50,6 @@ function LocaleProvider({ children, locale = defaultLocale.locale }) {
       </IntlProvider>
     </LocaleContext.Provider>
   );
-}
+};
 
 export { LocaleProvider, LocaleContext as default };

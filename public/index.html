@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <link href="%PUBLIC_URL%/favicon.ico" rel="icon"/>
-    <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <meta content="#000000" name="theme-color"/>
-    <meta content="Web site created using create-react-app" name="description"/>
-    <link href="%PUBLIC_URL%/logo192.png" rel="apple-touch-icon"/>
+  <head>
+    <meta charset="utf-8" />
+    <link href="%PUBLIC_URL%/favicon.ico" rel="icon" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="#000000" name="theme-color" />
+    <meta
+      content="Web site created using create-react-app"
+      name="description"
+    />
+    <link href="%PUBLIC_URL%/logo192.png" rel="apple-touch-icon" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link href="%PUBLIC_URL%/manifest.json" rel="manifest"/>
+    <link href="%PUBLIC_URL%/manifest.json" rel="manifest" />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -21,14 +24,28 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React app</title>
 
+    <title>React app</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="app"></div>
+    <!--
+  This HTML file is a template.
+  If you open it directly in the browser, you will see an empty page.
+
+  You can add webfonts, meta tags, or analytics to this file.
+  The build step will place the bundled scripts into the <body> tag.
+
+  To begin the development, run `npm start` or `yarn start`.
+  To create a production bundle, use `npm run build` or `yarn build`.
+-->
     <script>
       //some default pre init
-      let PB = PB || {};PB.q = PB.q || [];PB.events = PB.events || [];
+      var PB = PB || {};PB.q = PB.q || [];PB.events = PB.events || [];
 
       //PushBots ApplicationId (required)
-      PB.app_id = "5fbfbb169b06a046ba536d78";
+      PB.app_id = "5fc0ffcc3e5047609560e096";
       //Your domain name, must be HTTPS or localhost  (required)
       PB.domain = "https://taskee.playgrnd.dev";
       //Update and uncomment it if you are using custom safari certificate for your app
@@ -39,29 +56,16 @@
       PB.auto_subscribe = true;
 
       //Custom worker and manifest URL
-      PB.worker_url = PB.domain + "/pushbots-worker.js";
+      PB.worker_url = PB.domain + "/service-worker.js";
+      //Welcome notification message
+      PB.welcome = {title:"Welcome ",message:"Thanks for subscribing!", url :PB.domain};
 
-      /*function sendNotification(){
+      function sendNotification(){
         PB.register();
-        PB.q.push(["sendNotification", {title:"Hey ",message:"Why not?", url :"https://taskee.playgrnd.dev"}]);
-      }*/
-
+        PB.q.push(["sendNotification", {title:"Taskee",message:"Notification enabled", url :"https://taskee.playgrnd.dev"}]);
+      }
     </script>
 
-    <script src="//cdn.pushbots.com/js/sdk.min.js" type="text/javascript" onload="PB.init()" async>window.pb = PB;</script>
-</head>
-<body>
-<noscript>You need to enable JavaScript to run this app.</noscript>
-<div id="app"></div>
-<!--
-  This HTML file is a template.
-  If you open it directly in the browser, you will see an empty page.
-
-  You can add webfonts, meta tags, or analytics to this file.
-  The build step will place the bundled scripts into the <body> tag.
-
-  To begin the development, run `npm start` or `yarn start`.
-  To create a production bundle, use `npm run build` or `yarn build`.
--->
-</body>
+    <script src="//cdn.pushbots.com/js/sdk.min.js" type="text/javascript" onload="PB.init()" async></script>
+  </body>
 </html>

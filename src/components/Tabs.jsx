@@ -1,50 +1,95 @@
 import styled from "styled-components";
 import React from "react";
 
-const StyledTabs = styled.footer`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 50px;
-  display: flex;
-  width: 100%;
-  background: #ffffff;
-  align-items: center;
-  justify-content: space-between;
-  max-width: ${({ theme }) => theme.screens.md};
-  margin: 0 auto;
-  z-index: 1070;
-  transition: width 0.5s ease;
-  -moz-transition: width 0.5s ease;
-  -webkit-transition: width 0.5s ease;
-  -o-transition: width 0.5s ease;
-  @media (min-width: ${({ theme }) => theme.screens.md}) {
+const StyledTabs = styled.div`
+  &.navigation {
+    position: fixed;
     height: 100%;
-    flex-direction: column;
-    justify-content: flex-start;
     top: 0;
     left: 0;
-    overflow-x: hidden;
-    bottom: unset;
-    right: unset;
-    ${props => {
-      if (props.toggle) {
-        return `
-          width: 50px;
-        `;
-      } else {
-        return `
-          width: 20%;
-        `;
+    min-width: 54px;
+    width: 210px;
+    background-color: ${({ theme }) => theme.colors.navigation};
+    z-index: 1070;
+    border-right: 1px solid ${({ theme }) => theme.colors.separator};
+    transform: translate3d(0, 0, 0);
+    transition: all 0.25s;
+
+    .collapse {
+      svg {
+        transform: rotate(180deg);
       }
-    }}
+    }
+
+    &--collapsed {
+      width: 54px;
+
+      .logo {
+        padding: 8px 12px;
+
+        .logo__text {
+          max-width: 0;
+          margin: 0;
+        }
+      }
+
+      .tab {
+        .tab__text {
+          display: none;
+        }
+      }
+
+      .collapse {
+        svg {
+          transform: rotate(0deg);
+        }
+      }
+    }
+
+    &:hover {
+      @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+        .collapse {
+          display: flex;
+        }
+      }
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+      width: 100%;
+      height: 50px;
+      top: unset;
+      bottom: 0;
+      left: 0;
+      display: flex;
+
+      .logo {
+        display: none;
+      }
+
+      .tab {
+        padding: 0;
+
+        .tab__link {
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .tab__text {
+          margin: 0;
+          margin-top: 2px;
+          font-size: 11px;
+        }
+      }
+    }
   }
 `;
 
-const Tabs = ({ children, ...props }) => {
+const Tabs = ({ children, collapsed, ...props }) => {
   return (
-    <StyledTabs {...props} className="nav">
+    <StyledTabs
+      className={"navigation " + (collapsed ? "navigation--collapsed" : "")}
+    >
       {children}
     </StyledTabs>
   );

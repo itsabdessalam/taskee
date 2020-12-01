@@ -65,7 +65,7 @@ const RegisterForm = () => {
   return (
     <>
       <Title level={2}>Register</Title>
-      <Form className="inner-form" onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Input
           name="firstName"
           type="text"
