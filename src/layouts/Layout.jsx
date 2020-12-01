@@ -1,16 +1,13 @@
-import { useContext } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import classNames from "classnames";
-import { Container, Navigation, Header } from "../layouts";
+import { Container, Navigation } from "../layouts";
 import { AppProvider } from "../context/App";
-import { SEO, ProtectedRoute } from "../components";
+import { ProtectedRoute } from "../components";
 
 import Home from "../pages/home";
 import Login from "../pages/login";
 import Register from "../pages/register";
 import GettingStarted from "../pages/gettingStarted";
 import Notes from "../pages/notes";
-import EditorTest from "../pages/editorTest";
 import Settings from "../pages/settings";
 import Calendar from "../pages/calendar";
 
@@ -39,9 +36,6 @@ const Layout = ({ children, ...props }) => {
             <ProtectedRoute exact path="/notes/:id">
               <Notes />
             </ProtectedRoute>
-            <Route exact path="/editor-test">
-              <EditorTest />
-            </Route>
             <ProtectedRoute exact path="/settings">
               <Settings />
             </ProtectedRoute>
