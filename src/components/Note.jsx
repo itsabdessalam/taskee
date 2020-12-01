@@ -70,6 +70,7 @@ const StyledNote = styled.div`
       font-weight: 500;
       margin-top: 0;
       margin-bottom: 0;
+      padding-right: 32px !important;
 
       textarea {
         font-size: 32px;

@@ -1,9 +1,9 @@
-import { SettingsForm, SEO } from "../components";
+import { SettingsForm, SEO, Icon } from "../components";
 
 const Settings = () => {
   return (
     <>
-      <SEO title={"Login"} />
+      <SEO title={"Settings"} />
       <SettingsForm />
     </>
   );

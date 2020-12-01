@@ -7,12 +7,12 @@ const StyledInput = styled.input`
   display: block;
   color: ${({ theme }) => theme.colors.text};
   padding: 12px;
-  border: 1px solid #edf2f7;
+  border: 1px solid ${({ theme }) => theme.colors.separator};
+  background-color: ${({ theme }) => theme.colors.card};
   font-family: inherit;
   border-radius: 5px;
   font-size: 16px;
   line-height: 24px;
-  background-color: #ffffff;
   box-shadow: 0 0 0 0 rgb(108 41 245 / 0.05);
   outline: 0;
   transition: border-color 0.3s, box-shadow 0.3s;

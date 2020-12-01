@@ -2,6 +2,8 @@ import styled from "styled-components";
 import classNames from "classnames";
 
 const StyledLabel = styled.label`
+  width: 100%;
+  height: auto;
   display: block;
   text-decoration: none;
 

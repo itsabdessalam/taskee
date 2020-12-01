@@ -218,17 +218,7 @@ const SettingsForm = () => {
         </StyledFormRow>
         <Label>Language</Label>
         <StyledFormRow>
-          <select
-            name="language"
-            value={user.language}
-            onChange={handleLanguage}
-          >
-            {languages.data.map((item, i) => (
-              <option value={item.option} key={i}>
-                {item.language}
-              </option>
-            ))}
-          </select>
+          <LocaleSelector />
         </StyledFormRow>
         <span>Notifications</span>
         <StyledFormRow>
