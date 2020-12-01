@@ -1,14 +1,16 @@
+import { useState } from "react";
+import { Redirect, useHistory } from "react-router-dom";
+
 import Title from "./Title";
 import Form from "./Form";
 import Input from "./Input";
 import Button from "./Button";
-import { useState } from "react";
-import { Option, Select } from "./index";
-import until from "../utils/until";
+import TemplateSelector from "./TemplateSelector";
 
-import { getUserLogged, isLoggedIn } from "../utils/auth";
+import until from "../utils/until";
+import { getUserLogged } from "../utils/auth";
 import { useForm } from "../hooks";
-import { Redirect, useHistory } from "react-router-dom";
+
 import NoteService from "../services/NoteService";
 
 const CreateNoteForm = () => {
@@ -37,7 +39,7 @@ const CreateNoteForm = () => {
       setIsLoading(false);
     }
     const { data = {} } = result.data || {};
-    history.push(`notes/${data._id}`);
+    history.push(`/notes/${data._id}`);
   };
 
   const { values, handleChange, handleSubmit } = useForm(createNote, {
@@ -46,24 +48,18 @@ const CreateNoteForm = () => {
     template: ""
   });
 
-  if (!isLoggedIn()) {
-    return <Redirect to="/login" />;
-  }
   return (
     <>
-      <Title level={2}>New note</Title>
-      <Form className="inner-form" onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Input
           name="title"
           type="text"
           onChange={handleChange}
-          placeholder={"New note"}
-          label={"New note title"}
+          placeholder={"My note title"}
+          label={"My note title"}
           required
         />
-        <Select onChange={handleChange} name="template" type="select">
-          <Option value="">Blank</Option>
-        </Select>
+        <TemplateSelector onChange={handleChange} template={values.template} />
         {error ? <p className="error">{error.message}</p> : null}
         <Button type="submit" disabled={isLoading}>
           {isLoading ? "Loading" : "Create new note"}

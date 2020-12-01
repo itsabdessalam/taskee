@@ -1,9 +1,22 @@
 import { useParams } from "react-router-dom";
+import { Note, NotesList, SEO } from "../components";
 
-const Note = () => {
-  // eslint-disable-next-line no-unused-vars
+const Notes = () => {
   const { id } = useParams();
-  return <></>;
+  if (id) {
+    return (
+      <>
+        <SEO title={"Note"} />
+        <Note id={id} />
+      </>
+    );
+  }
+  return (
+    <>
+      <SEO title={"Notes"} />
+      <NotesList />
+    </>
+  );
 };
 
-export default Note;
+export default Notes;

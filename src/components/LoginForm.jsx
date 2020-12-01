@@ -63,7 +63,7 @@ const LoginForm = () => {
   return (
     <>
       <Title level={2}>Login</Title>
-      <Form className="inner-form" onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Input
           name="email"
           type="text"
