@@ -5,6 +5,7 @@ import {
 } from "styled-components";
 import useLocalStorage from "../hooks/useLocalStorage";
 import THEME from "../config/theme";
+import "../assets/fonts/main.css";
 
 const ThemeContext = createContext();
 const reducer = (state, { type, theme }) => {
@@ -26,6 +27,8 @@ const ThemeProvider = ({ children, theme = "light" }) => {
   const [state, dispatch] = useReducer(reducer, JSON.parse(savedTheme));
   const updateTheme = theme => dispatch({ type: "UPDATE_THEME", theme });
   const activeTheme = THEME[state.activeTheme];
+
+  // TODO: move to a separate component
   const GlobalStyle = createGlobalStyle`
     *, ::after, ::before {
       -webkit-box-sizing: border-box;
@@ -34,8 +37,10 @@ const ThemeProvider = ({ children, theme = "light" }) => {
 
     html,
     body {
-      max-width: ${activeTheme.breakpoints.md};
+      width: 100%;
+      height: 100%;
       margin: 0 auto;
+      overflow: hidden;
     }
 
     body {
@@ -47,8 +52,60 @@ const ThemeProvider = ({ children, theme = "light" }) => {
 
     a, button {
       cursor: pointer;
+      font-family: ${activeTheme.fonts.body};
       > svg {
         pointer-events: none;
+      }
+    }
+
+    input, textarea {
+      font-family: ${activeTheme.fonts.body};
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    button {
+      outline: 0;
+
+      &:focus {
+        box-shadow: 0 0 0 2px #cbd5e1;
+      }
+    }
+
+    h1,h2,h3,h4,h5,h6 {
+      font-weight: 500;
+    }
+
+    ::selection {
+      background-color: ${activeTheme.colors.primary};
+      color: #ffffff;
+    }
+
+    .ce-block__content,.ce-toolbar__content {
+      max-width: 100%;
+    }
+    .ce-toolbar__plus {
+      left: -24px;
+    }
+    .ce-toolbar__actions {
+      right: -18px;
+    }
+
+    .page__actions {
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+   .has-collapsed-navigation {
+      main {
+        @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+          margin-left: 54px;
+        }
       }
     }
   `;

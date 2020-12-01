@@ -34,6 +34,7 @@ export const handleLogin = ({
   email,
   password,
   language,
+  notificationActivated,
   token
 }) => {
   return setUser({
@@ -42,6 +43,7 @@ export const handleLogin = ({
     firstName,
     email,
     language,
+    notificationActivated,
     token
   });
 };
@@ -60,6 +62,10 @@ export const isLoggedIn = () => {
 export const getUserLogged = () => {
   const user = getUser();
   return user;
+};
+
+export const setUserLogged = user => {
+  setUser(user);
 };
 
 /**

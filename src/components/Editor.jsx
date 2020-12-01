@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import EditorJS from "@editorjs/editorjs";
 
@@ -14,18 +14,28 @@ import Marker from "@editorjs/marker";
 const StyledEditor = styled.div`
   display: block;
   position: relative;
-  background-color: #ffffff;
-  padding: 24px;
+  background-color: ${({ theme }) => theme.colors.editor};
+  padding: 0 8px;
 
   .codex-editor--narrow .codex-editor__redactor {
     margin: 0 !important;
   }
+
+  .codex-editor {
+    padding: 12px 0;
+  }
+
+  .ce-header {
+    padding-top: 0 !important;
+  }
 `;
-const Editor = () => {
+const Editor = ({ data, onChange }) => {
+  let editor = null;
   useEffect(() => {
-    const editor = new EditorJS({
+    editor = new EditorJS({
       holder: "editorjs",
       autofocus: true,
+      logLevel: "ERROR",
       tools: {
         header: Header,
         image: SimpleImage,
@@ -36,22 +46,23 @@ const Editor = () => {
         raw: RawTool,
         marker: Marker
       },
-      data: {},
-      onReady: () => {
-        console.log("Editor.js is ready to work!");
-      },
+      data: data,
       onChange: api => {
         api.saver
           .save()
-          .then(outputData => {
-            console.log("Article data: ", outputData);
-          })
+          .then(outputData => onChange(outputData))
           .catch(error => {
-            console.log("Saving failed: ", error);
+            console.error("Saving failed: ", error);
           });
       }
     });
   }, []);
+
+  useEffect(() => {
+    if (editor) {
+      editor.data = data;
+    }
+  }, [data]);
 
   return (
     <>

@@ -11,7 +11,7 @@ const LocaleSelector = () => {
         value={activeLocale}
         onChange={({ target: { value } }) => updateLocale(value)}
       >
-        {locales.map(({ label, locale }, index) => (
+        {Object.values(locales).map(({ label, locale }, index) => (
           <option key={index} value={locale}>
             {label}
           </option>

@@ -9,12 +9,17 @@ import Tabs from "./Tabs";
 import TabItem from "./TabItem";
 import Title from "./Title";
 import Img from "./Img";
+import Icon from "./Icon";
 import Input from "./Input";
 import LoginForm from "./LoginForm";
 import ProtectedRoute from "./ProtectedRoute";
 import RegisterForm from "./RegisterForm";
 import CreateNoteForm from "./CreateNoteForm";
 import Editor from "./Editor";
+import ThemeSwitcher from "./ThemeSwitcher";
+import Note from "./Note";
+import NotesList from "./NotesList";
+import SEO from "./SEO";
 
 export {
   Button,
@@ -25,6 +30,7 @@ export {
   Tabs,
   TabItem,
   Img,
+  Icon,
   Input,
   ProtectedRoute,
   LoginForm,
@@ -33,5 +39,9 @@ export {
   Select,
   Title,
   LocaleSelector,
-  Editor
+  Editor,
+  ThemeSwitcher,
+  Note,
+  NotesList,
+  SEO
 };

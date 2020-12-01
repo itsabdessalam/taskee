@@ -8,7 +8,7 @@ const StyledLoader = styled.div`
 
   .loader {
     border: 2px solid rgb(139 156 172 / 40%);
-    border-top: 2px solid ${({ theme }) => theme.colors.primary.base};
+    border-top: 2px solid ${({ theme }) => theme.colors.primary};
     border-radius: 50%;
     width: 28px;
     height: 28px;

@@ -1,11 +1,15 @@
-module.exports = [
-  {
+const LOCALES = {
+  en: {
     default: true,
     label: "English",
-    locale: "en"
+    locale: "en",
+    dateFormat: "MMM do, yyyy"
   },
-  {
+  fr: {
     label: "French",
-    locale: "fr"
+    locale: "fr",
+    dateFormat: "dd MMM yyyy"
   }
-];
+};
+
+export default LOCALES;
