@@ -58,7 +58,7 @@ const DatePicker = ({ date, onChange, ...props }) => {
     onChange(date);
   };
   return (
-    <StyledDatePicker {...props}>
+    <StyledDatePicker>
       <StyledDatePickerInput
         selected={startDate}
         onChange={updateDate}
@@ -66,6 +66,7 @@ const DatePicker = ({ date, onChange, ...props }) => {
         minDate={new Date()}
         closeOnScroll={true}
         dateFormat="dd/MM/yyyy"
+        {...props}
       />
     </StyledDatePicker>
   );
