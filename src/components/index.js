@@ -26,6 +26,7 @@ import ThemeSwitcher from "./ThemeSwitcher";
 import Note from "./Note";
 import NotesList from "./NotesList";
 import SEO from "./SEO";
+import Logout from "./Logout";
 
 export {
   Button,
@@ -55,5 +56,6 @@ export {
   ThemeSwitcher,
   Note,
   NotesList,
-  SEO
+  SEO,
+  Logout
 };

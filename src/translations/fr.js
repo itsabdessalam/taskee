@@ -41,5 +41,6 @@ module.exports = {
   expand: "Plein écran",
   delete: "Supprimer",
   close: "Fermer",
-  switchTheme: "Changer de thème"
+  switchTheme: "Changer de thème",
+  logout: "Se déconnecter"
 };

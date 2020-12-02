@@ -37,7 +37,6 @@ const NotesList = () => {
 
   useEffect(() => {
     NoteService.getAll().then(response => {
-      console.log("toto", response);
       if (!response.data.data) {
         return;
       }

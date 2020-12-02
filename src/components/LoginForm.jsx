@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { useForm } from "../hooks";
 import until from "../utils/until";
 
 import { handleLogin, isLoggedIn } from "../utils/auth";
 import AuthService from "../services/AuthService";
+import LocaleContext from "../context/Locale";
+import ThemeContext from "../context/Theme";
 
 import Form from "./Form";
 import Input from "./Input";
@@ -14,6 +16,13 @@ import Title from "./Title";
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { activeLocale, updateLocale } = useContext(LocaleContext);
+  const { activeTheme, updateTheme } = useContext(ThemeContext);
+
+  const setUserSettings = user => {
+    updateTheme(user.theme ? user.theme : "light");
+    updateLocale(user.language ? user.language : "en");
+  };
 
   const auth = async () => {
     setIsLoading(true);
@@ -47,6 +56,7 @@ const LoginForm = () => {
         ...data.user,
         token: data.token
       });
+      setUserSettings(data.user);
       setIsLoading(false);
     }
   };

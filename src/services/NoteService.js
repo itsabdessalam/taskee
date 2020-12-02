@@ -1,13 +1,14 @@
-import { getUserLogged } from "../utils/auth";
+import axios from "axios";
+import { getUser } from "../utils/auth";
 
 const API_URL = process.env.REACT_APP_API_URL;
-const axios = require("axios");
+
 const NoteService = {
   create(note) {
     return axios.post(`${API_URL}/notes`, note, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `${getUserLogged().token}`
+        Authorization: `${getUser().token}`
       }
     });
   },
@@ -15,7 +16,7 @@ const NoteService = {
     return axios.delete(`${API_URL}/notes/${noteId}`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `${getUserLogged().token}`
+        Authorization: `${getUser().token}`
       }
     });
   },
@@ -23,7 +24,7 @@ const NoteService = {
     return axios.get(`${API_URL}/notes/${noteId}`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `${getUserLogged().token}`
+        Authorization: `${getUser().token}`
       }
     });
   },
@@ -31,7 +32,7 @@ const NoteService = {
     return axios.get(`${API_URL}/notes`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `${getUserLogged().token}`
+        Authorization: `${getUser().token}`
       }
     });
   },
@@ -39,7 +40,7 @@ const NoteService = {
     return axios.put(`${API_URL}/notes/${note._id}`, note, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `${getUserLogged().token}`
+        Authorization: `${getUser().token}`
       }
     });
   }

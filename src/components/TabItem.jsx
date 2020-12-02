@@ -58,7 +58,7 @@ const TabItem = ({ children, to, text, icon, ...props }) => {
   return (
     <StyledTabItem className="tab">
       <Link className="tab__link" to={to}>
-        <Icon name={icon} className="tab__icon"></Icon>
+        <Icon name={icon} width={20} className="tab__icon"></Icon>
         <span className="tab__text">{text}</span>
       </Link>
     </StyledTabItem>

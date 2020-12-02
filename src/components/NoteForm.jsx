@@ -11,7 +11,7 @@ import Button from "./Button";
 import TemplateSelector from "./TemplateSelector";
 
 import until from "../utils/until";
-import { getUserLogged } from "../utils/auth";
+import { getUser } from "../utils/auth";
 import { useForm } from "../hooks";
 
 import NoteService from "../services/NoteService";
@@ -41,7 +41,7 @@ const NoteForm = () => {
 
     const note = {
       title: values.title,
-      user: getUserLogged()._id
+      user: getUser()._id
     };
 
     if (values.template !== "") note.template = values.template;

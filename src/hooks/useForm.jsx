@@ -12,7 +12,10 @@ const useForm = (callback, initialState = {}) => {
     event.persist();
     setValues(values => ({
       ...values,
-      [event.target.name]: event.target.value
+      [event.target.name]:
+        event.target.type === "checkbox"
+          ? event.target.checked
+          : event.target.value
     }));
   };
 

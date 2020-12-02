@@ -12,10 +12,12 @@ import {
   Radio,
   Checkbox
 } from "../components";
-import { getUserLogged, setUserLogged } from "../utils/auth";
+import until from "../utils/until";
+import { getUser, setUser } from "../utils/auth";
 import AuthService from "../services/AuthService";
 import ThemeContext from "../context/Theme";
 import LocaleContext from "../context/Locale";
+import { useForm } from "../hooks";
 
 const span = styled.h4`
   width: 100%;
@@ -96,6 +98,10 @@ const StyledSettings = styled.div`
     align-items: flex-start;
     justify-content: space-between;
 
+    @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+      flex-direction: column;
+    }
+
     h3 {
       margin-top: 0;
     }
@@ -113,6 +119,12 @@ const StyledSettings = styled.div`
       border: 1px solid #edf2f7;
       margin-right: 24px;
       box-shadow: 0px 1px 100px 10px rgba(226, 232, 240, 0.16);
+
+      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+        width: 100%;
+        margin: 0;
+        margin-bottom: 12px;
+      }
     }
 
     .settings__customization {
@@ -121,93 +133,106 @@ const StyledSettings = styled.div`
       border-radius: 8px;
       border: 1px solid #edf2f7;
       box-shadow: 0px 1px 100px 10px rgba(226, 232, 240, 0.16);
+
+      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+        width: 100%;
+      }
     }
   }
 
   .settings__save {
     margin-left: auto;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+      width: 100%;
+      margin-top: 12px;
+    }
   }
 `;
 
-let languages = {
-  data: [
-    {
-      language: "French",
-      option: "fr"
-    },
-    {
-      language: "English",
-      option: "en"
-    }
-  ]
-};
-
 const SettingsForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const { activeTheme, updateTheme } = useContext(ThemeContext);
-  const { updateLocale } = useContext(LocaleContext);
+  const { activeLocale, updateLocale } = useContext(LocaleContext);
   const intl = useIntl();
-  const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    notificationActivated: false
-  });
+  const {
+    _id,
+    email,
+    firstName,
+    lastName,
+    language,
+    token,
+    notificationActivated
+  } = getUser();
 
-  useEffect(() => {
-    let data = getUserLogged();
-    setUser(data);
-  }, []);
+  const updateSettings = async () => {
+    setIsLoading(true);
+    setError(null);
 
-  const handleChange = event => {
-    setUser({
-      ...user,
-      [event.target.name]: event.target.value
-    });
-  };
-
-  const handleTheme = event => {
-    setUser({
-      ...user,
-      [event.target.name]: event.target.id
-    });
-    updateTheme(event.target.id);
-  };
-
-  const handleLanguage = event => {
-    setUser({
-      ...user,
-      [event.target.name]: event.target.value
-    });
-    updateLocale(event.target.value);
-    setUserLogged(user);
-  };
-
-  const handleNotification = event => {
-    setUser({
-      ...user,
-      [event.target.name]: event.target.checked
-    });
-    setUserLogged(user);
-  };
-
-  const handleSubmit = event => {
-    event.preventDefault();
-    setUserLogged(user);
-
-    let payload = {
-      _id: user._id,
-      lastName: user.lastName,
-      firstName: user.firstName,
-      email: user.email,
-      notificationActivated: user.notificationActivated
-        ? user.notificationActivated
-        : false,
-      language: user.language
+    const user = {
+      _id,
+      email: values.email,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      notificationActivated: values.notificationActivated,
+      language: activeLocale,
+      theme: activeTheme
     };
 
-    // AuthService.update(payload, user.token).then(response => {
-    //   //todo add flash message
-    // });
+    const [err, result] = await until(AuthService.update(user));
+
+    if (err) {
+      setError({
+        message: err.message
+      });
+      setIsLoading(false);
+    }
+
+    if (result && result.data.errors) {
+      setError({
+        message: "Invalid credentials provided"
+      });
+      setIsLoading(false);
+    }
+
+    const { data = {} } = result.data || {};
+
+    if (data) {
+      const {
+        email,
+        firstName,
+        lastName,
+        language,
+        notificationActivated,
+        theme // if available
+      } = data;
+
+      setUser({
+        ...getUser(),
+        email,
+        firstName,
+        lastName,
+        language,
+        notificationActivated,
+        theme
+      });
+      setIsLoading(false);
+    }
+  };
+
+  const { values, handleChange, handleSubmit } = useForm(updateSettings, {
+    _id,
+    email,
+    firstName,
+    lastName,
+    language,
+    token,
+    notificationActivated
+  });
+
+  const handleTheme = event => {
+    updateTheme(event.target.id);
   };
 
   return (
@@ -222,7 +247,7 @@ const SettingsForm = () => {
               id="lastName"
               name="lastName"
               type="text"
-              value={user.lastName}
+              value={values.lastName}
               onChange={handleChange}
             />
             <Label>{intl.formatMessage({ id: "firstname" })}</Label>
@@ -230,7 +255,7 @@ const SettingsForm = () => {
               id="name"
               name="firstName"
               type="text"
-              value={user.firstName}
+              value={values.firstName}
               onChange={handleChange}
             />
             <Label>{intl.formatMessage({ id: "email" })}</Label>
@@ -238,7 +263,7 @@ const SettingsForm = () => {
               id="email"
               name="email"
               type="text"
-              value={user.email}
+              value={values.email}
               onChange={handleChange}
             />
           </div>
@@ -271,8 +296,8 @@ const SettingsForm = () => {
             <StyledFormRow>
               <Checkbox
                 name="notificationActivated"
-                checked={user.notificationActivated}
-                onChange={handleNotification}
+                checked={values.notificationActivated}
+                onChange={handleChange}
                 label={intl.formatMessage({ id: "enableNotifications" })}
               />
             </StyledFormRow>
@@ -282,8 +307,9 @@ const SettingsForm = () => {
           title={intl.formatMessage({ id: "save" })}
           width="auto"
           className="settings__save"
+          disabled={isLoading}
         >
-          {intl.formatMessage({ id: "save" })}
+          {isLoading ? "Loading" : intl.formatMessage({ id: "save" })}
         </Button>
       </Form>
     </StyledSettings>

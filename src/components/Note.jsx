@@ -68,6 +68,7 @@ const StyledNote = styled.div`
       border-left: 1px solid ${({ theme }) => theme.colors.separator};
       overflow-y: scroll;
       transition: right 0.4s ease;
+      z-index: 1100;
 
       &::-webkit-scrollbar {
         display: none;
@@ -76,7 +77,11 @@ const StyledNote = styled.div`
       scrollbar-width: none;
 
       @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-        display: none;
+        right: -1000px;
+
+        .checklist__add {
+          right: -1000px;
+        }
       }
     }
 
@@ -98,6 +103,46 @@ const StyledNote = styled.div`
       }
     }
 
+    .note__show__checklist {
+      color: #ffffff;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      margin: 0;
+      border: none;
+      border-radius: 50%;
+      position: fixed;
+      right: 18px;
+      bottom: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: right 0.4s ease;
+    }
+
+    .note__hide__checklist {
+      color: #ffffff;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      margin: 0;
+      border: none;
+      border-radius: 50%;
+      position: fixed;
+      right: -1000px;
+      bottom: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      background-color: #edf2f7;
+      transition: right 0.4s ease;
+
+      @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+        display: none;
+      }
+    }
+
     .note__deadline {
     }
 
@@ -116,6 +161,21 @@ const StyledNote = styled.div`
         background-color: #edf2f7;
       }
     }
+
+    &.has-checklist {
+      .note__checklist {
+        right: 0;
+
+        .checklist__add {
+          right: 18px;
+          bottom: 22px;
+        }
+      }
+
+      .note__hide__checklist {
+        right: 64px;
+      }
+    }
   }
 `;
 
@@ -128,6 +188,7 @@ const Note = ({ className, id }) => {
   });
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [hasChecklist, setHasChecklist] = useState(false);
   const { activeLocale, updateLocale } = useContext(LocaleContext);
   const intl = useIntl();
 
@@ -190,6 +251,10 @@ const Note = ({ className, id }) => {
     setIsExpanded(!isExpanded);
   };
 
+  const handleChecklistView = () => {
+    setHasChecklist(!hasChecklist);
+  };
+
   useEffect(() => {
     NoteService.get(id)
       .then(response => {
@@ -214,7 +279,8 @@ const Note = ({ className, id }) => {
   }, [debouncedNote]);
 
   const cssClasses = classNames(className, "note", {
-    expanded: isExpanded
+    expanded: isExpanded,
+    "has-checklist": hasChecklist
   });
 
   return (
@@ -230,6 +296,12 @@ const Note = ({ className, id }) => {
             title={intl.formatMessage({ id: "expand" })}
           >
             <Icon name="expand" width={18} />
+          </Button>
+          <Button
+            className="note__show__checklist"
+            onClick={handleChecklistView}
+          >
+            <Icon name="checklist" width={18} />
           </Button>
           <h2 ref={ref} onClick={toggleEditingTitle} className="note__title">
             <EditableText
@@ -260,6 +332,12 @@ const Note = ({ className, id }) => {
             onTasksChange={onTasksChange}
             noteTemplate={note.template}
           />
+          <Button
+            className="note__hide__checklist"
+            onClick={handleChecklistView}
+          >
+            <Icon name="arrow-left" width={18} />
+          </Button>
         </div>
       </StyledNote>
     </>
