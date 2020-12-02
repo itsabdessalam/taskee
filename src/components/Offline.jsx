@@ -3,11 +3,10 @@ import { useEffect, useState } from "react";
 
 const Offline = () => {
   const [isDisconnected, setIsDisconnected] = useState(true);
-
   useEffect(() => {
     setIsDisconnected(useConnectionChange());
-    window.addEventListener("online", useConnectionChange());
     window.addEventListener("offline", useConnectionChange());
+    window.removeEventListener("offline", useConnectionChange());
   }, []);
 
   return (
