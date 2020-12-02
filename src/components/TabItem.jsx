@@ -32,6 +32,10 @@ const StyledTabItem = styled.div`
       @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
         background-color: #edf2f7;
       }
+
+      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+        color: #64748b;
+      }
     }
   }
 
