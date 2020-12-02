@@ -1,19 +1,27 @@
 import { useContext, useState } from "react";
+import { Redirect } from "react-router-dom";
+import styled from "styled-components";
+import { useIntl } from "react-intl";
+
+import { useForm } from "../hooks";
+import until from "../utils/until";
+import { handleLogin, isLoggedIn } from "../utils/auth";
+import getLanguage from "../utils/language";
+
 import Title from "./Title";
 import Form from "./Form";
 import Input from "./Input";
 import Button from "./Button";
-import { useForm } from "../hooks";
-import until from "../utils/until";
+import Link from "./Link";
+
 import AuthService from "../services/AuthService";
-import { handleLogin, isLoggedIn } from "../utils/auth";
-import { Redirect } from "react-router-dom";
-import getLanguage from "../utils/language";
 
 import LocaleContext from "../context/Locale";
 import ThemeContext from "../context/Theme";
 
 const RegisterForm = () => {
+  const intl = useIntl();
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { activeLocale, updateLocale } = useContext(LocaleContext);
@@ -74,8 +82,8 @@ const RegisterForm = () => {
   if (isLoggedIn()) return <Redirect to="/" />;
 
   return (
-    <>
-      <Title level={2}>Register</Title>
+    <Container>
+      <Title level={2}>{intl.formatMessage({ id: "registerTitle" })}</Title>
       <Form onSubmit={handleSubmit}>
         <Input
           name="firstName"
@@ -115,11 +123,28 @@ const RegisterForm = () => {
         />
         {error ? <p className="error">{error.message}</p> : null}
         <Button type="submit" disabled={isLoading}>
-          {isLoading ? "Loading" : "Register"}
+          {isLoading
+            ? intl.formatMessage({ id: "loginLoading" })
+            : intl.formatMessage({ id: "register" })}
         </Button>
+        <Link to="/login">{intl.formatMessage({ id: "loginLink" })}</Link>
       </Form>
-    </>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  h2 {
+    text-align: center;
+  }
+  width: 40%;
+  margin: auto;
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
+    width: 50%;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    width: 90%;
+  }
+`;
 
 export default RegisterForm;
