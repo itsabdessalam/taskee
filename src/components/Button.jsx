@@ -18,9 +18,10 @@ const StyledButton = styled.button`
   background-color: ${({ theme }) => theme.colors.primary};
   text-align: center;
   text-decoration: none;
-
   outline: 0;
   cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.2s ease;
 
   &--loading,
   &:disabled {
@@ -30,6 +31,10 @@ const StyledButton = styled.button`
 
   &:not(:last-child) {
     margin-bottom: 12px;
+  }
+
+  &:hover {
+    opacity: 0.8;
   }
 `;
 

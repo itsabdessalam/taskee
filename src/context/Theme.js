@@ -53,15 +53,9 @@ const ThemeProvider = ({ children, theme = "light" }) => {
     a, button {
       cursor: pointer;
       font-family: ${activeTheme.fonts.body};
-      opacity: 1;
-      transition: opacity 0.2s ease;
-
+     
       > svg {
         pointer-events: none;
-      }
-
-      &:hover {
-        opacity: 0.8;
       }
     }
 

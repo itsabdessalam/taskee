@@ -25,6 +25,10 @@ const StyledTabItem = styled.div`
     position: relative;
     color: ${({ theme }) => theme.colors.muted};
 
+    @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+      color: #64748b;
+    }
+
     &.link--active,
     &.link--partially-active {
       color: #334155;
@@ -34,7 +38,10 @@ const StyledTabItem = styled.div`
       }
 
       @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-        color: #64748b;
+        ${({ theme }) =>
+          theme.mode === "dark" && {
+            color: "#ffffff"
+          }}
       }
     }
   }
