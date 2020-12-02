@@ -14,6 +14,7 @@ import Icon from "./Icon";
 
 import LocaleContext from "../context/Locale";
 import { localizedDate } from "../utils/date";
+import normalize from "../utils/normalizer";
 
 const StyledNote = styled.div`
   &.note {
@@ -122,6 +123,7 @@ const StyledNote = styled.div`
       align-items: center;
       justify-content: center;
       transition: right 0.4s ease;
+      z-index: 120;
     }
 
     .note__hide__checklist {
@@ -148,6 +150,7 @@ const StyledNote = styled.div`
     }
 
     .note__deadline {
+      width: 100%;
     }
 
     &.expanded {
@@ -218,16 +221,10 @@ const Note = ({ className, id }) => {
     delete note.createdAt;
     delete note.updatedAt;
 
-    if (
-      note.checklist &&
-      note.checklist.tasks &&
-      note.checklist.tasks.every(task => task.title)
-    ) {
-      NoteService.update(note).catch(error => {
-        console.error("Error while updating user note", error);
-        return null;
-      });
-    }
+    NoteService.update(normalize("note", note)).catch(error => {
+      console.error("Error while updating user note", error);
+      return null;
+    });
   };
 
   const onTitleChange = event => {
