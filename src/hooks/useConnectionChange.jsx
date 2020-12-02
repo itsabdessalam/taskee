@@ -1,9 +1,7 @@
-import { useState } from "react";
-
 const useConnectionChange = () => {
   let isDisconnected = false;
-  const condition = navigator.onLine ? "online" : "offline";
-  if (condition === "online") {
+  const status = navigator.onLine ? "online" : "offline";
+  if (status === "online") {
     const webPing = setInterval(() => {
       fetch("//google.com", {
         mode: "no-cors"
