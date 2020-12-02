@@ -1,14 +1,22 @@
 import { Button, ButtonGroup, Title, SEO } from "../components";
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import { isLoggedIn } from "../utils/auth";
 import styled from "styled-components";
 import { useIntl } from "react-intl";
+import LocaleContext from "../context/Locale";
+import getLanguage from "../utils/language";
 
 const GettingStarted = () => {
   const intl = useIntl();
-
   const history = useHistory();
+
+  const { updateLocale } = useContext(LocaleContext);
+
+  useEffect(() => {
+    updateLocale(getLanguage());
+  }, []);
+
   const redirectTo = page => {
     return history.push(page);
   };

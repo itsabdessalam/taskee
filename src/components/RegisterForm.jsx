@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { useIntl } from "react-intl";
@@ -32,6 +32,10 @@ const RegisterForm = () => {
     updateLocale(user.language ? user.language : "en");
   };
 
+  useEffect(() => {
+    updateLocale(getLanguage());
+  }, []);
+
   const register = async () => {
     setIsLoading(true);
     setError(null);
@@ -41,7 +45,7 @@ const RegisterForm = () => {
       lastName: values.lastName,
       email: values.email,
       password: values.password,
-      language: getLanguage()
+      language: activeLocale
     };
 
     const [err, result] = await until(AuthService.register(user));
