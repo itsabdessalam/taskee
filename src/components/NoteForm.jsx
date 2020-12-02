@@ -24,7 +24,6 @@ const StyledNoteForm = styled.div`
 
   label {
     font-size: 14px;
-    color: #334155;
     margin-bottom: 4px;
   }
 `;

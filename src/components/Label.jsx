@@ -6,6 +6,7 @@ const StyledLabel = styled.label`
   height: auto;
   display: block;
   text-decoration: none;
+  color: ${({ theme }) => theme.colors.muted};
 
   .label__content {
     width: 100%;
