@@ -1,9 +1,10 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { useForm } from "../hooks";
 import until from "../utils/until";
 import styled from "styled-components";
 import { useIntl } from "react-intl";
+import getLanguage from "../utils/language";
 
 import { handleLogin, isLoggedIn } from "../utils/auth";
 import AuthService from "../services/AuthService";
@@ -28,6 +29,10 @@ const LoginForm = () => {
     updateTheme(user.theme ? user.theme : "light");
     updateLocale(user.language ? user.language : "en");
   };
+
+  useEffect(() => {
+    updateLocale(getLanguage());
+  }, []);
 
   const auth = async () => {
     setIsLoading(true);
