@@ -18,18 +18,25 @@ const StyledDatePicker = styled.div`
   }
 
   .react-datepicker__close-icon {
-    height: auto;
+    width: 22px;
+    height: 22px;
+    background-color: #edf2f7;
+    color: #64748b;
+    border-radius: 50%;
     top: 50%;
     right: 12px;
     transform: translateY(-50%);
     padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &::after {
-      font-size: 14px;
       background-color: #edf2f7;
       color: #64748b;
-      height: 20px;
-      width: 20px;
+      height: 19px;
+      width: 19px;
+      content: url("data:image/svg+xml;charset=UTF-8,%3csvg fill='none' stroke='%2364748b' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 18L18 6M6 6l12 12'%3e%3c/path%3e%3c/svg%3e");
     }
   }
 

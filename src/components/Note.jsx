@@ -31,6 +31,10 @@ const StyledNote = styled.div`
       width: 100%;
       padding: 24px;
       position: relative;
+
+      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+        padding: 15px;
+      }
     }
 
     .note__expand {
@@ -91,7 +95,7 @@ const StyledNote = styled.div`
       margin-top: 0;
       margin-bottom: 0;
 
-      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
         padding-right: 32px !important;
       }
 
@@ -313,13 +317,13 @@ const Note = ({ className, id }) => {
               maxLength="140"
             />
           </h2>
-          {/* {note.template === "project" && (
+          {note.template === "project" && (
             <Deadline
               deadline={note.deadline}
               onChange={updateDeadline}
               className="note__deadline"
             />
-          )} */}
+          )}
           <div className="note__text">
             {note && note._id && (
               <Editor data={note.text} onChange={onTextChange} />
