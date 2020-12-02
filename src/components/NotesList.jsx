@@ -1,26 +1,25 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useIntl, FormattedMessage } from "react-intl";
+import { useIntl } from "react-intl";
 import styled from "styled-components";
 import NoteService from "../services/NoteService";
 import Button from "./Button";
 import NoteCard from "./NoteCard";
 import Title from "./Title";
-import Modal from "./Modal";
-import CreateNoteForm from "./CreateNoteForm";
-
-const StyledTaskModal = styled(Modal)``;
+import NewNote from "./NewNote";
 
 const NotesList = () => {
   const history = useHistory();
   const [notes, setNotes] = useState([]);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const intl = useIntl();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const redirectTo = page => {
     return history.push(page);
   };
 
   const deleteNote = (id, index) => {
+    // TODO: use modal confirm
     const remove = confirm("Delete note?");
 
     if (!remove) {
@@ -46,21 +45,8 @@ const NotesList = () => {
   }, []);
   return (
     <>
-      <div className="page__header">
-        <Title level={2} className="page__title">
-          <FormattedMessage id="myNotes" />
-        </Title>
-        <div className="page__actions">
-          <Button
-            // TODO: should be a modal
-            onClick={() => setIsModalVisible(true)}
-            className="page__action page__action--add-note"
-            width="auto"
-          >
-            <FormattedMessage id="addNote" />
-          </Button>
-        </div>
-      </div>
+      <Title level={2}>{intl.formatMessage({ id: "notes" })}</Title>
+      <NewNote />
       <div className="notes">
         {notes.map((note, index) => (
           <NoteCard
@@ -70,15 +56,6 @@ const NotesList = () => {
           />
         ))}
       </div>
-      <StyledTaskModal isVisible={isModalVisible}>
-        <div data-slot="header">Add a new note</div>
-        <div data-slot="body">
-          <CreateNoteForm />
-        </div>
-        <div data-slot="footer">
-          <button onClick={() => setIsModalVisible(false)}>Close</button>
-        </div>
-      </StyledTaskModal>
     </>
   );
 };

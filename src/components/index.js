@@ -11,37 +11,51 @@ import Title from "./Title";
 import Img from "./Img";
 import Icon from "./Icon";
 import Input from "./Input";
+import Label from "./Label";
+import Radio from "./Radio";
+import Checkbox from "./Checkbox";
+import Modal from "./Modal";
+import Form from "./Form";
 import LoginForm from "./LoginForm";
-import ProtectedRoute from "./ProtectedRoute";
 import RegisterForm from "./RegisterForm";
-import CreateNoteForm from "./CreateNoteForm";
+import NoteForm from "./NoteForm";
+import SettingsForm from "./SettingsForm";
+import ProtectedRoute from "./ProtectedRoute";
 import Editor from "./Editor";
 import ThemeSwitcher from "./ThemeSwitcher";
 import Note from "./Note";
 import NotesList from "./NotesList";
 import SEO from "./SEO";
+import Logout from "./Logout";
 
 export {
   Button,
-  ButtonGroup,
   Loader,
-  Option,
   Link,
+  ButtonGroup,
+  Select,
+  Option,
+  LocaleSelector,
   Tabs,
   TabItem,
+  Title,
   Img,
   Icon,
   Input,
-  ProtectedRoute,
+  Label,
+  Radio,
+  Checkbox,
+  Modal,
+  Form,
   LoginForm,
   RegisterForm,
-  CreateNoteForm,
-  Select,
-  Title,
-  LocaleSelector,
+  NoteForm,
+  SettingsForm,
+  ProtectedRoute,
   Editor,
   ThemeSwitcher,
   Note,
   NotesList,
-  SEO
+  SEO,
+  Logout
 };

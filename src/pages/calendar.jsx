@@ -1,13 +1,16 @@
 import { useState } from "react";
+import { useIntl } from "react-intl";
 import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { Button, Title, SEO } from "../components";
+import { Button, Title, SEO, Checkbox } from "../components";
 
 const Calendar = () => {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
   const [currentEvents, setCurrentEvents] = useState([]);
+  const intl = useIntl();
+  const title = intl.formatMessage({ id: "calendar" });
 
   const handleWeekendsToggle = () => {
     setWeekendsVisible(!weekendsVisible);
@@ -21,14 +24,12 @@ const Calendar = () => {
     return (
       <div className="demo-app-sidebar">
         <div className="demo-app-sidebar-section">
-          <label>
-            <input
-              type="checkbox"
-              checked={weekendsVisible}
-              onChange={handleWeekendsToggle}
-            />
-            toggle weekends
-          </label>
+          <Checkbox
+            name="toggleWeekends"
+            checked={weekendsVisible}
+            onChange={handleWeekendsToggle}
+            label={"toggle weekends"}
+          />
         </div>
         <div className="demo-app-sidebar-section">
           <h2>All Events ({currentEvents.length})</h2>
@@ -40,8 +41,8 @@ const Calendar = () => {
 
   return (
     <>
-      <SEO title={"Calendar"} />
-      <Title level={2}>My calendar</Title>
+      <SEO title={title} />
+      <Title level={2}>{title}</Title>
       {renderSidebar()}
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}

@@ -14,8 +14,9 @@ import Marker from "@editorjs/marker";
 const StyledEditor = styled.div`
   display: block;
   position: relative;
-  background-color: ${({ theme }) => theme.colors.editor};
+  background-color: transparent;
   padding: 0 8px;
+  // z-index: -1;
 
   .codex-editor--narrow .codex-editor__redactor {
     margin: 0 !important;
@@ -23,6 +24,7 @@ const StyledEditor = styled.div`
 
   .codex-editor {
     padding: 12px 0;
+    z-index: inherit;
   }
 
   .ce-header {

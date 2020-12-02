@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { useIntl } from "react-intl";
 import classNames from "classnames";
 import NoteService from "../services/NoteService";
 import Checklist from "../components/Checklist";
@@ -18,12 +19,22 @@ const StyledNote = styled.div`
   &.note {
     display: flex;
     justify-content: space-between;
-    transition: width 0.4s;
+    transition: width 0.4s ease;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 
     .note__content {
       width: 100%;
       padding: 24px;
       position: relative;
+
+      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+        padding: 15px;
+      }
     }
 
     .note__expand {
@@ -44,6 +55,10 @@ const StyledNote = styled.div`
       &:hover {
         background-color: #edf2f7;
       }
+
+      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+        display: none;
+      }
     }
 
     .note__checklist {
@@ -56,13 +71,22 @@ const StyledNote = styled.div`
       background-color: ${({ theme }) => theme.colors.editor};
       border-left: 1px solid ${({ theme }) => theme.colors.separator};
       overflow-y: scroll;
-      transition: right 0.4s;
+      transition: right 0.4s ease;
+      z-index: 1100;
 
       &::-webkit-scrollbar {
         display: none;
       }
       -ms-overflow-style: none;
       scrollbar-width: none;
+
+      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+        right: -1000px;
+
+        .checklist__add {
+          right: -1000px;
+        }
+      }
     }
 
     .note__title {
@@ -70,6 +94,10 @@ const StyledNote = styled.div`
       font-weight: 500;
       margin-top: 0;
       margin-bottom: 0;
+
+      @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+        padding-right: 32px !important;
+      }
 
       textarea {
         font-size: 32px;
@@ -79,30 +107,47 @@ const StyledNote = styled.div`
       }
     }
 
+    .note__show__checklist {
+      color: #ffffff;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      margin: 0;
+      border: none;
+      border-radius: 50%;
+      position: fixed;
+      right: 18px;
+      bottom: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: right 0.4s ease;
+    }
+
+    .note__hide__checklist {
+      color: #ffffff;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      margin: 0;
+      border: none;
+      border-radius: 50%;
+      position: fixed;
+      right: -1000px;
+      bottom: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      background-color: #edf2f7;
+      transition: right 0.4s ease;
+
+      @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+        display: none;
+      }
+    }
+
     .note__deadline {
-      .react-datepicker-popper {
-        z-index: 3;
-      }
-
-      .react-datepicker__close-icon {
-        height: auto;
-        top: 50%;
-        right: 12px;
-        transform: translateY(-50%);
-        padding: 0;
-
-        &::after {
-          font-size: 14px;
-          background-color: #edf2f7;
-          color: #64748b;
-          height: 20px;
-          width: 20px;
-        }
-      }
-
-      .react-datepicker__triangle {
-        left: 50px !important;
-      }
     }
 
     &.expanded {
@@ -120,6 +165,21 @@ const StyledNote = styled.div`
         background-color: #edf2f7;
       }
     }
+
+    &.has-checklist {
+      .note__checklist {
+        right: 0;
+
+        .checklist__add {
+          right: 18px;
+          bottom: 22px;
+        }
+      }
+
+      .note__hide__checklist {
+        right: 64px;
+      }
+    }
   }
 `;
 
@@ -132,7 +192,9 @@ const Note = ({ className, id }) => {
   });
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [hasChecklist, setHasChecklist] = useState(false);
   const { activeLocale, updateLocale } = useContext(LocaleContext);
+  const intl = useIntl();
 
   const ref = useRef(null);
   const inputElement = useRef(null);
@@ -193,6 +255,10 @@ const Note = ({ className, id }) => {
     setIsExpanded(!isExpanded);
   };
 
+  const handleChecklistView = () => {
+    setHasChecklist(!hasChecklist);
+  };
+
   useEffect(() => {
     NoteService.get(id)
       .then(response => {
@@ -217,7 +283,8 @@ const Note = ({ className, id }) => {
   }, [debouncedNote]);
 
   const cssClasses = classNames(className, "note", {
-    expanded: isExpanded
+    expanded: isExpanded,
+    "has-checklist": hasChecklist
   });
 
   return (
@@ -227,9 +294,19 @@ const Note = ({ className, id }) => {
       </Button> */}
       <StyledNote className={cssClasses}>
         <div className="note__content">
-          <button className="note__expand" onClick={handleExpand}>
-            <Icon name={"expand"} width={18} />
-          </button>
+          <Button
+            className="note__expand"
+            onClick={handleExpand}
+            title={intl.formatMessage({ id: "expand" })}
+          >
+            <Icon name="expand" width={18} />
+          </Button>
+          <Button
+            className="note__show__checklist"
+            onClick={handleChecklistView}
+          >
+            <Icon name="checklist" width={18} />
+          </Button>
           <h2 ref={ref} onClick={toggleEditingTitle} className="note__title">
             <EditableText
               ref={inputElement}
@@ -240,13 +317,13 @@ const Note = ({ className, id }) => {
               maxLength="140"
             />
           </h2>
-          {/* {note.template === "project" && (
+          {note.template === "project" && (
             <Deadline
               deadline={note.deadline}
               onChange={updateDeadline}
               className="note__deadline"
             />
-          )} */}
+          )}
           <div className="note__text">
             {note && note._id && (
               <Editor data={note.text} onChange={onTextChange} />
@@ -259,6 +336,12 @@ const Note = ({ className, id }) => {
             onTasksChange={onTasksChange}
             noteTemplate={note.template}
           />
+          <Button
+            className="note__hide__checklist"
+            onClick={handleChecklistView}
+          >
+            <Icon name="arrow-left" width={18} />
+          </Button>
         </div>
       </StyledNote>
     </>

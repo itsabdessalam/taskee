@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useIntl } from "react-intl";
 import styled from "styled-components";
 import TaskModal from "./TaskModal";
 import EditableText from "./EditableText";
 import Icon from "./Icon";
+import Button from "./Button";
+import Checkbox from "./Checkbox";
 
 const StyledTask = styled.div`
   position: relative;
@@ -22,6 +25,11 @@ const StyledTask = styled.div`
     align-items: center;
   }
 
+  .task__checkbox {
+    width: 18px;
+    margin-right: 8px;
+  }
+
   .task__text {
     width: 100%;
     font-size: 16px;
@@ -29,50 +37,6 @@ const StyledTask = styled.div`
     textarea {
       width: 100%;
       font-size: 16px;
-    }
-  }
-
-  .task__checkbox {
-    display: flex;
-    align-items: center;
-    width: 18px;
-    height: 100%;
-    margin-right: 12px;
-
-    input {
-      position: relative;
-      margin: 0;
-      color: rgb(0, 0, 0);
-      border-radius: 5px;
-      background-color: ${({ theme }) => theme.colors.background};
-      border: 1px solid ${({ theme }) => theme.colors.checkbox};
-      outline: none;
-      appearance: none;
-      width: 18px;
-      height: 18px;
-      padding: 0;
-      cursor: pointer;
-      transition: background-color 300ms ease 0s;
-
-      &[aria-checked="true"] {
-        background-color: ${({ theme }) => theme.colors.primary};
-        border-width: 1px;
-        border-color: ${({ theme }) => theme.colors.primary};
-
-        &::after {
-          content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' height='16' width='16' fill='none'%3E%3Cpath d='M14 7L8.5 12.5L6 10' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3C/path%3E%3C/svg%3E");
-          position: absolute;
-          width: 16px;
-          height: 16px;
-          text-align: center;
-        }
-      }
-
-      &:not([aria-checked="true"]) {
-        &:hover {
-          background-color: rgba(108, 41, 245, 0.08);
-        }
-      }
     }
   }
 
@@ -87,10 +51,11 @@ const StyledTask = styled.div`
     .task__action {
       border: none;
       border-radius: 5px;
-      padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 0;
+      margin: 0;
 
       &--delete {
         background-color: transparent;
@@ -112,12 +77,13 @@ const StyledTask = styled.div`
 const Task = ({ data, taskIndex, onChange, remove }) => {
   const ref = useRef(null);
   const inputElement = useRef(null);
+  const intl = useIntl();
 
   const [task, setTask] = useState({
     title: "",
     isCompleted: false
   });
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
 
   useEffect(() => {
@@ -171,15 +137,13 @@ const Task = ({ data, taskIndex, onChange, remove }) => {
   return (
     <StyledTask className="task">
       <div className="task__card">
-        <label className="task__checkbox">
-          <input
-            type="checkbox"
-            name={task.title}
-            checked={task.isCompleted}
-            aria-checked={task.isCompleted}
-            onChange={onCheckboxChange}
-          />
-        </label>
+        <Checkbox
+          name={task.title}
+          checked={task.isCompleted}
+          aria-checked={task.isCompleted}
+          onChange={onCheckboxChange}
+          className="task__checkbox"
+        />
         <div ref={ref} onClick={toggleEditingTitle} className="task__text">
           <EditableText
             ref={inputElement}
@@ -192,25 +156,27 @@ const Task = ({ data, taskIndex, onChange, remove }) => {
         </div>
         <div className="task__actions">
           {/* TODO: use custom action buttons */}
-          <button
+          <Button
             className="task__action task__action--delete"
             onClick={removeTask}
+            title={intl.formatMessage({ id: "removeTask" })}
           >
-            <Icon name={"trash"} width={18} />
-          </button>
+            <Icon name="trash" width={18} />
+          </Button>
           {/* TODO: use custom action buttons */}
-          <button
+          <Button
             className="task__action task__action--update"
-            onClick={() => setIsModalVisible(true)}
+            onClick={() => setIsModalOpen(true)}
+            title={intl.formatMessage({ id: "updateTask" })}
           >
-            <Icon name={"dots"} width={18} />
-          </button>
+            <Icon name="dots" width={18} />
+          </Button>
         </div>
       </div>
       <TaskModal
         data={task}
-        isVisible={isModalVisible}
-        setIsVisible={setIsModalVisible}
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
         onChange={updatedTask => onChange(updatedTask, taskIndex)}
       />
     </StyledTask>

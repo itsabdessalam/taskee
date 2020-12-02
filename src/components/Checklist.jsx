@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useIntl, FormattedMessage } from "react-intl";
+import { useIntl } from "react-intl";
 
 import Task from "./Task";
 import Button from "./Button";
@@ -15,8 +15,9 @@ const StyledChecklist = styled.div`
 
     .checklist__title {
       margin: 0;
+
       .checklist__count {
-        margin-left: 12px;
+        margin-left: 8px;
         font-size: 16px;
         color: #64748b;
         font-weight: 400;
@@ -28,7 +29,7 @@ const StyledChecklist = styled.div`
     color: #ffffff;
     width: 36px;
     height: 36px;
-    background: #6c29f5;
+    padding: 0;
     border: none;
     border-radius: 50%;
     position: fixed;
@@ -37,11 +38,12 @@ const StyledChecklist = styled.div`
     right: 15px;
     align-items: center;
     justify-content: center;
-    transition: right 0.4s;
+    transition: right 0.4s ease;
   }
 
   .checklist__uncheck {
     width: auto;
+    height: auto;
     font-size: 14px;
     position: relative;
     display: flex;
@@ -64,6 +66,7 @@ const StyledChecklist = styled.div`
 const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");
+  const intl = useIntl();
 
   useEffect(() => {
     setTasks(checklist.tasks || []);
@@ -136,16 +139,24 @@ const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
         {/* TODO: use custom action buttons */}
         {tasks.length > 0 &&
           tasks.filter(t => t.isCompleted).length === tasks.length && (
-            <button className="checklist__uncheck" onClick={uncheckAllTasks}>
-              <FormattedMessage id={"uncheckAll"} />
-            </button>
+            <Button
+              className="checklist__uncheck"
+              onClick={uncheckAllTasks}
+              title={intl.formatMessage({ id: "uncheckAll" })}
+            >
+              {intl.formatMessage({ id: "uncheckAll" })}
+            </Button>
           )}
 
         {tasks.length > 0 &&
           tasks.filter(t => t.isCompleted).length !== tasks.length && (
-            <button className="checklist__uncheck" onClick={checkAllTasks}>
-              <FormattedMessage id={"checkAll"} />
-            </button>
+            <Button
+              className="checklist__uncheck"
+              onClick={checkAllTasks}
+              title={intl.formatMessage({ id: "checkAll" })}
+            >
+              {intl.formatMessage({ id: "checkAll" })}
+            </Button>
           )}
       </div>
 
@@ -163,10 +174,13 @@ const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
           ))}
         </div>
       </div>
-      {/* TODO: use custom action buttons */}
-      <button onClick={addTask} className="checklist__add">
-        <Icon name={"plus"} width={18} />
-      </button>
+      <Button
+        onClick={addTask}
+        className="checklist__add"
+        title={intl.formatMessage({ id: "addTask" })}
+      >
+        <Icon name="plus" width={18} />
+      </Button>
     </StyledChecklist>
   );
 };

@@ -1,36 +1,9 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import styled from "styled-components";
 import Title from "./Title";
-
-const Modal = ({ isVisible, children }) => {
-  if (!isVisible) {
-    return null;
-  }
-
-  const getChildBySlot = (children, slot) => {
-    if (!children || !slot) {
-      return null;
-    }
-    const slotItem = children.find(child => child.props["data-slot"] === slot);
-    return slotItem ? slotItem.props.children : null;
-  };
-
-  const header = getChildBySlot(children, "header");
-  const body = getChildBySlot(children, "body");
-  const footer = getChildBySlot(children, "footer");
-
-  return (
-    <StyledModal className="modal" id="modal">
-      <div className="modal__content">
-        <div className="modal__header">
-          <Title level={2}>{header}</Title>
-        </div>
-        <div className="modal__body">{body}</div>
-        <div className="modal__footer">{footer}</div>
-      </div>
-    </StyledModal>
-  );
-};
+import Button from "./Button";
+import Icon from "./Icon";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -44,15 +17,88 @@ const StyledModal = styled.div`
   align-items: center;
   z-index: 1200;
 
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    align-items: flex-end;
+  }
+
+  .modal__close {
+    position: absolute;
+    right: 24px;
+
+    button {
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      margin: 0;
+      color: #64748b;
+      background-color: #edf2f7;
+    }
+  }
+
+  .modal__header {
+    h2 {
+      margin-top: 0;
+    }
+  }
+
   .modal__content {
     position: relative;
     padding: 24px;
     margin: 0 auto;
-    background-color: white;
+    background-color: ${({ theme }) => theme.colors.background};
     border-radius: 8px;
     width: 100%;
-    max-width: 840px;
+    max-width: 620px;
+    height: auto;
+    max-height: 90vh;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+
+      button[type="submit"] {
+        width: 100%;
+      }
+    }
   }
 `;
+
+const Modal = ({
+  children,
+  isOpen,
+  title,
+  onConfirm = null,
+  onCancel = null
+}) => {
+  const intl = useIntl();
+
+  if (!isOpen) {
+    return null;
+  }
+
+  return (
+    <StyledModal className="modal" id="modal">
+      <div className="modal__content">
+        <div className="modal__close">
+          {typeof onCancel === "function" && (
+            <Button
+              onClick={onCancel}
+              aria-label={intl.formatMessage({ id: "close" })}
+              title={intl.formatMessage({ id: "close" })}
+            >
+              <Icon name="close" width={16} />
+            </Button>
+          )}
+        </div>
+        <div className="modal__header">
+          <Title level={2}>{title}</Title>
+        </div>
+        <div className="modal__body">{children}</div>
+        <div className="modal__actions"></div>
+      </div>
+    </StyledModal>
+  );
+};
 
 export default Modal;
