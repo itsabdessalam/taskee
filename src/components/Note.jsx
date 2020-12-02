@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { useIntl } from "react-intl";
 import classNames from "classnames";
 import NoteService from "../services/NoteService";
 import Checklist from "../components/Checklist";
@@ -85,7 +86,7 @@ const StyledNote = styled.div`
       margin-top: 0;
       margin-bottom: 0;
 
-      @media (mix-width: ${({ theme }) => theme.breakpoints.md}) {
+      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
         padding-right: 32px !important;
       }
 
@@ -128,6 +129,7 @@ const Note = ({ className, id }) => {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const { activeLocale, updateLocale } = useContext(LocaleContext);
+  const intl = useIntl();
 
   const ref = useRef(null);
   const inputElement = useRef(null);
@@ -222,9 +224,13 @@ const Note = ({ className, id }) => {
       </Button> */}
       <StyledNote className={cssClasses}>
         <div className="note__content">
-          <button className="note__expand" onClick={handleExpand}>
+          <Button
+            className="note__expand"
+            onClick={handleExpand}
+            title={intl.formatMessage({ id: "expand" })}
+          >
             <Icon name="expand" width={18} />
-          </button>
+          </Button>
           <h2 ref={ref} onClick={toggleEditingTitle} className="note__title">
             <EditableText
               ref={inputElement}

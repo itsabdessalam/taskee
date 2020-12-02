@@ -24,5 +24,22 @@ module.exports = {
   enableNotifications: "Activer les notifications",
   save: "Sauvegarder les modifications",
   login: "Se connecter",
-  register: "S'inscrite"
+  register: "S'inscrite",
+  addTask: "Ajouter une tâche",
+  updateTask: "Mettre à jour une tâche",
+  removeTask: "Supprimer une tâche",
+  addReminder: "Ajouter un rappel",
+  removeReminder: "Supprimer un rappel",
+  addDeadline: "Ajouter une deadline",
+  removeDeadline: "Supprimer une deadline",
+  template: "Template",
+  title: "Titre",
+  description: "Description",
+  deadline: "Deadline",
+  reminder: "Rappel",
+  reminders: "Rappels",
+  expand: "Plein écran",
+  delete: "Supprimer",
+  close: "Fermer",
+  switchTheme: "Changer de thème"
 };

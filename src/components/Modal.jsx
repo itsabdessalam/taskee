@@ -1,4 +1,5 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import styled from "styled-components";
 import Title from "./Title";
 import Button from "./Button";
@@ -15,6 +16,10 @@ const StyledModal = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 1200;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    align-items: flex-end;
+  }
 
   .modal__close {
     position: absolute;
@@ -47,6 +52,15 @@ const StyledModal = styled.div`
     max-width: 620px;
     height: auto;
     max-height: 90vh;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+
+      button[type="submit"] {
+        width: 100%;
+      }
+    }
   }
 `;
 
@@ -57,6 +71,8 @@ const Modal = ({
   onConfirm = null,
   onCancel = null
 }) => {
+  const intl = useIntl();
+
   if (!isOpen) {
     return null;
   }
@@ -66,7 +82,11 @@ const Modal = ({
       <div className="modal__content">
         <div className="modal__close">
           {typeof onCancel === "function" && (
-            <Button onClick={onCancel}>
+            <Button
+              onClick={onCancel}
+              aria-label={intl.formatMessage({ id: "close" })}
+              title={intl.formatMessage({ id: "close" })}
+            >
               <Icon name="close" width={16} />
             </Button>
           )}

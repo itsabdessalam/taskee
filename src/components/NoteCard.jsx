@@ -74,7 +74,7 @@ const StyledNoteCard = styled.div`
         margin-bottom: 2px;
 
         @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-          height: 20px;
+          height: 22px;
           width: 180px;
           white-space: nowrap;
           overflow: hidden;
@@ -213,6 +213,7 @@ const NoteCard = ({ note, deleteNote }) => {
             <Button
               className="note__action note__action--delete"
               onClick={() => deleteNote(note._id)}
+              title={intl.formatMessage({ id: "delete" })}
             >
               <Icon name={"trash"} width={18} />
             </Button>

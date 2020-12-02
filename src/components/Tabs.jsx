@@ -12,7 +12,7 @@ const StyledTabs = styled.div`
     background-color: ${({ theme }) => theme.colors.navigation};
     border-right: 1px solid ${({ theme }) => theme.colors.separator};
     transform: translate3d(0, 0, 0);
-    transition: all 0.25s ease;
+    transition: width 0.25s ease;
     z-index: 1070;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.md}) {

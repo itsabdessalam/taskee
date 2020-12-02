@@ -6,10 +6,7 @@ import NoteService from "../services/NoteService";
 import Button from "./Button";
 import NoteCard from "./NoteCard";
 import Title from "./Title";
-import Modal from "./Modal";
-import NoteForm from "./NoteForm";
-
-const StyledTaskModal = styled(Modal)``;
+import NewNote from "./NewNote";
 
 const NotesList = () => {
   const history = useHistory();
@@ -40,6 +37,7 @@ const NotesList = () => {
 
   useEffect(() => {
     NoteService.getAll().then(response => {
+      console.log("toto", response);
       if (!response.data.data) {
         return;
       }
@@ -48,21 +46,8 @@ const NotesList = () => {
   }, []);
   return (
     <>
-      <div className="page__header">
-        <Title level={2} className="page__title">
-          {intl.formatMessage({ id: "notes" })}
-        </Title>
-        <div className="page__actions">
-          <Button
-            // TODO: should be a modal
-            onClick={() => setIsModalOpen(true)}
-            className="page__action page__action--add-note"
-            width="auto"
-          >
-            {intl.formatMessage({ id: "addNote" })}
-          </Button>
-        </div>
-      </div>
+      <Title level={2}>{intl.formatMessage({ id: "notes" })}</Title>
+      <NewNote />
       <div className="notes">
         {notes.map((note, index) => (
           <NoteCard
@@ -72,13 +57,6 @@ const NotesList = () => {
           />
         ))}
       </div>
-      <StyledTaskModal
-        title="Add a new note"
-        isOpen={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
-      >
-        <NoteForm />
-      </StyledTaskModal>
     </>
   );
 };

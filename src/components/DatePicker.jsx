@@ -11,15 +11,13 @@ const StyledDatePicker = styled.div`
     .react-datepicker__input-container {
       width: 100%;
     }
-    margin-bottom: 12px;
   }
 
   .react-datepicker-popper {
-    z-index: 3;
+    z-index: 100;
   }
 
   .react-datepicker__close-icon {
-    display: none !important;
     height: auto;
     top: 50%;
     right: 12px;

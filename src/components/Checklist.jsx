@@ -139,14 +139,22 @@ const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
         {/* TODO: use custom action buttons */}
         {tasks.length > 0 &&
           tasks.filter(t => t.isCompleted).length === tasks.length && (
-            <Button className="checklist__uncheck" onClick={uncheckAllTasks}>
+            <Button
+              className="checklist__uncheck"
+              onClick={uncheckAllTasks}
+              title={intl.formatMessage({ id: "uncheckAll" })}
+            >
               {intl.formatMessage({ id: "uncheckAll" })}
             </Button>
           )}
 
         {tasks.length > 0 &&
           tasks.filter(t => t.isCompleted).length !== tasks.length && (
-            <Button className="checklist__uncheck" onClick={checkAllTasks}>
+            <Button
+              className="checklist__uncheck"
+              onClick={checkAllTasks}
+              title={intl.formatMessage({ id: "checkAll" })}
+            >
               {intl.formatMessage({ id: "checkAll" })}
             </Button>
           )}
@@ -166,7 +174,11 @@ const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
           ))}
         </div>
       </div>
-      <Button onClick={addTask} className="checklist__add">
+      <Button
+        onClick={addTask}
+        className="checklist__add"
+        title={intl.formatMessage({ id: "addTask" })}
+      >
         <Icon name="plus" width={18} />
       </Button>
     </StyledChecklist>

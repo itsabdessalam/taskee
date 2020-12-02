@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 const icons = [
   {
@@ -102,7 +103,7 @@ const icons = [
   }
 ];
 
-const Icon = ({ children, name, ...props }) => {
+const Icon = ({ children, className, name, ...props }) => {
   const icon = icons.find(icon => icon.name === name);
   const content = icon ? icon.content : "";
   const viewBox = icon.viewBox ? icon.viewBox : "0 0 24 24";
@@ -116,13 +117,14 @@ const Icon = ({ children, name, ...props }) => {
           strokeLinejoin: "round"
         };
   const fill = icon.fill ? icon.fill : "none";
+  const cssClasses = classNames(className, name);
 
   return (
     <>
       <svg
         viewBox={viewBox}
         xmlns="http://www.w3.org/2000/svg"
-        className={name}
+        className={cssClasses}
         fill={fill}
         {...stroke}
         {...props}

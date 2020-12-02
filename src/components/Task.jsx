@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useIntl } from "react-intl";
 import styled from "styled-components";
 import TaskModal from "./TaskModal";
 import EditableText from "./EditableText";
@@ -76,6 +77,7 @@ const StyledTask = styled.div`
 const Task = ({ data, taskIndex, onChange, remove }) => {
   const ref = useRef(null);
   const inputElement = useRef(null);
+  const intl = useIntl();
 
   const [task, setTask] = useState({
     title: "",
@@ -157,6 +159,7 @@ const Task = ({ data, taskIndex, onChange, remove }) => {
           <Button
             className="task__action task__action--delete"
             onClick={removeTask}
+            title={intl.formatMessage({ id: "removeTask" })}
           >
             <Icon name="trash" width={18} />
           </Button>
@@ -164,6 +167,7 @@ const Task = ({ data, taskIndex, onChange, remove }) => {
           <Button
             className="task__action task__action--update"
             onClick={() => setIsModalOpen(true)}
+            title={intl.formatMessage({ id: "updateTask" })}
           >
             <Icon name="dots" width={18} />
           </Button>

@@ -1,16 +1,24 @@
 import { useContext } from "react";
+import { useIntl } from "react-intl";
 import ThemeContext from "../context/Theme";
+import Button from "./Button";
 
 const ThemeSwitcher = () => {
   const { activeTheme, updateTheme } = useContext(ThemeContext);
+  const intl = useIntl();
+
   const switchTheme = () => {
     updateTheme(activeTheme === "light" ? "dark" : "light");
   };
 
   return (
     <>
-      {/* TODO: use theme switcher button */}
-      <button onClick={switchTheme}>Switch Theme</button>
+      <Button
+        onClick={switchTheme}
+        title={intl.formatMessage({ id: "switchTheme" })}
+      >
+        Switch Theme
+      </Button>
     </>
   );
 };

@@ -14,6 +14,7 @@ import Input from "./Input";
 import Label from "./Label";
 import Radio from "./Radio";
 import Checkbox from "./Checkbox";
+import Modal from "./Modal";
 import Form from "./Form";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
@@ -28,27 +29,28 @@ import SEO from "./SEO";
 
 export {
   Button,
-  ButtonGroup,
   Loader,
-  Option,
   Link,
+  ButtonGroup,
+  Select,
+  Option,
+  LocaleSelector,
   Tabs,
   TabItem,
+  Title,
   Img,
   Icon,
   Input,
   Label,
   Radio,
   Checkbox,
-  ProtectedRoute,
+  Modal,
   Form,
   LoginForm,
   RegisterForm,
   NoteForm,
   SettingsForm,
-  Select,
-  Title,
-  LocaleSelector,
+  ProtectedRoute,
   Editor,
   ThemeSwitcher,
   Note,

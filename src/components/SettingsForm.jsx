@@ -29,6 +29,7 @@ const StyledFormRow = styled.div`
   display: flex;
   flex-direction: row;
   align-content: flex-start;
+  align-items: center;
   margin: 10px 0;
 `;
 
@@ -86,6 +87,46 @@ const StyledLabelTheme = styled.label`
       `;
     }
   }}
+`;
+
+const StyledSettings = styled.div`
+  .settings {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    h3 {
+      margin-top: 0;
+    }
+
+    .label {
+      font-size: 14px;
+      color: #334155;
+      margin-bottom: 4px;
+    }
+
+    .settings__account {
+      width: 70%;
+      padding: 24px;
+      border-radius: 8px;
+      border: 1px solid #edf2f7;
+      margin-right: 24px;
+      box-shadow: 0px 1px 100px 10px rgba(226, 232, 240, 0.16);
+    }
+
+    .settings__customization {
+      width: 30%;
+      padding: 24px;
+      border-radius: 8px;
+      border: 1px solid #edf2f7;
+      box-shadow: 0px 1px 100px 10px rgba(226, 232, 240, 0.16);
+    }
+  }
+
+  .settings__save {
+    margin-left: auto;
+  }
 `;
 
 let languages = {
@@ -170,11 +211,11 @@ const SettingsForm = () => {
   };
 
   return (
-    <>
+    <StyledSettings>
       <Title level={2}>Settings</Title>
       <Form onSubmit={handleSubmit}>
-        <div>
-          <div>
+        <div className="settings">
+          <div className="settings__account">
             <h3>Account</h3>
             <Label>{intl.formatMessage({ id: "lastname" })}</Label>
             <Input
@@ -201,7 +242,7 @@ const SettingsForm = () => {
               onChange={handleChange}
             />
           </div>
-          <div>
+          <div className="settings__customization">
             <h3>Cutomization</h3>
             <Label>{intl.formatMessage({ id: "theme" })}</Label>
             <StyledFormRow>
@@ -230,7 +271,6 @@ const SettingsForm = () => {
             <StyledFormRow>
               <Checkbox
                 name="notificationActivated"
-                type="checkbox"
                 checked={user.notificationActivated}
                 onChange={handleNotification}
                 label={intl.formatMessage({ id: "enableNotifications" })}
@@ -238,9 +278,15 @@ const SettingsForm = () => {
             </StyledFormRow>
           </div>
         </div>
-        <Button>{intl.formatMessage({ id: "save" })}</Button>
+        <Button
+          title={intl.formatMessage({ id: "save" })}
+          width="auto"
+          className="settings__save"
+        >
+          {intl.formatMessage({ id: "save" })}
+        </Button>
       </Form>
-    </>
+    </StyledSettings>
   );
 };
 

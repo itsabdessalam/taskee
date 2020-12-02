@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { useIntl } from "react-intl";
 import Button from "./Button";
 import DatePicker from "./DatePicker";
 
 const Deadline = ({ deadline, className, onChange }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const intl = useIntl();
 
   const updateDate = date => {
     onChange(date);
@@ -26,9 +28,13 @@ const Deadline = ({ deadline, className, onChange }) => {
           className={className}
         />
       )) || (
-        // TODO: use custom action buttons
-        <Button onClick={() => updateDate(new Date())} className={className}>
-          Add a deadline
+        <Button
+          onClick={() => updateDate(new Date())}
+          className={className}
+          width="auto"
+          title={intl.formatMessage({ id: "addDeadline" })}
+        >
+          {intl.formatMessage({ id: "addDeadline" })}
         </Button>
       )}
     </>
