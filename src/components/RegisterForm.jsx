@@ -1,18 +1,28 @@
+import { useContext, useState } from "react";
 import Title from "./Title";
 import Form from "./Form";
 import Input from "./Input";
 import Button from "./Button";
 import { useForm } from "../hooks";
-import { useState } from "react";
 import until from "../utils/until";
 import AuthService from "../services/AuthService";
 import { handleLogin, isLoggedIn } from "../utils/auth";
 import { Redirect } from "react-router-dom";
 import getLanguage from "../utils/language";
 
+import LocaleContext from "../context/Locale";
+import ThemeContext from "../context/Theme";
+
 const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { activeLocale, updateLocale } = useContext(LocaleContext);
+  const { activeTheme, updateTheme } = useContext(ThemeContext);
+
+  const setUserSettings = user => {
+    updateTheme(user.theme ? user.theme : "light");
+    updateLocale(user.language ? user.language : "en");
+  };
 
   const register = async () => {
     setIsLoading(true);
@@ -48,6 +58,7 @@ const RegisterForm = () => {
         ...data.user,
         token: data.token
       });
+      setUserSettings(data.user);
       setIsLoading(false);
     }
   };

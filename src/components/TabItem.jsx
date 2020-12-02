@@ -11,7 +11,7 @@ const StyledTabItem = styled.div`
   align-items: center;
   justify-content: center;
   padding: 8px;
-  transition: all 0.25s;
+  transition: all 0.25s ease;
 
   .tab__link {
     padding: 8px;
@@ -38,7 +38,7 @@ const StyledTabItem = styled.div`
   .tab__text {
     display: block;
     font-size: 15px;
-    margin-left: 12px;
+    margin-left: 8px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -50,7 +50,7 @@ const StyledTabItem = styled.div`
     width: 20px;
     height: 20px;
     margin: 0;
-    transition: all 0.25s;
+    transition: all 0.25s ease;
   }
 `;
 
@@ -58,7 +58,7 @@ const TabItem = ({ children, to, text, icon, ...props }) => {
   return (
     <StyledTabItem className="tab">
       <Link className="tab__link" to={to}>
-        <Icon name={icon} className="tab__icon"></Icon>
+        <Icon name={icon} width={20} className="tab__icon"></Icon>
         <span className="tab__text">{text}</span>
       </Link>
     </StyledTabItem>

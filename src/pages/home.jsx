@@ -1,21 +1,17 @@
-import { FormattedMessage } from "react-intl";
-import { Title, LocaleSelector, ThemeSwitcher, SEO } from "../components";
+import NotificationService from "../services/NotificationService";
+import { Title, SEO } from "../components";
+import { useIntl } from "react-intl";
 
-const Home = () => {
+const Home = ({ children, ...props }) => {
+  const intl = useIntl();
+  const title = intl.formatMessage({ id: "home" });
+
   return (
     <>
-      <SEO title={"Home"} />
-      <Title level={2} title={"Home"}>
+      <SEO title={title} />
+      <Title level={2} title={title}>
         Home
       </Title>
-      <ThemeSwitcher /> {/* only for test purposes */}
-      <LocaleSelector /> {/* only for test purposes */}
-      <FormattedMessage
-        id="greeting"
-        values={{
-          name: "John Doe"
-        }}
-      />
     </>
   );
 };

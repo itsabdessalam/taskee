@@ -14,8 +14,20 @@ const GettingStarted = () => {
       <SEO title={"Getting Started"} />
       <Title level={2}>Getting Started</Title>
       <ButtonGroup>
-        <Button onClick={() => redirectTo("/login")}>Login</Button>
-        <Button onClick={() => redirectTo("/register")}>Register</Button>
+        <Button
+          onClick={() => redirectTo("/login")}
+          aria-label="Login"
+          title="Login"
+        >
+          Login
+        </Button>
+        <Button
+          onClick={() => redirectTo("/register")}
+          aria-label="Register"
+          title="Register"
+        >
+          Register
+        </Button>
       </ButtonGroup>
     </>
   );

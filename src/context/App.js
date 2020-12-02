@@ -1,7 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { ThemeProvider } from "../context/Theme";
-import { LocaleProvider } from "../context/Locale";
+import { UserProvider } from "./User";
+import { ThemeProvider } from "./Theme";
+import { LocaleProvider } from "./Locale";
 
 const AppContext = createContext();
 
@@ -35,9 +36,11 @@ const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider value={context}>
-      <LocaleProvider>
-        <ThemeProvider>{children} </ThemeProvider>{" "}
-      </LocaleProvider>
+      <UserProvider>
+        <LocaleProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </LocaleProvider>
+      </UserProvider>
     </AppContext.Provider>
   );
 };
