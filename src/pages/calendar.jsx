@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
 import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { Button, Title, SEO, Checkbox } from "../components";
+import until from "../utils/until";
+import NoteService from "../services/NoteService";
 
 const Calendar = () => {
   const [weekendsVisible, setWeekendsVisible] = useState(true);
@@ -15,10 +17,28 @@ const Calendar = () => {
   const handleWeekendsToggle = () => {
     setWeekendsVisible(!weekendsVisible);
   };
-
-  const handleEvents = events => {
-    setCurrentEvents(events);
+  const convertDate = deadline => {
+    return `${new Date(deadline).getUTCFullYear()}-${(
+      "0" +
+      (new Date(deadline).getUTCMonth() + 1)
+    ).slice(-2)}-${"0" + new Date(deadline).getUTCDay()}`;
   };
+  useEffect(async () => {
+    const [err, result] = await until(NoteService.getAll());
+    if (err) {
+      console.error(err);
+    } else {
+      result.data.data.map(data => {
+        setCurrentEvents(e =>
+          e.concat({
+            title: data.title,
+            date: `${convertDate(data.deadline)}`,
+            url: `/notes/${data._id}`
+          })
+        );
+      });
+    }
+  }, []);
 
   const renderSidebar = () => {
     return (
@@ -33,7 +53,6 @@ const Calendar = () => {
         </div>
         <div className="demo-app-sidebar-section">
           <h2>All Events ({currentEvents.length})</h2>
-          <ul>{currentEvents.map(renderSidebarEvent)}</ul>
         </div>
       </div>
     );
@@ -52,42 +71,16 @@ const Calendar = () => {
           center: "title",
           right: "dayGridMonth,timeGridWeek,timeGridDay"
         }}
+        events={currentEvents}
         initialView="dayGridMonth"
-        editable={true}
         selectable={true}
         selectMirror={true}
         dayMaxEvents={true}
         weekends={weekendsVisible}
-        eventContent={renderEventContent}
-        eventsSet={handleEvents}
         aspectRatio={1.8}
       />
     </>
   );
 };
-
-function renderEventContent(eventInfo) {
-  return (
-    <>
-      <b>{eventInfo.timeText}</b>
-      <i>{eventInfo.event.title}</i>
-    </>
-  );
-}
-
-function renderSidebarEvent(event) {
-  return (
-    <li key={event.id}>
-      <b>
-        {formatDate(event.start, {
-          year: "numeric",
-          month: "short",
-          day: "numeric"
-        })}
-      </b>
-      <i>{event.title}</i>
-    </li>
-  );
-}
 
 export default Calendar;
