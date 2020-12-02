@@ -42,5 +42,12 @@ module.exports = {
   delete: "Delete",
   close: "Close",
   switchTheme: "Switch theme",
-  logout: "Logout"
+  logout: "Logout",
+  registerTitle: "Welcome to Taskee!",
+  loginTitle: "Nice to see you again!",
+  loginLoading: "Please wait...",
+  invalidCredentials: "Invalid credentials provided",
+  registerLink: "No account yet?",
+  loginLink: "Already have an account?",
+  gettingStarted: "Getting Started"
 };
