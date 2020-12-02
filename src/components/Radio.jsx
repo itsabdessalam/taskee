@@ -35,7 +35,7 @@ const StyledRadio = styled.div`
 
   .radio__icon {
     position: relative;
-    border: 1px solid #edf2f7;
+    border: 1px solid ${({ theme }) => theme.colors.separator};
     border-radius: 50%;
     width: 16px;
     height: 16px;

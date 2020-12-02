@@ -126,7 +126,7 @@ const StyledTabs = styled(Tabs)`
       bottom: 0;
       left: 0;
       display: flex;
-      border-top: 1px solid #edf2f7;
+      border-top: 1px solid ${({ theme }) => theme.colors.separator};
       z-index: 1100;
 
       .navigation__footer {
