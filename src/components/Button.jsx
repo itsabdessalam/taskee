@@ -33,8 +33,12 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = ({ children, ...props }) => {
-  return <StyledButton {...props}>{children}</StyledButton>;
+const Button = ({ children, title, ...props }) => {
+  return (
+    <StyledButton title={title} aria-label={title} {...props}>
+      {children}
+    </StyledButton>
+  );
 };
 
 export default Button;

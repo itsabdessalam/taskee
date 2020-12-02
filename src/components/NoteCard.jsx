@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { useIntl, FormattedMessage } from "react-intl";
+import { useIntl } from "react-intl";
 import Icon from "./Icon";
+import Button from "./Button";
 
 import LocaleContext from "../context/Locale";
 import { localizedDate, localizedDuration } from "../utils/date";
@@ -50,14 +51,35 @@ const StyledNoteCard = styled.div`
     .note__right-side {
       justify-content: flex-end;
       min-width: 200px;
+
+      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+        min-width: 32px;
+
+        .note__deadline,
+        .note__tasks {
+          display: none;
+        }
+      }
     }
 
     .note__meta {
       width: 270px;
 
+      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+        width: 180px;
+      }
+
       .note__title {
         font-size: 16px;
         margin-bottom: 2px;
+
+        @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+          height: 22px;
+          width: 180px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
 
       .note__time {
@@ -72,7 +94,7 @@ const StyledNoteCard = styled.div`
     .note__tasks {
       color: ${({ theme }) => theme.colors.muted};
       margin-right: 4px;
-      font-size: 12px;
+      font-size: 14px;
       padding: 4px;
       border-radius: 4px;
 
@@ -80,16 +102,6 @@ const StyledNoteCard = styled.div`
         margin-right: 4px;
       }
     }
-
-    // .note__deadline {
-    //   color: #41bdfe;
-    //   background-color: rgba(65, 189, 254, 0.1);
-    // }
-
-    // .note__tasks {
-    //   color: #3cbe9d;
-    //   background-color: rgba(60, 190, 157, 0.1);
-    // }
 
     .note__actions {
       margin-left: 12px;
@@ -100,6 +112,8 @@ const StyledNoteCard = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 0;
+        margin: 0;
 
         &--delete {
           background-color: rgba(239, 68, 68, 0.1);
@@ -196,12 +210,13 @@ const NoteCard = ({ note, deleteNote }) => {
           )}
           <div className="note__actions">
             {/* TODO: use custom action buttons */}
-            <button
+            <Button
               className="note__action note__action--delete"
               onClick={() => deleteNote(note._id)}
+              title={intl.formatMessage({ id: "delete" })}
             >
               <Icon name={"trash"} width={18} />
-            </button>
+            </Button>
           </div>
         </div>
       </StyledNoteCard>

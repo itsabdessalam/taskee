@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
+import { AppProvider } from "../context/App";
 import Layout from "./Layout";
-import { getUserLogged, isLoggedIn } from "../utils/auth";
+import { getUser, isLoggedIn } from "../utils/auth";
 import Pusher from "pusher-js";
 import NotificationService from "../services/NotificationService";
 
@@ -9,7 +10,7 @@ const App = () => {
   useEffect(() => {
     // Initialize and handle notifications
     if (isLoggedIn()) {
-      const user = getUserLogged();
+      const user = getUser();
       const pusher = new Pusher(process.env.REACT_APP_PUSHER_APP_KEY, {
         cluster: process.env.REACT_APP_PUSHER_APP_CLUSTER,
         encrypted: true
@@ -42,7 +43,9 @@ const App = () => {
   return (
     <>
       <Router>
-        <Layout />
+        <AppProvider>
+          <Layout />
+        </AppProvider>
       </Router>
     </>
   );

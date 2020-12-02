@@ -5,7 +5,7 @@ const AUTH_VAR = `${process.env.REACT_APP_BASE_NAME}_auth`;
  *
  * @returns
  */
-const getUser = () =>
+export const getUser = () =>
   // eslint-disable-next-line no-extra-boolean-cast
   !!window.localStorage[AUTH_VAR]
     ? JSON.parse(window.localStorage[AUTH_VAR])
@@ -17,7 +17,7 @@ const getUser = () =>
  * @param {*} user
  * @returns
  */
-const setUser = user => {
+export const setUser = user => {
   return (window.localStorage[AUTH_VAR] = JSON.stringify(user));
 };
 
@@ -35,7 +35,8 @@ export const handleLogin = ({
   password,
   language,
   notificationActivated,
-  token
+  token,
+  theme = "light"
 }) => {
   return setUser({
     _id,
@@ -44,7 +45,8 @@ export const handleLogin = ({
     email,
     language,
     notificationActivated,
-    token
+    token,
+    theme
   });
 };
 
@@ -55,17 +57,7 @@ export const handleLogin = ({
  */
 export const isLoggedIn = () => {
   const user = getUser();
-
   return !!user.token;
-};
-
-export const getUserLogged = () => {
-  const user = getUser();
-  return user;
-};
-
-export const setUserLogged = user => {
-  setUser(user);
 };
 
 /**

@@ -6,7 +6,7 @@ const LOCALES = {
     dateFormat: "MMM do, yyyy"
   },
   fr: {
-    label: "French",
+    label: "Français",
     locale: "fr",
     dateFormat: "dd MMM yyyy"
   }
