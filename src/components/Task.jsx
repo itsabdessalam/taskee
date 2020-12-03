@@ -37,6 +37,7 @@ const StyledTask = styled.div`
     textarea {
       width: 100%;
       font-size: 16px;
+      background: transparent !important;
     }
   }
 
