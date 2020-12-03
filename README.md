@@ -72,6 +72,9 @@ Checklist
 
 ![checklist](./preview/checklist.png)
 
+Offline
+![checklist](./preview/offline.png)
+
 ## **Collaborators 🤖**
 
 [Abdessalam BENHARIRA](https://github.com/itsabdessalam/taskee)
