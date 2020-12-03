@@ -24,7 +24,7 @@ module.exports = {
   enableNotifications: "Activer les notifications",
   save: "Sauvegarder les modifications",
   login: "Se connecter",
-  register: "S'inscrite",
+  register: "S'inscrire",
   addTask: "Ajouter une tâche",
   updateTask: "Mettre à jour une tâche",
   removeTask: "Supprimer une tâche",
@@ -42,5 +42,12 @@ module.exports = {
   delete: "Supprimer",
   close: "Fermer",
   switchTheme: "Changer de thème",
-  logout: "Se déconnecter"
+  logout: "Se déconnecter",
+  registerTitle: "Bienvenue sur Taskee !",
+  loginTitle: "Content de vous revoir !",
+  loginLoading: "Veuillez patienter...",
+  invalidCredentials: "Email ou mot de passe incorrect",
+  registerLink: "Pas encore de compte ?",
+  loginLink: "Déjà inscrit ?",
+  gettingStarted: "Pour commencer"
 };

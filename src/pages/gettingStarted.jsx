@@ -1,36 +1,62 @@
 import { Button, ButtonGroup, Title, SEO } from "../components";
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import { isLoggedIn } from "../utils/auth";
+import styled from "styled-components";
+import { useIntl } from "react-intl";
+import LocaleContext from "../context/Locale";
+import getLanguage from "../utils/language";
 
 const GettingStarted = () => {
+  const intl = useIntl();
   const history = useHistory();
+
+  const { updateLocale } = useContext(LocaleContext);
+
+  useEffect(() => {
+    updateLocale(getLanguage());
+  }, []);
+
   const redirectTo = page => {
     return history.push(page);
   };
   if (isLoggedIn()) return <Redirect to={"/"} />;
   return (
-    <>
+    <Container>
       <SEO title={"Getting Started"} />
-      <Title level={2}>Getting Started</Title>
+      <Title level={2}>{intl.formatMessage({ id: "gettingStarted" })}</Title>
       <ButtonGroup>
         <Button
           onClick={() => redirectTo("/login")}
           aria-label="Login"
           title="Login"
         >
-          Login
+          {intl.formatMessage({ id: "login" })}
         </Button>
         <Button
           onClick={() => redirectTo("/register")}
           aria-label="Register"
           title="Register"
         >
-          Register
+          {intl.formatMessage({ id: "register" })}
         </Button>
       </ButtonGroup>
-    </>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  h2 {
+    text-align: center;
+  }
+  width: 40%;
+  margin: auto;
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
+    width: 50%;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    width: 90%;
+  }
+`;
 
 export default GettingStarted;

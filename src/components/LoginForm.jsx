@@ -1,7 +1,10 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { useForm } from "../hooks";
 import until from "../utils/until";
+import styled from "styled-components";
+import { useIntl } from "react-intl";
+import getLanguage from "../utils/language";
 
 import { handleLogin, isLoggedIn } from "../utils/auth";
 import AuthService from "../services/AuthService";
@@ -12,8 +15,11 @@ import Form from "./Form";
 import Input from "./Input";
 import Button from "./Button";
 import Title from "./Title";
+import Link from "./Link";
 
 const LoginForm = () => {
+  const intl = useIntl();
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { activeLocale, updateLocale } = useContext(LocaleContext);
@@ -23,6 +29,10 @@ const LoginForm = () => {
     updateTheme(user.theme ? user.theme : "light");
     updateLocale(user.language ? user.language : "en");
   };
+
+  useEffect(() => {
+    updateLocale(getLanguage());
+  }, []);
 
   const auth = async () => {
     setIsLoading(true);
@@ -44,7 +54,7 @@ const LoginForm = () => {
 
     if (result && result.data.errors) {
       setError({
-        message: "Invalid credentials provided"
+        message: intl.formatMessage({ id: "invalidCredentials" })
       });
       setIsLoading(false);
     }
@@ -71,8 +81,8 @@ const LoginForm = () => {
   }
 
   return (
-    <>
-      <Title level={2}>Login</Title>
+    <Container>
+      <Title level={2}>{intl.formatMessage({ id: "loginTitle" })}</Title>
       <Form onSubmit={handleSubmit}>
         <Input
           name="email"
@@ -94,11 +104,28 @@ const LoginForm = () => {
         />
         {error ? <p className="error">{error.message}</p> : null}
         <Button type="submit" disabled={isLoading}>
-          {isLoading ? "Loading" : "Login"}
+          {isLoading
+            ? intl.formatMessage({ id: "loginLoading" })
+            : intl.formatMessage({ id: "login" })}
         </Button>
+        <Link to="/register">{intl.formatMessage({ id: "registerLink" })}</Link>
       </Form>
-    </>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  h2 {
+    text-align: center;
+  }
+  width: 40%;
+  margin: auto;
+  @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
+    width: 50%;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    width: 90%;
+  }
+`;
 
 export default LoginForm;
