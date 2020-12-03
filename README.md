@@ -13,6 +13,25 @@ Setting up environnement
     REACT_APP_BASE_NAME=app_name
     REACT_APP_PUSHER_APP_KEY=pusher_app_key
     REACT_APP_PUSHER_APP_CLUSTER=region
+    
+## **Modules 🧱**
+ - [Pushbots](https://pushbots.com/)
+ - [Pusher](https://pusher.com/)
+ - [Editor JS](https://editorjs.io/)
+ 
+ ## **Bonus 🪄**
+  - Context
+  - Language detector
+  - Autosave
+  - Notifications (reminders, deadline)
+  - API Custom
+  - Git Workflow
+  - Auto deploy
+  - Découverte notion 💯😉
+  
+  
+## **Cahier des charges 📕**
+[Available on notion](https://www.notion.so/Cahier-des-charges-5675a61bd6014a138a60388327a5e0cc)
 
 ## **Backend API source code ⚙️** 
 
