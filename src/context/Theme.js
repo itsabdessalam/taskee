@@ -45,7 +45,14 @@ const ThemeProvider = ({ children, theme = "light" }) => {
       margin: 0;
       font-family: ${activeTheme.fonts.body};
       background-color: ${activeTheme.colors.background};
-      color: ${activeTheme.colors.text};  
+      color: ${activeTheme.colors.text}; 
+      
+      &.offline {
+        .alert-offline {
+          display: block !important;
+          z-index: 1200 !important;
+        }
+      }
     }
 
     a, button {
