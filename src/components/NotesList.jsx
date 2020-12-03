@@ -19,7 +19,6 @@ const NotesList = () => {
   };
 
   const deleteNote = (id, index) => {
-    // TODO: use modal confirm
     const remove = confirm("Delete note?");
 
     if (!remove) {

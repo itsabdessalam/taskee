@@ -75,7 +75,6 @@ const StyledDatePickerInput = styled(ReactDatePicker)`
   }
 `;
 
-// Documentation https://reactdatepicker.com
 const DatePicker = ({ date, onChange, ...props }) => {
   const [startDate, setStartDate] = useState(new Date());
 

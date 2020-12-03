@@ -209,7 +209,6 @@ const NoteCard = ({ note, deleteNote }) => {
             </div>
           )}
           <div className="note__actions">
-            {/* TODO: use custom action buttons */}
             <Button
               className="note__action note__action--delete"
               onClick={() => deleteNote(note._id)}

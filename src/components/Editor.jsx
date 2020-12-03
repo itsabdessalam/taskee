@@ -16,7 +16,6 @@ const StyledEditor = styled.div`
   position: relative;
   background-color: transparent;
   padding: 0 8px;
-  // z-index: -1;
 
   .codex-editor--narrow .codex-editor__redactor {
     margin: 0 !important;
