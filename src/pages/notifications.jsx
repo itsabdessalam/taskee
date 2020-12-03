@@ -2,9 +2,9 @@ import NotificationService from "../services/NotificationService";
 import { Title, SEO } from "../components";
 import { useIntl } from "react-intl";
 
-const Home = ({ children, ...props }) => {
+const Notifications = ({ children, ...props }) => {
   const intl = useIntl();
-  const title = intl.formatMessage({ id: "home" });
+  const title = intl.formatMessage({ id: "notifications" });
 
   return (
     <>
@@ -16,4 +16,4 @@ const Home = ({ children, ...props }) => {
   );
 };
 
-export default Home;
+export default Notifications;

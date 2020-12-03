@@ -214,11 +214,6 @@ const Navigation = () => {
       </StyledAppLogo>
       <div className="navigation__body">
         <TabItem
-          to="/dashboard"
-          icon="home"
-          text={intl.formatMessage({ id: "home" })}
-        />
-        <TabItem
           to="/notes"
           icon="notes"
           text={intl.formatMessage({ id: "notes" })}
@@ -227,11 +222,6 @@ const Navigation = () => {
           to="/calendar"
           icon="calendar"
           text={intl.formatMessage({ id: "calendar" })}
-        />
-        <TabItem
-          to="/notifications"
-          icon="alert"
-          text={intl.formatMessage({ id: "notifications" })}
         />
         <TabItem
           to="/settings"

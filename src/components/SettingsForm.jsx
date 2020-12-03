@@ -115,7 +115,6 @@ const StyledSettings = styled.div`
     .settings__customization {
       padding: 24px;
       border-radius: 8px;
-      margin-right: 24px;
       border: 1px solid ${({ theme }) => theme.colors.separator};
       ${({ theme }) =>
         theme.mode === "light" && {
@@ -125,6 +124,8 @@ const StyledSettings = styled.div`
 
     .settings__account {
       width: 70%;
+      margin-right: 24px;
+
       @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
         width: 100%;
         margin: 0;
