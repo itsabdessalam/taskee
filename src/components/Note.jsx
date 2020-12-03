@@ -12,8 +12,6 @@ import Editor from "./Editor";
 import Deadline from "./Deadline";
 import Icon from "./Icon";
 
-import LocaleContext from "../context/Locale";
-import { localizedDate } from "../utils/date";
 import normalize from "../utils/normalizer";
 
 const StyledNote = styled.div`
@@ -196,7 +194,7 @@ const Note = ({ className, id }) => {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [hasChecklist, setHasChecklist] = useState(false);
-  const { activeLocale, updateLocale } = useContext(LocaleContext);
+  const [editorText, setEditorText] = useState({});
   const intl = useIntl();
 
   const ref = useRef(null);
@@ -209,11 +207,7 @@ const Note = ({ className, id }) => {
     }
   };
 
-  const redirectToList = () => {
-    return history.push(`/notes`);
-  };
-
-  const updateChecklist = async note => {
+  const updateNote = async note => {
     if (!note) {
       return;
     }
@@ -239,7 +233,7 @@ const Note = ({ className, id }) => {
   };
 
   const onTextChange = text => {
-    setNote({ ...note, text });
+    setEditorText(text);
   };
 
   const updateDeadline = date => {
@@ -262,9 +256,23 @@ const Note = ({ className, id }) => {
         if (!response.data.data) {
           return history.push(`/notes`);
         }
-        setNote(response.data.data);
-        if (response.data.data.checklist) {
-          setChecklist(response.data.data.checklist);
+        const note = response.data.data;
+        console.log(note);
+        setNote(note);
+
+        if (note.checklist) {
+          setChecklist(note.checklist);
+        }
+
+        /*
+          Need to handle the text separately because the way the editor js is instanciate,
+          onTextChange is passed to the editor with the initial value of the note and
+          the editor does not support the note updates
+          So when saving the updated text, it was resetting all the other field of the note
+          That's why we need to update the text separately and use a useEffect on the text to update the note
+        */
+        if (note.text) {
+          setEditorText(note.text);
         }
       })
       .catch(error => {
@@ -275,9 +283,15 @@ const Note = ({ className, id }) => {
 
   useEffect(() => {
     if (debouncedNote._id) {
-      updateChecklist(debouncedNote);
+      updateNote(debouncedNote);
     }
   }, [debouncedNote]);
+
+  useEffect(() => {
+    if (note && note._id) {
+      setNote({ ...note, text: editorText });
+    }
+  }, [editorText]);
 
   const cssClasses = classNames(className, "note", {
     expanded: isExpanded,
@@ -286,9 +300,6 @@ const Note = ({ className, id }) => {
 
   return (
     <>
-      {/* <Button onClick={redirectToList} width="120px">
-        Back
-      </Button> */}
       <StyledNote className={cssClasses}>
         <div className="note__content">
           <Button
@@ -323,7 +334,7 @@ const Note = ({ className, id }) => {
           )}
           <div className="note__text">
             {note && note._id && (
-              <Editor data={note.text} onChange={onTextChange} />
+              <Editor data={note.text} onChange={text => onTextChange(text)} />
             )}
           </div>
         </div>
