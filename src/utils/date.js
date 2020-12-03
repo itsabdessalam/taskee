@@ -31,3 +31,10 @@ export const localizedDuration = (date, locale) => {
     locale: localizedFormats[locale]
   });
 };
+
+export const convertDateForCalendar = deadline => {
+  return `${new Date(deadline).getUTCFullYear()}-${(
+    "0" +
+    (new Date(deadline).getUTCMonth() + 1)
+  ).slice(-2)}-${"0" + new Date(deadline).getUTCDay()}`;
+};
