@@ -20,7 +20,6 @@ const isLocalhost = Boolean(
     )
 );
 
-
 function handleNetworkChange() {
   if (navigator.onLine) {
     document.body.classList.remove("offline");
