@@ -136,7 +136,6 @@ const Checklist = ({ checklist, onTasksChange, noteTemplate }) => {
             {tasks.filter(t => t.isCompleted).length} out of {tasks.length}
           </span>
         </h2>
-        {/* TODO: use custom action buttons */}
         {tasks.length > 0 &&
           tasks.filter(t => t.isCompleted).length === tasks.length && (
             <Button

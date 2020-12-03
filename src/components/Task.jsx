@@ -155,7 +155,6 @@ const Task = ({ data, taskIndex, onChange, remove }) => {
           />
         </div>
         <div className="task__actions">
-          {/* TODO: use custom action buttons */}
           <Button
             className="task__action task__action--delete"
             onClick={removeTask}
@@ -163,7 +162,6 @@ const Task = ({ data, taskIndex, onChange, remove }) => {
           >
             <Icon name="trash" width={18} />
           </Button>
-          {/* TODO: use custom action buttons */}
           <Button
             className="task__action task__action--update"
             onClick={() => setIsModalOpen(true)}

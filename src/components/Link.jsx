@@ -6,6 +6,7 @@ import { startsWith } from "../utils/string";
 const StyledLink = styled(RouterLink)`
   display: block;
   text-decoration: none;
+  color: ${({ theme }) => theme.colors.muted};
 `;
 
 const Link = ({ children, to, className, ...props }) => {

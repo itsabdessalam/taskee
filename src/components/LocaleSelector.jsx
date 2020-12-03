@@ -36,9 +36,6 @@ const StyledLocaleSelector = styled.div`
 const LocaleSelector = () => {
   const { activeLocale, updateLocale } = useContext(LocaleContext);
 
-  // TODO: get stored user locale and update if necessery
-  // TODO: get current navigator language
-
   return (
     <StyledLocaleSelector
       className={`locale__selector locale__selector--${activeLocale}`}
