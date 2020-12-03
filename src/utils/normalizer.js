@@ -12,7 +12,6 @@ const formatChecklist = checklist => {
 };
 
 const normalize = (entry, fields) => {
-  console.log("toto", fields, fields.checklist);
   switch (entry) {
     case "note":
       return {
