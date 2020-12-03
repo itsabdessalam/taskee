@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledOffline = styled.div`
-  .alert-offline {
+  &.alert-offline {
     display: none;
     position: fixed;
     left: 50%;
@@ -14,8 +14,8 @@ const StyledOffline = styled.div`
     width: 100%;
   }
 
-  .offline {
-    .alert-offline {
+  &.offline {
+    &.alert-offline {
       display: block;
       z-index: 999;
     }
