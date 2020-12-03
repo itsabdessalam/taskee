@@ -1,56 +1,83 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useIntl } from "react-intl";
-import FullCalendar, { formatDate } from "@fullcalendar/react";
+import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { Button, Title, SEO, Checkbox } from "../components";
+import { Button, Title, SEO } from "../components";
 import until from "../utils/until";
 import NoteService from "../services/NoteService";
+import { convertDateForCalendar } from "../utils/date";
+import LocaleContext from "../context/Locale";
+import { withTheme } from "styled-components";
 
-const Calendar = () => {
-  const [weekendsVisible, setWeekendsVisible] = useState(true);
+const Calendar = ({ theme }) => {
   const [currentEvents, setCurrentEvents] = useState([]);
+  const { activeLocale } = useContext(LocaleContext);
+
   const intl = useIntl();
   const title = intl.formatMessage({ id: "calendar" });
 
-  const handleWeekendsToggle = () => {
-    setWeekendsVisible(!weekendsVisible);
-  };
-  const convertDate = deadline => {
-    return `${new Date(deadline).getUTCFullYear()}-${(
-      "0" +
-      (new Date(deadline).getUTCMonth() + 1)
-    ).slice(-2)}-${"0" + new Date(deadline).getUTCDay()}`;
-  };
   useEffect(async () => {
     const [err, result] = await until(NoteService.getAll());
     if (err) {
       console.error(err);
     } else {
-      result.data.data.map(data => {
-        setCurrentEvents(e =>
-          e.concat({
-            title: data.title,
-            date: `${convertDate(data.deadline)}`,
-            url: `/notes/${data._id}`
-          })
-        );
-      });
+      const formattedEvents = [];
+      for (const note of result.data.data) {
+        if (note.template !== "project") {
+          continue;
+        }
+
+        if (note.deadline) {
+          formattedEvents.push({
+            title: note.title,
+            date: convertDateForCalendar(note.deadline),
+            url: `/notes/${note._id}`,
+            color: theme.colors.primary
+          });
+        }
+
+        if (!note.checklist || !note.checklist.tasks.length) {
+          continue;
+        }
+
+        for (const task of note.checklist.tasks) {
+          if (task.isCompleted) {
+            continue;
+          }
+          if (task.deadline) {
+            formattedEvents.push({
+              title: `Task - ${task.title}`,
+              date: convertDateForCalendar(task.deadline),
+              url: `/notes/${note._id}`,
+              color: theme.colors.secondary
+            });
+            // Don't display reminders for a task if a deadline is already set
+            continue;
+          }
+
+          if (!task.reminders || !task.reminders.length) {
+            continue;
+          }
+
+          for (const reminder of task.reminders) {
+            formattedEvents.push({
+              title: `Task - ${task.title}`,
+              date: convertDateForCalendar(reminder),
+              url: `/notes/${note._id}`,
+              color: theme.colors.tertiary
+            });
+          }
+        }
+      }
+      setCurrentEvents(formattedEvents);
     }
   }, []);
 
   const renderSidebar = () => {
     return (
       <div className="demo-app-sidebar">
-        <div className="demo-app-sidebar-section">
-          <Checkbox
-            name="toggleWeekends"
-            checked={weekendsVisible}
-            onChange={handleWeekendsToggle}
-            label={"toggle weekends"}
-          />
-        </div>
         <div className="demo-app-sidebar-section">
           <h2>All Events ({currentEvents.length})</h2>
         </div>
@@ -76,11 +103,12 @@ const Calendar = () => {
         selectable={true}
         selectMirror={true}
         dayMaxEvents={true}
-        weekends={weekendsVisible}
         aspectRatio={1.8}
+        firstDay={1}
+        locale={activeLocale}
       />
     </>
   );
 };
 
-export default Calendar;
+export default withTheme(Calendar);

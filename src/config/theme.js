@@ -8,6 +8,7 @@ const BASE = {
     item: "",
     primary: "#6c29f5",
     secondary: "#f56c29",
+    tertiary: "#41bdfe",
     logo: "#1e293b",
     card: "#ffffff",
     separator: "#edf2f7",
