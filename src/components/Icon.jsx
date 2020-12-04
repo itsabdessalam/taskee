@@ -108,6 +108,10 @@ const icons = [
   {
     name: "arrow-left",
     content: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>`
+  },
+  {
+    name: "check",
+    content: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>`
   }
 ];
 

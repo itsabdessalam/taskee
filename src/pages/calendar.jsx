@@ -1,15 +1,129 @@
 import { useState, useEffect, useContext } from "react";
 import { useIntl } from "react-intl";
+
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import listPlugin from "@fullcalendar/list";
+import enLocale from "@fullcalendar/core/locales/en-gb"; // only `en-au`, `en-gb` and `en-nz` are available
+import frLocale from "@fullcalendar/core/locales/fr";
+
 import { Button, Title, SEO } from "../components";
 import until from "../utils/until";
 import NoteService from "../services/NoteService";
 import { convertDateForCalendar } from "../utils/date";
 import LocaleContext from "../context/Locale";
-import { withTheme } from "styled-components";
+import styled, { withTheme } from "styled-components";
+
+const calendarLocales = { fr: frLocale, en: enLocale };
+
+const StyledCalendar = styled.div`
+  .fc table {
+    border-color: ${({ theme }) => theme.colors.separator};
+  }
+
+  .fc-theme-standard .fc-scrollgrid,
+  .fc-theme-standard .fc-list,
+  .fc-theme-standard td,
+  .fc-theme-standard th {
+    border: 1px solid ${({ theme }) => theme.colors.separator};
+  }
+
+  .fc .fc-list-table tr > * {
+    border: none !important;
+  }
+
+  .fc .fc-daygrid-day.fc-day-today {
+    background-color: rgb(108 41 245 / 0.1);
+  }
+
+  .fc .fc-list-event:hover td {
+    background-color: ${({ theme }) => theme.colors.calendarHeader};
+  }
+
+  .fc .fc-list-empty {
+    background-color: ${({ theme }) => theme.colors.calendarHeader};
+  }
+
+  .fc-theme-standard .fc-list-day-cushion {
+    background-color: ${({ theme }) => theme.colors.calendarHeader};
+    color: ${({ theme }) => theme.colors.text};
+  }
+
+  .fc .fc-scrollgrid-section-sticky > * {
+    background-color: ${({ theme }) => theme.colors.calendarHeader};
+  }
+
+  .fc .fc-button {
+    border-radius: 5px;
+  }
+
+  .fc .fc-button-primary {
+    background-color: ${({ theme }) => theme.colors.calendarHeader};
+    color: ${({ theme }) => theme.colors.itemColor};
+    border: 1px solid ${({ theme }) => theme.colors.separator};
+  }
+
+  .fc .fc-button-active,
+  .fc .fc-button-primary:not(:disabled):active,
+  .fc .fc-button-primary:not(:disabled).fc-button-active {
+    background-color: ${({ theme }) => theme.colors.primary} !important;
+    border-color: ${({ theme }) => theme.colors.primary} !important;
+    color: #ffffff;
+  }
+
+  .fc .fc-button:focus {
+    box-shadow: 0 0 0 2px #cbd5e1 !important;
+  }
+
+  .fc .fc-today-button {
+    border-radius: 5px !important;
+    margin-right: 12px;
+  }
+
+  .fc-prev-button {
+    border-radius: 5px 0 0 5px !important;
+  }
+
+  .fc-next-button {
+    border-radius: 0 5px 5px 0 !important;
+  }
+
+  .fc .fc-header-toolbar.fc-toolbar {
+    margin-bottom: 24px;
+
+    .fc-toolbar-chunk {
+      &:first-child {
+        @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+          .fc-today-button {
+            margin: 0;
+          }
+
+          .fc-prev-button,
+          .fc-next-button {
+            display: none;
+          }
+        }
+      }
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+      display: flex;
+      flex-direction: row-reverse;
+
+      .fc-toolbar-chunk {
+        .fc-toolbar-title {
+          font-size: 24px;
+        }
+
+        &:last-child {
+          display: none;
+        }
+      }
+    }
+  }
+`;
 
 const Calendar = ({ theme }) => {
   const [currentEvents, setCurrentEvents] = useState([]);
@@ -75,39 +189,48 @@ const Calendar = ({ theme }) => {
     }
   }, []);
 
-  const renderSidebar = () => {
-    return (
-      <div className="demo-app-sidebar">
-        <div className="demo-app-sidebar-section">
-          <h2>All Events ({currentEvents.length})</h2>
-        </div>
-      </div>
-    );
+  const getInitialView = () => {
+    if (window.innerWidth >= 768) {
+      return "dayGridMonth";
+    }
+
+    return "listWeek";
+  };
+
+  const handleView = view => {
+    if (window.innerWidth >= 768) {
+      view.calendar.changeView("dayGridMonth");
+    } else {
+      view.calendar.changeView("listWeek");
+    }
   };
 
   return (
-    <>
+    <StyledCalendar>
       <SEO title={title} />
       <Title level={2}>{title}</Title>
-      {renderSidebar()}
       <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
         customButtons={Button}
         headerToolbar={{
-          left: "prev,next today",
+          left: "today,prev,next",
           center: "title",
-          right: "dayGridMonth,timeGridWeek,timeGridDay"
+          right: "timeGridDay,timeGridWeek,dayGridMonth"
+        }}
+        footerToolbar={{
+          right: "prev,next"
         }}
         events={currentEvents}
-        initialView="dayGridMonth"
+        initialView={getInitialView()}
         selectable={true}
         selectMirror={true}
         dayMaxEvents={true}
-        aspectRatio={1.8}
         firstDay={1}
-        locale={activeLocale}
+        locale={calendarLocales[activeLocale]}
+        height="auto"
+        windowResize={({ view }) => handleView(view)}
       />
-    </>
+    </StyledCalendar>
   );
 };
 

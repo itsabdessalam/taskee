@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { Route, Switch, Redirect } from "react-router-dom";
 import { Container, Navigation } from "../layouts";
-import { ProtectedRoute, Offline } from "../components";
+import { ProtectedRoute, OfflineBanner } from "../components";
 import Login from "../pages/login";
 import Register from "../pages/register";
 import GettingStarted from "../pages/gettingStarted";
@@ -12,8 +12,8 @@ import Calendar from "../pages/calendar";
 const Layout = ({ children, ...props }) => {
   return (
     <>
+      <OfflineBanner />
       <Navigation />
-      <Offline />
       <Container>
         <Switch>
           <Route exact path="/">

@@ -10,7 +10,8 @@ import {
   ThemeSwitcher,
   Label,
   Radio,
-  Checkbox
+  Checkbox,
+  Logout
 } from "../components";
 import until from "../utils/until";
 import { getUser, setUser } from "../utils/auth";
@@ -19,84 +20,9 @@ import ThemeContext from "../context/Theme";
 import LocaleContext from "../context/Locale";
 import { useForm } from "../hooks";
 
-const span = styled.h4`
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  margin: 0 0 5px;
-`;
-
-const StyledFormRow = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-content: flex-start;
-  align-items: center;
-  margin: 10px 0;
-`;
-
-const StyledLabelTheme = styled.label`
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  :before,
-  :after {
-    content: "";
-    width: 12.5px;
-    height: 25px;
-  }
-
-  ${props => {
-    if (props.color === "light") {
-      return `
-        :before {
-          float: left;
-          border-top-left-radius: 15px;
-          border-bottom-left-radius: 15px;
-          background-color: #ffffff;
-          border: 0.3px solid #ededed;
-          border-right: none;
-        }
-        
-        :after {
-          float: right;
-          border-top-right-radius: 15px;
-          border-bottom-right-radius: 15px;
-          background-color: #6c29f5;
-          border: 0.3px solid #ededed;
-          border-left: none;
-        }  
-      `;
-    } else {
-      return `
-        :before {
-          float: left;
-          border-top-left-radius: 15px;
-          border-bottom-left-radius: 15px;
-          background-color: #1a202f;
-          border: 0.3px solid #ededed;
-          border-right: none;
-        }
-        
-        :after {
-          float: right;
-          border-top-right-radius: 15px;
-          border-bottom-right-radius: 15px;
-          background-color: #6c29f5;
-          border: 0.3px solid #ededed;
-          border-left: none;
-        }  
-      `;
-    }
-  }}
-`;
-
 const StyledSettings = styled.div`
   .settings {
     width: 100%;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
       flex-direction: column;
@@ -114,40 +40,70 @@ const StyledSettings = styled.div`
     .settings__account,
     .settings__customization {
       padding: 24px;
+      margin-bottom: 12px;
       border-radius: 8px;
       border: 1px solid ${({ theme }) => theme.colors.separator};
+
       ${({ theme }) =>
         theme.mode === "light" && {
           "box-shadow": "0px 1px 100px 10px rgba(226, 232, 240, 0.16)"
         }}
     }
-
-    .settings__account {
-      width: 70%;
-      margin-right: 24px;
-
-      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-        width: 100%;
-        margin: 0;
-        margin-bottom: 12px;
-      }
-    }
-
-    .settings__customization {
-      width: 30%;
-
-      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-        width: 100%;
-      }
-    }
   }
 
-  .settings__save {
-    margin-left: auto;
+  .settings__actions {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 24px;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+      flex-direction: column;
+    }
+
+    .settings__logout {
+      width: auto;
+      padding: 0;
+
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: auto;
+        height: 48px;
+        padding: 12px 24px;
+        background-color: ${({ theme }) => theme.colors.itemBackground};
+        color: ${({ theme }) => theme.colors.itemColor};
+      }
+
+      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+        width: 100%;
+
+        button {
+          width: 100%;
+        }
+      }
+    }
+
+    .settings__save {
+      width: auto;
+      margin-left: 12px;
+
+      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 12px;
+      }
+    }
+
+    .settings__row {
       width: 100%;
-      margin-top: 12px;
+      display: flex;
+      flex-direction: row;
+      align-content: flex-start;
+      align-items: center;
+      margin: 10px 0;
     }
   }
 `;
@@ -198,7 +154,7 @@ const SettingsForm = () => {
       setIsLoading(false);
     }
 
-    const { data = {} } = result.data || {};
+    const { data = {} } = (result && result.data) || {};
 
     if (data) {
       const {
@@ -233,17 +189,13 @@ const SettingsForm = () => {
     notificationActivated
   });
 
-  const handleTheme = event => {
-    updateTheme(event.target.id);
-  };
-
   return (
     <StyledSettings>
       <Title level={2}>Settings</Title>
       <Form onSubmit={handleSubmit}>
         <div className="settings">
           <div className="settings__account">
-            <h3>Account</h3>
+            <h3>{intl.formatMessage({ id: "account" })}</h3>
             <Label>{intl.formatMessage({ id: "lastname" })}</Label>
             <Input
               id="lastName"
@@ -270,49 +222,37 @@ const SettingsForm = () => {
             />
           </div>
           <div className="settings__customization">
-            <h3>Cutomization</h3>
+            <h3>Customization</h3>
             <Label>{intl.formatMessage({ id: "theme" })}</Label>
-            <StyledFormRow>
-              <Radio
-                name="theme"
-                type="radio"
-                id="light"
-                checked={activeTheme === "light"}
-                onChange={handleTheme}
-              />
-              <StyledLabelTheme htmlFor="light" color="light" />
-              <Radio
-                name="theme"
-                type="radio"
-                id="dark"
-                checked={activeTheme === "dark"}
-                onChange={handleTheme}
-              />{" "}
-              <StyledLabelTheme htmlFor="dark" color="dark" />
-            </StyledFormRow>
+            <div className="settings__row">
+              <ThemeSwitcher />
+            </div>
             <Label>{intl.formatMessage({ id: "language" })}</Label>
-            <StyledFormRow>
+            <div className="settings__row">
               <LocaleSelector />
-            </StyledFormRow>
+            </div>
             <Label>Notifications</Label>
-            <StyledFormRow>
+            <div className="settings__row">
               <Checkbox
                 name="notificationActivated"
                 checked={values.notificationActivated}
                 onChange={handleChange}
                 label={intl.formatMessage({ id: "enableNotifications" })}
               />
-            </StyledFormRow>
+            </div>
           </div>
         </div>
-        <Button
-          title={intl.formatMessage({ id: "save" })}
-          width="auto"
-          className="settings__save"
-          disabled={isLoading}
-        >
-          {isLoading ? "Loading" : intl.formatMessage({ id: "save" })}
-        </Button>
+        <div className="settings__actions">
+          <Logout className="settings__action settings__logout" />
+          <Button
+            title={intl.formatMessage({ id: "save" })}
+            width="auto"
+            className="settings__action settings__save"
+            disabled={isLoading}
+          >
+            {isLoading ? "Loading" : intl.formatMessage({ id: "save" })}
+          </Button>
+        </div>
       </Form>
     </StyledSettings>
   );

@@ -26,6 +26,7 @@ const RegisterForm = () => {
   const [error, setError] = useState(null);
   const { activeLocale, updateLocale } = useContext(LocaleContext);
   const { activeTheme, updateTheme } = useContext(ThemeContext);
+  const registerDisabled = true;
 
   const setUserSettings = user => {
     updateTheme(user.theme ? user.theme : "light");
@@ -63,7 +64,7 @@ const RegisterForm = () => {
       setIsLoading(false);
     }
 
-    const { data = {} } = result.data || {};
+    const { data = {} } = (result && result.data) || {};
 
     if (data && data.user && data.token) {
       handleLogin({
@@ -88,51 +89,58 @@ const RegisterForm = () => {
   return (
     <Container>
       <Title level={2}>{intl.formatMessage({ id: "registerTitle" })}</Title>
-      <Form onSubmit={handleSubmit}>
-        <Input
-          name="firstName"
-          type="text"
-          placeholder={"john"}
-          label={"First Name"}
-          onChange={handleChange}
-          value={values.firstName}
-          required
-        />
-        <Input
-          name="lastName"
-          type="text"
-          placeholder={"doe"}
-          label={"Last Name"}
-          onChange={handleChange}
-          value={values.lastName}
-          required
-        />
-        <Input
-          name="email"
-          type="text"
-          placeholder={"john.doe@email.com"}
-          label={"Email"}
-          onChange={handleChange}
-          value={values.email}
-          required
-        />
-        <Input
-          name="password"
-          type="password"
-          placeholder={"••••••••••"}
-          label={"Password"}
-          onChange={handleChange}
-          value={values.password}
-          required
-        />
-        {error ? <p className="error">{error.message}</p> : null}
-        <Button type="submit" disabled={isLoading}>
-          {isLoading
-            ? intl.formatMessage({ id: "loginLoading" })
-            : intl.formatMessage({ id: "register" })}
-        </Button>
+      {!registerDisabled && (
+        <Form onSubmit={handleSubmit}>
+          <Input
+            name="firstName"
+            type="text"
+            placeholder={"john"}
+            label={"First Name"}
+            onChange={handleChange}
+            value={values.firstName}
+            required
+          />
+          <Input
+            name="lastName"
+            type="text"
+            placeholder={"doe"}
+            label={"Last Name"}
+            onChange={handleChange}
+            value={values.lastName}
+            required
+          />
+          <Input
+            name="email"
+            type="text"
+            placeholder={"john.doe@email.com"}
+            label={"Email"}
+            onChange={handleChange}
+            value={values.email}
+            required
+          />
+          <Input
+            name="password"
+            type="password"
+            placeholder={"••••••••••"}
+            label={"Password"}
+            onChange={handleChange}
+            value={values.password}
+            required
+          />
+          {error ? <p className="error">{error.message}</p> : null}
+          <Button type="submit" disabled={isLoading}>
+            {isLoading
+              ? intl.formatMessage({ id: "loginLoading" })
+              : intl.formatMessage({ id: "register" })}
+          </Button>
+          <Link to="/login">{intl.formatMessage({ id: "loginLink" })}</Link>
+        </Form>
+      )}
+
+      <div className="register__message">
+        <p>{intl.formatMessage({ id: "registerDisabled" })}</p>
         <Link to="/login">{intl.formatMessage({ id: "loginLink" })}</Link>
-      </Form>
+      </div>
     </Container>
   );
 };
@@ -143,9 +151,17 @@ const Container = styled.div`
   }
   width: 40%;
   margin: auto;
+
+  .register__message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.lg}) {
     width: 50%;
   }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     width: 90%;
   }

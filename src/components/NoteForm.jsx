@@ -56,7 +56,8 @@ const NoteForm = () => {
       setIsLoading(false);
     }
 
-    const { data = {} } = result.data || {};
+    const { data = {} } = (result && result.data) || {};
+
     history.push(`/notes/${data._id}`);
   };
 

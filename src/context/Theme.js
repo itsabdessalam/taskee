@@ -48,7 +48,7 @@ const ThemeProvider = ({ children, theme = "light" }) => {
       color: ${activeTheme.colors.text}; 
       
       &.offline {
-        .alert-offline {
+        .offline__banner {
           display: block !important;
           z-index: 1200 !important;
         }
@@ -56,8 +56,9 @@ const ThemeProvider = ({ children, theme = "light" }) => {
     }
 
     a, button {
-      cursor: pointer;
       font-family: ${activeTheme.fonts.body};
+      text-decoration: none !important;
+      cursor: pointer !important;
      
       > svg {
         pointer-events: none;
