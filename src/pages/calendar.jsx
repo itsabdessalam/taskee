@@ -209,6 +209,7 @@ const Calendar = ({ theme }) => {
     <>
       <SEO title={title} />
       <Title level={2}>{title}</Title>
+      {/* TODO: Add badge event count */}
       <StyledCalendar>
         <FullCalendar
           plugins={[
