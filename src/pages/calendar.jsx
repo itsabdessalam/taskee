@@ -206,31 +206,38 @@ const Calendar = ({ theme }) => {
   };
 
   return (
-    <StyledCalendar>
+    <>
       <SEO title={title} />
       <Title level={2}>{title}</Title>
-      <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-        customButtons={Button}
-        headerToolbar={{
-          left: "today,prev,next",
-          center: "title",
-          right: "timeGridDay,timeGridWeek,dayGridMonth"
-        }}
-        footerToolbar={{
-          right: "prev,next"
-        }}
-        events={currentEvents}
-        initialView={getInitialView()}
-        selectable={true}
-        selectMirror={true}
-        dayMaxEvents={true}
-        firstDay={1}
-        locale={calendarLocales[activeLocale]}
-        height="auto"
-        windowResize={({ view }) => handleView(view)}
-      />
-    </StyledCalendar>
+      <StyledCalendar>
+        <FullCalendar
+          plugins={[
+            dayGridPlugin,
+            timeGridPlugin,
+            interactionPlugin,
+            listPlugin
+          ]}
+          customButtons={Button}
+          headerToolbar={{
+            left: "today,prev,next",
+            center: "title",
+            right: "timeGridDay,timeGridWeek,dayGridMonth"
+          }}
+          footerToolbar={{
+            right: "prev,next"
+          }}
+          events={currentEvents}
+          initialView={getInitialView()}
+          selectable={true}
+          selectMirror={true}
+          dayMaxEvents={true}
+          firstDay={1}
+          locale={calendarLocales[activeLocale]}
+          height="auto"
+          windowResize={({ view }) => handleView(view)}
+        />
+      </StyledCalendar>
+    </>
   );
 };
 
