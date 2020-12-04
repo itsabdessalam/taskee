@@ -27,7 +27,7 @@ import Note from "./Note";
 import NotesList from "./NotesList";
 import SEO from "./SEO";
 import Logout from "./Logout";
-import Offline from "./Offline";
+import OfflineBanner from "./OfflineBanner";
 
 export {
   Button,
@@ -59,5 +59,5 @@ export {
   NotesList,
   SEO,
   Logout,
-  Offline
+  OfflineBanner
 };

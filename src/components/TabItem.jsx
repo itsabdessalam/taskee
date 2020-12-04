@@ -31,17 +31,10 @@ const StyledTabItem = styled.div`
 
     &.link--active,
     &.link--partially-active {
-      color: #334155;
+      color: ${({ theme }) => theme.colors.tabColor};
 
       @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-        background-color: #edf2f7;
-      }
-
-      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-        ${({ theme }) =>
-          theme.mode === "dark" && {
-            color: "#ffffff"
-          }}
+        background-color: ${({ theme }) => theme.colors.tabBackground};
       }
     }
   }

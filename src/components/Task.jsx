@@ -58,13 +58,7 @@ const StyledTask = styled.div`
       padding: 0;
       margin: 0;
 
-      &--delete {
-        background-color: transparent;
-        color: #ef4444;
-        width: 24px;
-        height: 32px;
-      }
-
+      &--delete,
       &--update {
         background-color: transparent;
         color: ${({ theme }) => theme.colors.muted};

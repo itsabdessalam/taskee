@@ -5,14 +5,19 @@ const BASE = {
     background: "#ffffff",
     editor: "#ffffff",
     navigation: "#ffffff",
-    item: "",
+    itemBackground: "#edf2f7",
+    itemColor: "#334155",
+    tabBackground: "#edf2f7",
+    tabColor: "#334155",
     primary: "#6c29f5",
     secondary: "#f56c29",
     tertiary: "#41bdfe",
     logo: "#1e293b",
     card: "#ffffff",
     separator: "#edf2f7",
-    checkbox: " #e2e8f0"
+    checkbox: " #e2e8f0",
+    calendarHeader: "#edf2f7",
+    calendarSeparator: ""
   },
   breakpoints: {
     sm: "640px",
@@ -51,12 +56,18 @@ const THEME = {
       background: "#1b2535",
       editor: "#1b2535",
       navigation: "#1e293b",
+      itemBackground: "#1e293b",
+      itemColor: "#ffffff",
+      tabBackground: "#1b2535",
+      tabColor: "#ffffff",
       primary: "#6c29f5",
       secondary: "#f56c29",
       logo: "#ffffff",
       card: "#1e293b",
       separator: "#1e293b",
-      checkbox: "#ffffff"
+      checkbox: "#ffffff",
+      calendarHeader: "#1e293b",
+      calendarSeparator: ""
     }
   }
 };

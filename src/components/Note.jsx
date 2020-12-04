@@ -122,6 +122,10 @@ const StyledNote = styled.div`
       justify-content: center;
       transition: right 0.4s ease;
       z-index: 120;
+
+      @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+        display: none;
+      }
     }
 
     .note__hide__checklist {
@@ -257,7 +261,6 @@ const Note = ({ className, id }) => {
           return history.push(`/notes`);
         }
         const note = response.data.data;
-        console.log(note);
         setNote(note);
 
         if (note.checklist) {
@@ -313,7 +316,7 @@ const Note = ({ className, id }) => {
             className="note__show__checklist"
             onClick={handleChecklistView}
           >
-            <Icon name="checklist" width={18} />
+            <Icon name="check" width={18} />
           </Button>
           <h2 ref={ref} onClick={toggleEditingTitle} className="note__title">
             <EditableText

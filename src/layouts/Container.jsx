@@ -31,9 +31,9 @@ const StyledContainer = styled.main`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    min-height: calc(100vh - 170px);
+    min-height: calc(100vh - 100px);
     padding: 15px;
-    padding-bottom: 170px;
+    padding-bottom: 100px;
     z-index: inherit;
 
     .note {

@@ -59,7 +59,7 @@ const LoginForm = () => {
       setIsLoading(false);
     }
 
-    const { data = {} } = result.data || {};
+    const { data = {} } = (result && result.data) || {};
 
     if (data && data.user && data.token) {
       handleLogin({

@@ -22,7 +22,7 @@ module.exports = {
   language: "Langue",
   theme: "Thème",
   enableNotifications: "Activer les notifications",
-  save: "Sauvegarder les modifications",
+  save: "Sauvegarder",
   login: "Se connecter",
   register: "S'inscrire",
   addTask: "Ajouter une tâche",
@@ -49,5 +49,8 @@ module.exports = {
   invalidCredentials: "Email ou mot de passe incorrect",
   registerLink: "Pas encore de compte ?",
   loginLink: "Déjà inscrit ?",
-  gettingStarted: "Pour commencer"
+  gettingStarted: "Pour commencer",
+  account: "Mon compte",
+  offlineBanner: "Oops.. Il semblerait que vous êtes hors ligne...",
+  registerDisabled: "Inscription désactivée"
 };

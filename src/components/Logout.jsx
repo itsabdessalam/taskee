@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
 import { useIntl } from "react-intl";
+import classNames from "classnames";
 import styled from "styled-components";
 import Button from "./Button";
 import Icon from "./Icon";
@@ -49,12 +50,13 @@ const StyledLogout = styled.div`
   }
 `;
 
-const Logout = () => {
+const Logout = ({ className }) => {
   const history = useHistory();
   const intl = useIntl();
+  const cssClasses = classNames("logout", className);
 
   return (
-    <StyledLogout className="logout">
+    <StyledLogout className={cssClasses}>
       <Button
         onClick={() => {
           logout(() => {
