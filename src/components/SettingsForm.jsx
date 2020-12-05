@@ -244,7 +244,9 @@ const SettingsForm = () => {
             className="settings__action settings__save"
             disabled={status.loading}
           >
-            {status.loading ? "Loading" : intl.formatMessage({ id: "save" })}
+            {status.loading
+              ? intl.formatMessage({ id: "loading" })
+              : intl.formatMessage({ id: "save" })}
           </Button>
         </div>
       </Form>

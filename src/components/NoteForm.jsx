@@ -99,7 +99,9 @@ const NoteForm = () => {
         />
         {status.error ? <p className="error">{status.error}</p> : null}
         <Button type="submit" disabled={status.loading}>
-          {status.loading ? "Loading" : "Create"}
+          {status.loading
+            ? intl.formatMessage({ id: "loading" })
+            : intl.formatMessage({ id: "create" })}
         </Button>
       </Form>
     </StyledNoteForm>
