@@ -21,18 +21,44 @@ export const setUser = user => {
   return (window.localStorage[AUTH_VAR] = JSON.stringify(user));
 };
 
+/** Returns user access token if logged in
+ *
+ * @returns {string}
+ */
+export const getToken = () => {
+  return getUser().token || null;
+};
+
+/**
+ * Checks if user is logged in
+ *
+ * @returns
+ */
+export const isLoggedIn = () => {
+  const user = getUser();
+  return !!user.token;
+};
+
 /**
  * Sets user with provided credentials
  *
- * @param {*} { lastName, firstName, email, password, language, token }
- * @returns
+ * @param {object} {
+ *   _id,
+ *   lastName,
+ *   firstName,
+ *   email,
+ *   language,
+ *   notificationActivated,
+ *   token,
+ *   theme = "light"
+ * }
+ * @returns {object}
  */
-export const handleLogin = ({
+export const login = ({
   _id,
   lastName,
   firstName,
   email,
-  password,
   language,
   notificationActivated,
   token,
@@ -48,16 +74,6 @@ export const handleLogin = ({
     token,
     theme
   });
-};
-
-/**
- * Checks if user is logged in
- *
- * @returns
- */
-export const isLoggedIn = () => {
-  const user = getUser();
-  return !!user.token;
 };
 
 /**

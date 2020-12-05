@@ -30,6 +30,10 @@ const StyledContainer = styled.main`
     }
   }
 
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    margin-left: 210px;
+  }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     min-height: calc(100vh - 100px);
     padding: 15px;
@@ -39,10 +43,6 @@ const StyledContainer = styled.main`
     .note {
       width: 100% !important;
     }
-  }
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    margin-left: 210px;
   }
 `;
 

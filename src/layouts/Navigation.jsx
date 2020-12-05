@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { useIntl } from "react-intl";
 import styled from "styled-components";
+import classNames from "classnames";
 import AppContext from "../context/App";
 import { Tabs, TabItem, Icon, Logout } from "../components";
 import Logo from "./../assets/images/taskee-logo.png";
@@ -66,24 +67,14 @@ const StyledTabs = styled(Tabs)`
     transition: width 0.25s ease;
     z-index: 1070;
 
-    .navigation__footer {
-      display: block;
-    }
-
-    @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      .navigation__body {
-        flex: 1;
-      }
-    }
-
     .collapse {
       svg {
         transform: rotate(180deg);
       }
+    }
+
+    .navigation__footer {
+      display: block;
     }
 
     &--collapsed {
@@ -116,6 +107,16 @@ const StyledTabs = styled(Tabs)`
         .collapse {
           display: flex;
         }
+      }
+    }
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .navigation__body {
+        flex: 1;
       }
     }
 
@@ -204,10 +205,12 @@ const Navigation = () => {
     return null;
   }
 
+  const cssClasses = classNames("navigation", {
+    "navigation--collapsed": collapsed
+  });
+
   return (
-    <StyledTabs
-      className={"navigation " + (collapsed ? "navigation--collapsed" : "")}
-    >
+    <StyledTabs className={cssClasses}>
       <StyledAppLogo className="logo">
         <img alt="Taskee" src={Logo} className="logo__img" width={30} />
         <span className="logo__text">taskee</span>

@@ -1,17 +1,20 @@
 import { useState } from "react";
 
-const useForm = (callback, initialState = {}) => {
-  const [values, setValues] = useState(initialState);
+const useForm = (initialState = {}, onSubmit) => {
+  const [formData, setFormData] = useState(initialState);
 
-  const handleSubmit = event => {
+  const handleOnSubmit = event => {
     if (event) event.preventDefault();
-    callback();
+
+    if (onSubmit && typeof onSubmit === "function") {
+      onSubmit();
+    }
   };
 
-  const handleChange = event => {
+  const handleOnChange = event => {
     event.persist();
-    setValues(values => ({
-      ...values,
+    setFormData(formData => ({
+      ...formData,
       [event.target.name]:
         event.target.type === "checkbox"
           ? event.target.checked
@@ -20,9 +23,9 @@ const useForm = (callback, initialState = {}) => {
   };
 
   return {
-    handleChange,
-    handleSubmit,
-    values
+    formData,
+    handleOnChange,
+    handleOnSubmit
   };
 };
 

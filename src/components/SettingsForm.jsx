@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useIntl } from "react-intl";
+import { useForm } from "../hooks";
 import {
   Title,
   Input,
@@ -13,12 +14,11 @@ import {
   Checkbox,
   Logout
 } from "../components";
-import until from "../utils/until";
+
 import { getUser, setUser } from "../utils/auth";
 import AuthService from "../services/AuthService";
 import ThemeContext from "../context/Theme";
 import LocaleContext from "../context/Locale";
-import { useForm } from "../hooks";
 
 const StyledSettings = styled.div`
   .settings {
@@ -109,90 +109,84 @@ const StyledSettings = styled.div`
 `;
 
 const SettingsForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [status, setStatus] = useState({
+    loading: false,
+    error: ""
+  });
   const { activeTheme, updateTheme } = useContext(ThemeContext);
   const { activeLocale, updateLocale } = useContext(LocaleContext);
   const intl = useIntl();
-  const {
-    _id,
-    email,
-    firstName,
-    lastName,
-    language,
-    token,
-    notificationActivated
-  } = getUser();
+  const user = getUser();
+  const { formData, handleOnChange } = useForm({ ...user });
 
-  const updateSettings = async () => {
-    setIsLoading(true);
-    setError(null);
+  const handleServerResponse = (response, err) => {
+    if (response) {
+      const { data = {} } = (response && response.data) || {};
 
-    const user = {
-      _id,
-      email: values.email,
-      firstName: values.firstName,
-      lastName: values.lastName,
-      notificationActivated: values.notificationActivated,
+      if (data) {
+        const {
+          email,
+          firstName,
+          lastName,
+          language,
+          notificationActivated,
+          theme // if available
+        } = data;
+
+        setUser({
+          ...user,
+          email,
+          firstName,
+          lastName,
+          language,
+          notificationActivated,
+          ...(theme ? { theme } : { theme: activeTheme })
+        });
+      }
+    } else if (err) {
+      setStatus({
+        error: err.message
+      });
+    }
+  };
+
+  const handleOnSubmit = event => {
+    event.preventDefault();
+    setStatus(prevStatus => ({ ...prevStatus, loading: true }));
+
+    const payload = {
+      _id: user._id,
+      email: formData.email,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      notificationActivated: formData.notificationActivated,
       language: activeLocale,
       theme: activeTheme
     };
 
-    const [err, result] = await until(AuthService.update(user));
-
-    if (err) {
-      setError({
-        message: err.message
+    AuthService.update(payload)
+      .then(response => {
+        handleServerResponse(response, null);
+      })
+      .catch(error => {
+        handleServerResponse(null, error);
+      })
+      .finally(() => {
+        setStatus(prevStatus => ({ ...prevStatus, loading: false }));
       });
-      setIsLoading(false);
-    }
-
-    if (result && result.data.errors) {
-      setError({
-        message: "Invalid credentials provided"
-      });
-      setIsLoading(false);
-    }
-
-    const { data = {} } = (result && result.data) || {};
-
-    if (data) {
-      const {
-        email,
-        firstName,
-        lastName,
-        language,
-        notificationActivated,
-        theme // if available
-      } = data;
-
-      setUser({
-        ...getUser(),
-        email,
-        firstName,
-        lastName,
-        language,
-        notificationActivated,
-        theme
-      });
-      setIsLoading(false);
-    }
   };
 
-  const { values, handleChange, handleSubmit } = useForm(updateSettings, {
-    _id,
-    email,
-    firstName,
-    lastName,
-    language,
-    token,
-    notificationActivated
-  });
+  useEffect(() => {
+    return () => {
+      setStatus({});
+    };
+  }, []);
 
   return (
     <StyledSettings>
       <Title level={2}>Settings</Title>
-      <Form onSubmit={handleSubmit}>
+      {status.error ? <p className="error">{status.error}</p> : null}
+      <Form onSubmit={handleOnSubmit}>
         <div className="settings">
           <div className="settings__account">
             <h3>{intl.formatMessage({ id: "account" })}</h3>
@@ -201,24 +195,24 @@ const SettingsForm = () => {
               id="lastName"
               name="lastName"
               type="text"
-              value={values.lastName}
-              onChange={handleChange}
+              value={formData.lastName}
+              onChange={handleOnChange}
             />
             <Label>{intl.formatMessage({ id: "firstname" })}</Label>
             <Input
               id="name"
               name="firstName"
               type="text"
-              value={values.firstName}
-              onChange={handleChange}
+              value={formData.firstName}
+              onChange={handleOnChange}
             />
             <Label>{intl.formatMessage({ id: "email" })}</Label>
             <Input
               id="email"
               name="email"
               type="text"
-              value={values.email}
-              onChange={handleChange}
+              value={formData.email}
+              onChange={handleOnChange}
             />
           </div>
           <div className="settings__customization">
@@ -235,8 +229,8 @@ const SettingsForm = () => {
             <div className="settings__row">
               <Checkbox
                 name="notificationActivated"
-                checked={values.notificationActivated}
-                onChange={handleChange}
+                checked={formData.notificationActivated}
+                onChange={handleOnChange}
                 label={intl.formatMessage({ id: "enableNotifications" })}
               />
             </div>
@@ -248,9 +242,9 @@ const SettingsForm = () => {
             title={intl.formatMessage({ id: "save" })}
             width="auto"
             className="settings__action settings__save"
-            disabled={isLoading}
+            disabled={status.loading}
           >
-            {isLoading ? "Loading" : intl.formatMessage({ id: "save" })}
+            {status.loading ? "Loading" : intl.formatMessage({ id: "save" })}
           </Button>
         </div>
       </Form>

@@ -3,7 +3,7 @@ import site from "../config/site.js";
 
 const SEO = ({ title, ...props }) => {
   useEffect(() => {
-    document.title = `${title} — Taskee`;
+    document.title = `${title} — ${site.siteMetadata.title}`;
   }, [title]);
 
   return null;

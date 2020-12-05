@@ -1,12 +1,10 @@
 import { useState, useContext, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { useForm } from "../hooks";
-import until from "../utils/until";
 import styled from "styled-components";
 import { useIntl } from "react-intl";
 import getLanguage from "../utils/language";
-
-import { handleLogin, isLoggedIn } from "../utils/auth";
+import { login, isLoggedIn } from "../utils/auth";
 import AuthService from "../services/AuthService";
 import LocaleContext from "../context/Locale";
 import ThemeContext from "../context/Theme";
@@ -16,103 +14,6 @@ import Input from "./Input";
 import Button from "./Button";
 import Title from "./Title";
 import Link from "./Link";
-
-const LoginForm = () => {
-  const intl = useIntl();
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const { activeLocale, updateLocale } = useContext(LocaleContext);
-  const { activeTheme, updateTheme } = useContext(ThemeContext);
-
-  const setUserSettings = user => {
-    updateTheme(user.theme ? user.theme : "light");
-    updateLocale(user.language ? user.language : "en");
-  };
-
-  useEffect(() => {
-    updateLocale(getLanguage());
-  }, []);
-
-  const auth = async () => {
-    setIsLoading(true);
-    setError(null);
-
-    const user = {
-      email: values.email,
-      password: values.password
-    };
-
-    const [err, result] = await until(AuthService.login(user));
-
-    if (err) {
-      setError({
-        message: err.message
-      });
-      setIsLoading(false);
-    }
-
-    if (result && result.data.errors) {
-      setError({
-        message: intl.formatMessage({ id: "invalidCredentials" })
-      });
-      setIsLoading(false);
-    }
-
-    const { data = {} } = (result && result.data) || {};
-
-    if (data && data.user && data.token) {
-      handleLogin({
-        ...data.user,
-        token: data.token
-      });
-      setUserSettings(data.user);
-      setIsLoading(false);
-    }
-  };
-
-  const { values, handleChange, handleSubmit } = useForm(auth, {
-    email: "",
-    password: ""
-  });
-
-  if (isLoggedIn()) {
-    return <Redirect to="/" />;
-  }
-
-  return (
-    <Container>
-      <Title level={2}>{intl.formatMessage({ id: "loginTitle" })}</Title>
-      <Form onSubmit={handleSubmit}>
-        <Input
-          name="email"
-          type="text"
-          placeholder={"john.doe@email.com"}
-          label={"Email"}
-          onChange={handleChange}
-          value={values.email}
-          required
-        />
-        <Input
-          name="password"
-          type="password"
-          placeholder={"••••••••••"}
-          label={"Password"}
-          onChange={handleChange}
-          value={values.password}
-          required
-        />
-        {error ? <p className="error">{error.message}</p> : null}
-        <Button type="submit" disabled={isLoading}>
-          {isLoading
-            ? intl.formatMessage({ id: "loginLoading" })
-            : intl.formatMessage({ id: "login" })}
-        </Button>
-        <Link to="/register">{intl.formatMessage({ id: "registerLink" })}</Link>
-      </Form>
-    </Container>
-  );
-};
 
 const Container = styled.div`
   h2 {
@@ -127,5 +28,108 @@ const Container = styled.div`
     width: 90%;
   }
 `;
+
+const LoginForm = () => {
+  const [status, setStatus] = useState({
+    loading: false,
+    error: ""
+  });
+  const { activeLocale, updateLocale } = useContext(LocaleContext);
+  const { activeTheme, updateTheme } = useContext(ThemeContext);
+  const intl = useIntl();
+  const { formData, handleOnChange } = useForm({
+    email: "",
+    password: ""
+  });
+
+  const setUserSettings = user => {
+    updateTheme(user.theme ? user.theme : "light");
+    updateLocale(user.language ? user.language : "en");
+  };
+
+  const handleServerResponse = (response, err) => {
+    if (response) {
+      const { data = {} } = (response && response.data) || {};
+
+      if (data && data.user && data.token) {
+        login({
+          ...data.user,
+          token: data.token
+        });
+        setUserSettings(data.user);
+      }
+    } else if (err) {
+      setStatus({
+        error: err.message
+      });
+    }
+  };
+
+  const handleOnSubmit = event => {
+    event.preventDefault();
+    setStatus(prevStatus => ({ ...prevStatus, loading: true }));
+
+    const payload = {
+      email: formData.email,
+      password: formData.password
+    };
+
+    AuthService.login(payload)
+      .then(response => {
+        handleServerResponse(response, null);
+      })
+      .catch(error => {
+        handleServerResponse(null, error);
+      })
+      .finally(() => {
+        setStatus(prevStatus => ({ ...prevStatus, loading: false }));
+      });
+  };
+
+  useEffect(() => {
+    updateLocale(getLanguage());
+
+    return () => {
+      setStatus({});
+    };
+  }, []);
+
+  if (isLoggedIn()) {
+    return <Redirect to="/" />;
+  }
+
+  return (
+    <Container>
+      <Title level={2}>{intl.formatMessage({ id: "loginTitle" })}</Title>
+      <Form onSubmit={handleOnSubmit}>
+        <Input
+          name="email"
+          type="text"
+          placeholder={"john.doe@email.com"}
+          label={"Email"}
+          onChange={handleOnChange}
+          value={formData.email}
+          required
+        />
+        <Input
+          name="password"
+          type="password"
+          placeholder={"••••••••••"}
+          label={"Password"}
+          onChange={handleOnChange}
+          value={formData.password}
+          required
+        />
+        {status.error ? <p className="error">{status.error}</p> : null}
+        <Button type="submit" disabled={status.isLoading}>
+          {status.isLoading
+            ? intl.formatMessage({ id: "loginLoading" })
+            : intl.formatMessage({ id: "login" })}
+        </Button>
+        <Link to="/register">{intl.formatMessage({ id: "registerLink" })}</Link>
+      </Form>
+    </Container>
+  );
+};
 
 export default LoginForm;

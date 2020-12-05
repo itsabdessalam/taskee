@@ -65,6 +65,7 @@ const Logout = ({ className }) => {
         }}
         className="logout__button"
         title={intl.formatMessage({ id: "logout" })}
+        type="button"
       >
         <Icon name="logout" width={18} className="logout__icon" />
         <span className="logout__text">

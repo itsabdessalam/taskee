@@ -43,6 +43,7 @@ const Deadline = ({ deadline, className, onChange }) => {
       setSelectedDate(null);
     }
   }, [deadline]);
+
   return (
     <>
       {(deadline && (
