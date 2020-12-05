@@ -54,7 +54,7 @@ export const isLoggedIn = () => {
  * }
  * @returns {object}
  */
-export const login = ({
+export const handleAuth = ({
   _id,
   lastName,
   firstName,

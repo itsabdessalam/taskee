@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { useIntl } from "react-intl";
 import { useForm } from "../hooks";
-import { login, isLoggedIn } from "../utils/auth";
+import { handleAuth, isLoggedIn } from "../utils/auth";
 import getLanguage from "../utils/language";
 
 import Title from "./Title";
@@ -67,7 +67,7 @@ const RegisterForm = () => {
       const { data = {} } = (response && response.data) || {};
 
       if (data && data.user && data.token) {
-        login({
+        handleAuth({
           ...data.user,
           token: data.token
         });

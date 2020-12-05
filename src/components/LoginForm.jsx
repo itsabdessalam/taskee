@@ -4,7 +4,7 @@ import { useForm } from "../hooks";
 import styled from "styled-components";
 import { useIntl } from "react-intl";
 import getLanguage from "../utils/language";
-import { login, isLoggedIn } from "../utils/auth";
+import { handleAuth, isLoggedIn } from "../utils/auth";
 import AuthService from "../services/AuthService";
 import LocaleContext from "../context/Locale";
 import ThemeContext from "../context/Theme";
@@ -52,7 +52,7 @@ const LoginForm = () => {
       const { data = {} } = (response && response.data) || {};
 
       if (data && data.user && data.token) {
-        login({
+        handleAuth({
           ...data.user,
           token: data.token
         });
@@ -121,8 +121,8 @@ const LoginForm = () => {
           required
         />
         {status.error ? <p className="error">{status.error}</p> : null}
-        <Button type="submit" disabled={status.isLoading}>
-          {status.isLoading
+        <Button type="submit" disabled={status.loading}>
+          {status.loading
             ? intl.formatMessage({ id: "loginLoading" })
             : intl.formatMessage({ id: "login" })}
         </Button>
