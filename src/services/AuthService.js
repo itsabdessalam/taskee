@@ -2,7 +2,6 @@ import axios from "axios";
 import { getToken } from "../utils/auth";
 
 const API_URL = process.env.REACT_APP_API_URL;
-const ACCESS_TOKEN = getToken();
 
 const AuthService = {
   login(user) {
@@ -19,7 +18,7 @@ const AuthService = {
     return axios.put(`${API_URL}/user/${user._id}`, user, {
       "Content-Type": "application/json",
       headers: {
-        Authorization: `${ACCESS_TOKEN}`
+        Authorization: `${getToken()}`
       }
     });
   }
