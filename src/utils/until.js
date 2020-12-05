@@ -2,19 +2,15 @@
  * Converts an asynchronous function to return only data and error
  *
  * @param {*} promise
- * @param {*} errorExt
  * @return {*}
  */
-const until = (promise, errorExt) => {
+const until = promise => {
   return promise
     .then(data => {
-      return [null, data];
+      return [data, null];
     })
     .catch(error => {
-      if (errorExt) {
-        Object.assign(error, errorExt);
-      }
-      return [error, undefined];
+      return [null, error];
     });
 };
 

@@ -15,9 +15,7 @@ const BASE = {
     logo: "#1e293b",
     card: "#ffffff",
     separator: "#edf2f7",
-    checkbox: " #e2e8f0",
-    calendarHeader: "#edf2f7",
-    calendarSeparator: ""
+    checkbox: " #e2e8f0"
   },
   breakpoints: {
     sm: "640px",
@@ -65,9 +63,7 @@ const THEME = {
       logo: "#ffffff",
       card: "#1e293b",
       separator: "#1e293b",
-      checkbox: "#ffffff",
-      calendarHeader: "#1e293b",
-      calendarSeparator: ""
+      checkbox: "#ffffff"
     }
   }
 };

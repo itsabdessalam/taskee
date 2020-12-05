@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useIntl } from "react-intl";
@@ -10,10 +10,8 @@ import Label from "./Label";
 import Button from "./Button";
 import TemplateSelector from "./TemplateSelector";
 
-import until from "../utils/until";
 import { getUser } from "../utils/auth";
 import { useForm } from "../hooks";
-
 import NoteService from "../services/NoteService";
 
 const StyledNoteForm = styled.div`
@@ -30,59 +28,78 @@ const StyledNoteForm = styled.div`
 
 const NoteForm = () => {
   const history = useHistory();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [status, setStatus] = useState({
+    loading: false,
+    error: ""
+  });
   const intl = useIntl();
-
-  const createNote = async () => {
-    setIsLoading(true);
-    setError(null);
-
-    const note = {
-      title: values.title,
-      user: getUser()._id
-    };
-
-    if (values.template !== "") note.template = values.template;
-
-    const [err, result] = await until(NoteService.create(note));
-    if (err) {
-      setError({ message: err.message });
-      setIsLoading(false);
-    }
-
-    if (result && result.errors) {
-      setError({ message: "Invalid credentials provided" });
-      setIsLoading(false);
-    }
-
-    const { data = {} } = (result && result.data) || {};
-
-    history.push(`/notes/${data._id}`);
-  };
-
-  const { values, handleChange, handleSubmit } = useForm(createNote, {
+  const { formData, handleOnChange } = useForm({
     title: "",
     user: "",
     template: ""
   });
 
+  const handleServerResponse = (response, err) => {
+    if (response) {
+      const { data = {} } = (response && response.data) || {};
+
+      if (data._id) {
+        history.push(`/notes/${data._id}`);
+      }
+    } else if (err) {
+      setStatus({
+        error: err.message
+      });
+    }
+  };
+
+  const handleOnSubmit = event => {
+    event.preventDefault();
+    setStatus(prevStatus => ({ ...prevStatus, loading: true }));
+
+    const payload = {
+      title: formData.title,
+      user: getUser()._id,
+      ...(formData.template !== "" ? { template: formData.template } : {})
+    };
+
+    NoteService.create(payload)
+      .then(response => {
+        handleServerResponse(response, null);
+      })
+      .catch(error => {
+        handleServerResponse(null, error);
+      })
+      .finally(() => {
+        setStatus(prevStatus => ({ ...prevStatus, loading: false }));
+      });
+  };
+
+  useEffect(() => {
+    return () => {
+      setStatus({});
+    };
+  }, []);
+
   return (
     <StyledNoteForm>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleOnSubmit}>
         <Input
           name="title"
           type="text"
-          onChange={handleChange}
+          onChange={handleOnChange}
           placeholder={intl.formatMessage({ id: "title" })}
           label={intl.formatMessage({ id: "title" })}
           required
         />
         <Label>{intl.formatMessage({ id: "template" })}</Label>
-        <TemplateSelector onChange={handleChange} template={values.template} />
-        {error ? <p className="error">{error.message}</p> : null}
-        <Button type="submit" disabled={isLoading}>
-          {isLoading ? "Loading" : "Create"}
+        <TemplateSelector
+          onChange={handleOnChange}
+          template={formData.template}
+        />
+        {status.error ? <p className="error">{status.error}</p> : null}
+        <Button type="submit" disabled={status.loading}>
+          {status.loading ? "Loading" : "Create"}
         </Button>
       </Form>
     </StyledNoteForm>

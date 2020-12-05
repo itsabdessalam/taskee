@@ -30,7 +30,7 @@ const StyledReminder = styled.div`
       transform: translateY(-50%);
       z-index: 10;
       color: #64748b;
-      background-color: #edf2f7;
+      background-color: ${({ theme }) => theme.colors.itemBackground};
       border-radius: 50%;
       padding: 0;
       margin: 0;

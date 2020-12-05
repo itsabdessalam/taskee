@@ -1,4 +1,4 @@
-![Taskee logo](./preview/taskee_logo.png?width=302&height=104)
+![Taskee logo](./preview/taskee-banner.png?width=302&height=104)
 # Taskee
 
 ## **Installation 🚀**
@@ -78,7 +78,7 @@ Offline
 
 ## **Collaborators 🤖**
 
-[Abdessalam BENHARIRA](https://github.com/itsabdessalam/taskee)
+[Abdessalam BENHARIRA](https://github.com/itsabdessalam)
 
 [Floran MAITTE](https://github.com/Floran-mtte)
 

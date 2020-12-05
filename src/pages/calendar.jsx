@@ -19,6 +19,26 @@ import styled, { withTheme } from "styled-components";
 const calendarLocales = { fr: frLocale, en: enLocale };
 
 const StyledCalendar = styled.div`
+  .calendar__title {
+    position: relative;
+  }
+  .calendar__count {
+    display: inline-block;
+    vertical-align: middle;
+    background-color: ${({ theme }) => theme.colors.primary};
+    color: #ffffff;
+    border-radius: 16px;
+    padding: 2px 7px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    position: absolute;
+    top: 0;
+    cursor: inherit;
+    font-feature-settings: "tnum";
+    font-variant: tabular-nums;
+  }
+
   .fc table {
     border-color: ${({ theme }) => theme.colors.separator};
   }
@@ -39,20 +59,20 @@ const StyledCalendar = styled.div`
   }
 
   .fc .fc-list-event:hover td {
-    background-color: ${({ theme }) => theme.colors.calendarHeader};
+    background-color: ${({ theme }) => theme.colors.itemBackground};
   }
 
   .fc .fc-list-empty {
-    background-color: ${({ theme }) => theme.colors.calendarHeader};
+    background-color: ${({ theme }) => theme.colors.itemBackground};
   }
 
   .fc-theme-standard .fc-list-day-cushion {
-    background-color: ${({ theme }) => theme.colors.calendarHeader};
+    background-color: ${({ theme }) => theme.colors.itemBackground};
     color: ${({ theme }) => theme.colors.text};
   }
 
   .fc .fc-scrollgrid-section-sticky > * {
-    background-color: ${({ theme }) => theme.colors.calendarHeader};
+    background-color: ${({ theme }) => theme.colors.itemBackground};
   }
 
   .fc .fc-button {
@@ -60,7 +80,7 @@ const StyledCalendar = styled.div`
   }
 
   .fc .fc-button-primary {
-    background-color: ${({ theme }) => theme.colors.calendarHeader};
+    background-color: ${({ theme }) => theme.colors.itemBackground};
     color: ${({ theme }) => theme.colors.itemColor};
     border: 1px solid ${({ theme }) => theme.colors.separator};
   }
@@ -132,61 +152,66 @@ const Calendar = ({ theme }) => {
   const intl = useIntl();
   const title = intl.formatMessage({ id: "calendar" });
 
-  useEffect(async () => {
-    const [err, result] = await until(NoteService.getAll());
-    if (err) {
-      console.error(err);
-    } else {
-      const formattedEvents = [];
-      for (const note of result.data.data) {
-        if (note.template !== "project") {
-          continue;
-        }
+  useEffect(() => {
+    const getCalendarEvents = async () => {
+      const [result, error] = await until(NoteService.getAll());
 
-        if (note.deadline) {
-          formattedEvents.push({
-            title: note.title,
-            date: convertDateForCalendar(note.deadline),
-            url: `/notes/${note._id}`,
-            color: theme.colors.primary
-          });
-        }
-
-        if (!note.checklist || !note.checklist.tasks.length) {
-          continue;
-        }
-
-        for (const task of note.checklist.tasks) {
-          if (task.isCompleted) {
+      if (error) {
+        console.error(error);
+      } else {
+        const formattedEvents = [];
+        for (const note of result.data.data) {
+          if (note.template !== "project") {
             continue;
           }
-          if (task.deadline) {
+
+          if (note.deadline) {
             formattedEvents.push({
-              title: `Task - ${task.title}`,
-              date: convertDateForCalendar(task.deadline),
+              title: note.title,
+              date: convertDateForCalendar(note.deadline),
               url: `/notes/${note._id}`,
-              color: theme.colors.secondary
-            });
-            // Don't display reminders for a task if a deadline is already set
-            continue;
-          }
-
-          if (!task.reminders || !task.reminders.length) {
-            continue;
-          }
-
-          for (const reminder of task.reminders) {
-            formattedEvents.push({
-              title: `Task - ${task.title}`,
-              date: convertDateForCalendar(reminder),
-              url: `/notes/${note._id}`,
-              color: theme.colors.tertiary
+              color: theme.colors.primary
             });
           }
+
+          if (!note.checklist || !note.checklist.tasks.length) {
+            continue;
+          }
+
+          for (const task of note.checklist.tasks) {
+            if (task.isCompleted) {
+              continue;
+            }
+            if (task.deadline) {
+              formattedEvents.push({
+                title: `Task - ${task.title}`,
+                date: convertDateForCalendar(task.deadline),
+                url: `/notes/${note._id}`,
+                color: theme.colors.secondary
+              });
+              // Don't display reminders for a task if a deadline is already set
+              continue;
+            }
+
+            if (!task.reminders || !task.reminders.length) {
+              continue;
+            }
+
+            for (const reminder of task.reminders) {
+              formattedEvents.push({
+                title: `Task - ${task.title}`,
+                date: convertDateForCalendar(reminder),
+                url: `/notes/${note._id}`,
+                color: theme.colors.tertiary
+              });
+            }
+          }
         }
+        setCurrentEvents(formattedEvents);
       }
-      setCurrentEvents(formattedEvents);
-    }
+    };
+
+    getCalendarEvents();
   }, []);
 
   const getInitialView = () => {
@@ -208,9 +233,13 @@ const Calendar = ({ theme }) => {
   return (
     <>
       <SEO title={title} />
-      <Title level={2}>{title}</Title>
-      {/* TODO: Add badge event count */}
-      <StyledCalendar>
+      <StyledCalendar className="calendar">
+        <div className="calendar__header">
+          <Title level={2} className="calendar__title">
+            {title}
+            <span className="calendar__count">{currentEvents.length}</span>
+          </Title>
+        </div>
         <FullCalendar
           plugins={[
             dayGridPlugin,

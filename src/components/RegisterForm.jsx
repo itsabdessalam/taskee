@@ -2,10 +2,8 @@ import { useContext, useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { useIntl } from "react-intl";
-
 import { useForm } from "../hooks";
-import until from "../utils/until";
-import { handleLogin, isLoggedIn } from "../utils/auth";
+import { login, isLoggedIn } from "../utils/auth";
 import getLanguage from "../utils/language";
 
 import Title from "./Title";
@@ -18,132 +16,6 @@ import AuthService from "../services/AuthService";
 
 import LocaleContext from "../context/Locale";
 import ThemeContext from "../context/Theme";
-
-const RegisterForm = () => {
-  const intl = useIntl();
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const { activeLocale, updateLocale } = useContext(LocaleContext);
-  const { activeTheme, updateTheme } = useContext(ThemeContext);
-  const registerDisabled = true;
-
-  const setUserSettings = user => {
-    updateTheme(user.theme ? user.theme : "light");
-    updateLocale(user.language ? user.language : "en");
-  };
-
-  useEffect(() => {
-    updateLocale(getLanguage());
-  }, []);
-
-  const register = async () => {
-    setIsLoading(true);
-    setError(null);
-
-    const user = {
-      firstName: values.firstName,
-      lastName: values.lastName,
-      email: values.email,
-      password: values.password,
-      language: activeLocale
-    };
-
-    const [err, result] = await until(AuthService.register(user));
-
-    if (err) {
-      setError({
-        message: err.message
-      });
-      setIsLoading(false);
-    }
-    if (result && result.data.errors) {
-      setError({
-        message: "Invalid credentials provided"
-      });
-      setIsLoading(false);
-    }
-
-    const { data = {} } = (result && result.data) || {};
-
-    if (data && data.user && data.token) {
-      handleLogin({
-        ...data.user,
-        token: data.token
-      });
-      setUserSettings(data.user);
-      setIsLoading(false);
-    }
-  };
-
-  const { values, handleChange, handleSubmit } = useForm(register, {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    language: ""
-  });
-
-  if (isLoggedIn()) return <Redirect to="/" />;
-
-  return (
-    <Container>
-      <Title level={2}>{intl.formatMessage({ id: "registerTitle" })}</Title>
-      {!registerDisabled && (
-        <Form onSubmit={handleSubmit}>
-          <Input
-            name="firstName"
-            type="text"
-            placeholder={"john"}
-            label={"First Name"}
-            onChange={handleChange}
-            value={values.firstName}
-            required
-          />
-          <Input
-            name="lastName"
-            type="text"
-            placeholder={"doe"}
-            label={"Last Name"}
-            onChange={handleChange}
-            value={values.lastName}
-            required
-          />
-          <Input
-            name="email"
-            type="text"
-            placeholder={"john.doe@email.com"}
-            label={"Email"}
-            onChange={handleChange}
-            value={values.email}
-            required
-          />
-          <Input
-            name="password"
-            type="password"
-            placeholder={"••••••••••"}
-            label={"Password"}
-            onChange={handleChange}
-            value={values.password}
-            required
-          />
-          {error ? <p className="error">{error.message}</p> : null}
-          <Button type="submit" disabled={isLoading}>
-            {isLoading
-              ? intl.formatMessage({ id: "loginLoading" })
-              : intl.formatMessage({ id: "register" })}
-          </Button>
-          <Link to="/login">{intl.formatMessage({ id: "loginLink" })}</Link>
-        </Form>
-      )}
-
-      <div className="register__message">
-        <p>{intl.formatMessage({ id: "registerDisabled" })}</p>
-        <Link to="/login">{intl.formatMessage({ id: "loginLink" })}</Link>
-      </div>
-    </Container>
-  );
-};
 
 const Container = styled.div`
   h2 {
@@ -166,5 +38,139 @@ const Container = styled.div`
     width: 90%;
   }
 `;
+
+const RegisterForm = () => {
+  const [status, setStatus] = useState({
+    loading: false,
+    error: ""
+  });
+  const { activeLocale, updateLocale } = useContext(LocaleContext);
+  const { activeTheme, updateTheme } = useContext(ThemeContext);
+  const intl = useIntl();
+  const { formData, handleOnChange } = useForm({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    language: ""
+  });
+
+  const registerDisabled = true;
+
+  const setUserSettings = user => {
+    updateTheme(user.theme ? user.theme : "light");
+    updateLocale(user.language ? user.language : "en");
+  };
+
+  const handleServerResponse = (response, err) => {
+    if (response) {
+      const { data = {} } = (response && response.data) || {};
+
+      if (data && data.user && data.token) {
+        login({
+          ...data.user,
+          token: data.token
+        });
+        setUserSettings(data.user);
+      }
+    } else if (err) {
+      setStatus({
+        error: err.message
+      });
+    }
+  };
+
+  const handleOnSubmit = event => {
+    event.preventDefault();
+    setStatus(prevStatus => ({ ...prevStatus, loading: true }));
+
+    const payload = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      password: formData.password,
+      language: activeLocale
+    };
+
+    AuthService.register(payload)
+      .then(response => {
+        handleServerResponse(response, null);
+      })
+      .catch(error => {
+        handleServerResponse(null, error);
+      })
+      .finally(() => {
+        setStatus(prevStatus => ({ ...prevStatus, loading: false }));
+      });
+  };
+
+  useEffect(() => {
+    updateLocale(getLanguage());
+
+    return () => {
+      setStatus({});
+    };
+  }, []);
+
+  if (isLoggedIn()) return <Redirect to="/" />;
+
+  return (
+    <Container>
+      <Title level={2}>{intl.formatMessage({ id: "registerTitle" })}</Title>
+      {!registerDisabled && (
+        <Form onSubmit={handleOnSubmit}>
+          <Input
+            name="firstName"
+            type="text"
+            placeholder={"john"}
+            label={"First Name"}
+            onChange={handleOnChange}
+            value={formData.firstName}
+            required
+          />
+          <Input
+            name="lastName"
+            type="text"
+            placeholder={"doe"}
+            label={"Last Name"}
+            onChange={handleOnChange}
+            value={formData.lastName}
+            required
+          />
+          <Input
+            name="email"
+            type="text"
+            placeholder={"john.doe@email.com"}
+            label={"Email"}
+            onChange={handleOnChange}
+            value={formData.email}
+            required
+          />
+          <Input
+            name="password"
+            type="password"
+            placeholder={"••••••••••"}
+            label={"Password"}
+            onChange={handleOnChange}
+            value={formData.password}
+            required
+          />
+          {status.error ? <p className="error">{status.error}</p> : null}
+          <Button type="submit" disabled={status.loading}>
+            {status.loading
+              ? intl.formatMessage({ id: "loginLoading" })
+              : intl.formatMessage({ id: "register" })}
+          </Button>
+          <Link to="/login">{intl.formatMessage({ id: "loginLink" })}</Link>
+        </Form>
+      )}
+
+      <div className="register__message">
+        <p>{intl.formatMessage({ id: "registerDisabled" })}</p>
+        <Link to="/login">{intl.formatMessage({ id: "loginLink" })}</Link>
+      </div>
+    </Container>
+  );
+};
 
 export default RegisterForm;

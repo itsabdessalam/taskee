@@ -42,6 +42,7 @@ const NotesList = () => {
       setNotes(response.data.data);
     });
   }, []);
+
   return (
     <>
       <Title level={2}>{intl.formatMessage({ id: "notes" })}</Title>

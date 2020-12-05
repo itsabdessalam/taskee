@@ -20,8 +20,8 @@ const StyledDatePicker = styled.div`
   .react-datepicker__close-icon {
     width: 22px;
     height: 22px;
-    background-color: #edf2f7;
     color: #64748b;
+    background-color: ${({ theme }) => theme.colors.itemBackground};
     border-radius: 50%;
     top: 50%;
     right: 12px;
@@ -32,8 +32,8 @@ const StyledDatePicker = styled.div`
     justify-content: center;
 
     &::after {
-      background-color: #edf2f7;
       color: #64748b;
+      background-color: ${({ theme }) => theme.colors.itemBackground};
       height: 19px;
       width: 19px;
       content: url("data:image/svg+xml;charset=UTF-8,%3csvg fill='none' stroke='%2364748b' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 18L18 6M6 6l12 12'%3e%3c/path%3e%3c/svg%3e");
@@ -88,6 +88,7 @@ const DatePicker = ({ date, onChange, ...props }) => {
     setStartDate(date);
     onChange(date);
   };
+
   return (
     <StyledDatePicker>
       <StyledDatePickerInput

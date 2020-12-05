@@ -32,7 +32,7 @@ const StyledModal = styled.div`
       padding: 0;
       margin: 0;
       color: #64748b;
-      background-color: #edf2f7;
+      background-color: ${({ theme }) => theme.colors.itemBackground};
     }
   }
 
