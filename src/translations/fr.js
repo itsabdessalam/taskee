@@ -52,5 +52,7 @@ module.exports = {
   gettingStarted: "Pour commencer",
   account: "Mon compte",
   offlineBanner: "Oops.. Il semblerait que vous êtes hors ligne...",
-  registerDisabled: "Inscription désactivée"
+  registerDisabled: "Inscription désactivée",
+  create: "Créer",
+  loading: "Chargement..."
 };
