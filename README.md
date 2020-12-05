@@ -4,16 +4,20 @@
 ## **Installation 🚀**
 
 Install dependencies
-	
-    yarn install
-	
+
+```bash
+yarn install
+```
+
 Setting up environnement
 
-    REACT_APP_API_URL=taskee_api_url
-    REACT_APP_BASE_NAME=app_name
-    REACT_APP_PUSHER_APP_KEY=pusher_app_key
-    REACT_APP_PUSHER_APP_CLUSTER=region
-    
+```bash
+REACT_APP_API_URL=taskee_api_url
+REACT_APP_BASE_NAME=app_name
+REACT_APP_PUSHER_APP_KEY=pusher_app_key
+REACT_APP_PUSHER_APP_CLUSTER=region
+```
+
 ## **Modules 🧱**
  - [Pushbots](https://pushbots.com/)
  - [Pusher](https://pusher.com/)
@@ -29,10 +33,9 @@ Setting up environnement
   - Auto deploy
   - Découverte notion 💯😉
   
-  
+
 ## **Cahier des charges 📕**
 [Available on notion](https://www.notion.so/Cahier-des-charges-5675a61bd6014a138a60388327a5e0cc)
-
 
 ## **Backend API source code ⚙️** 
 
@@ -43,7 +46,6 @@ Setting up environnement
 Notes screen
 
 ![Notes](./preview/notes_screen.png)
-
 
 Create new note
 
@@ -72,6 +74,10 @@ Language selector
 Checklist
 
 ![checklist](./preview/checklist.png)
+
+Calendar
+
+![calendar](./preview/calendar.png)
 
 Offline
 ![checklist](./preview/offline.png)
