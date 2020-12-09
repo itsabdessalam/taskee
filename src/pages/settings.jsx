@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { SettingsForm, SEO, Icon } from "../components";
+import { SettingsForm, SEO } from "../components";
 
 const Settings = () => {
   const intl = useIntl();

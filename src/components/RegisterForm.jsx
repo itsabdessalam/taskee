@@ -64,7 +64,7 @@ const RegisterForm = () => {
 
   const handleServerResponse = (response, err) => {
     if (response) {
-      const { data = {} } = (response && response.data) || {};
+      const { data = {} } = response.data || {};
 
       if (data && data.user && data.token) {
         handleAuth({

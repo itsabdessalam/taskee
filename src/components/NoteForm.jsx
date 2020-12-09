@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
-import { Redirect, useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useIntl } from "react-intl";
 
-import Title from "./Title";
 import Form from "./Form";
 import Input from "./Input";
 import Label from "./Label";
@@ -41,7 +40,7 @@ const NoteForm = () => {
 
   const handleServerResponse = (response, err) => {
     if (response) {
-      const { data = {} } = (response && response.data) || {};
+      const { data = {} } = response.data || {};
 
       if (data._id) {
         history.push(`/notes/${data._id}`);

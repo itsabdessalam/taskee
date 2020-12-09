@@ -54,5 +54,6 @@ module.exports = {
   offlineBanner: "Oops.. Seems like you are offline...",
   registerDisabled: "Register disabled",
   create: "Create",
-  loading: "Loading..."
+  loading: "Loading...",
+  customization: "Customization"
 };
