@@ -10,7 +10,6 @@ import {
   LocaleSelector,
   ThemeSwitcher,
   Label,
-  Radio,
   Checkbox,
   Logout
 } from "../components";
@@ -113,15 +112,15 @@ const SettingsForm = () => {
     loading: false,
     error: ""
   });
-  const { activeTheme, updateTheme } = useContext(ThemeContext);
-  const { activeLocale, updateLocale } = useContext(LocaleContext);
+  const { activeTheme } = useContext(ThemeContext);
+  const { activeLocale } = useContext(LocaleContext);
   const intl = useIntl();
   const user = getUser();
   const { formData, handleOnChange } = useForm({ ...user });
 
   const handleServerResponse = (response, err) => {
     if (response) {
-      const { data = {} } = (response && response.data) || {};
+      const { data = {} } = response.data || {};
 
       if (data) {
         const {
@@ -184,7 +183,7 @@ const SettingsForm = () => {
 
   return (
     <StyledSettings>
-      <Title level={2}>Settings</Title>
+      <Title level={2}>{intl.formatMessage({ id: "settings" })}</Title>
       {status.error ? <p className="error">{status.error}</p> : null}
       <Form onSubmit={handleOnSubmit}>
         <div className="settings">
@@ -216,7 +215,7 @@ const SettingsForm = () => {
             />
           </div>
           <div className="settings__customization">
-            <h3>Customization</h3>
+            <h3>{intl.formatMessage({ id: "customization" })}</h3>
             <Label>{intl.formatMessage({ id: "theme" })}</Label>
             <div className="settings__row">
               <ThemeSwitcher />

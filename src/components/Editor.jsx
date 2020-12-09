@@ -29,6 +29,12 @@ const StyledEditor = styled.div`
   .ce-header {
     padding-top: 0 !important;
   }
+
+  .ce-inline-toolbar {
+    > * {
+      color: #000000 !important;
+    }
+  }
 `;
 const Editor = ({ data, onChange }) => {
   let editor = null;

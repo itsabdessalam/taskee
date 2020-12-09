@@ -1,22 +1,13 @@
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { useIntl } from "react-intl";
-import styled from "styled-components";
 import NoteService from "../services/NoteService";
-import Button from "./Button";
 import NoteCard from "./NoteCard";
 import Title from "./Title";
 import NewNote from "./NewNote";
 
 const NotesList = () => {
-  const history = useHistory();
   const [notes, setNotes] = useState([]);
   const intl = useIntl();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const redirectTo = page => {
-    return history.push(page);
-  };
 
   const deleteNote = (id, index) => {
     const remove = confirm("Delete note?");

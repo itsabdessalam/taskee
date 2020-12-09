@@ -54,5 +54,6 @@ module.exports = {
   offlineBanner: "Oops.. Il semblerait que vous êtes hors ligne...",
   registerDisabled: "Inscription désactivée",
   create: "Créer",
-  loading: "Chargement..."
+  loading: "Chargement...",
+  customization: "Personnalisation"
 };
