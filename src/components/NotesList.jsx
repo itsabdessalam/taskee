@@ -10,7 +10,7 @@ const NotesList = () => {
   const intl = useIntl();
 
   const deleteNote = (id, index) => {
-    const remove = confirm("Delete note?");
+    const remove = confirm(intl.formatMessage({ id: "deleteNoteConfirm" }));
 
     if (!remove) {
       return;

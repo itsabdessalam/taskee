@@ -39,6 +39,10 @@ const StyledModal = styled.div`
   .modal__header {
     h2 {
       margin-top: 0;
+
+      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+        font-size: 22px;
+      }
     }
   }
 

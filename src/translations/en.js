@@ -55,5 +55,6 @@ module.exports = {
   registerDisabled: "Register disabled",
   create: "Create",
   loading: "Loading...",
-  customization: "Customization"
+  customization: "Customization",
+  deleteNoteConfirm: "Do you really want to delete this note?"
 };

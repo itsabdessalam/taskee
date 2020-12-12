@@ -35,6 +35,14 @@ const StyledEditor = styled.div`
       color: #000000 !important;
     }
   }
+
+  ${({ theme }) =>
+    theme.mode === "dark" &&
+    `
+      .ce-block__content a {
+        color: #ffffff !important;
+      }
+    `}
 `;
 const Editor = ({ data, onChange }) => {
   let editor = null;
